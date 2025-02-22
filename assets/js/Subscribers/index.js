@@ -7,19 +7,24 @@ document.addEventListener("DOMContentLoaded" , function(){
         }); 
 });
 
+function isSubscriber(mobileNumber) {
+    for (let a in users){
+     if(users[a].mobile_number === mobileNumber){
+         return true;
+     }
+    }
+    return false;
+ }
+ 
 function validate(){
     let mobileNumber = document.getElementById("mobile").value;
-    let isSubscriber = false;
-    for (let user in users){
-        users[user].mobile_number === mobileNumber;
-        isSubscriber = true;
-        break;
-    }
-    if (mobileNumber.length !== 10 || isNaN(mobileNumber) || !isSubscriber) {
+
+    if (mobileNumber.length !== 10 || isNaN(mobileNumber) || !isSubscriber(mobileNumber)) {
         document.getElementById("error-number").textContent = "Enter a valid number!";
         return;
     }
     else {
+        console.log(mobileNumber);
         document.getElementById("error-number").textContent = "";
         sessionStorage.setItem("rechargeNumber" , mobileNumber);
         window.location.href = "./recharge.html"; 

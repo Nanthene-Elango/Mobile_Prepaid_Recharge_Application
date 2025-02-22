@@ -5,7 +5,10 @@
       "mobile_number": "9876543210",
       "email_id": "john.doe@example.com",
       "dob": "1995-06-15",
-      "address": "123, Elm Street, New York, USA"
+      "address": "123, Elm Street, New York, USA",
+      "role": "user",
+      "username": "",
+      "password": ""
     },
     {
       "id": 2,
@@ -13,7 +16,10 @@
       "mobile_number": "8765432109",
       "email_id": "jane.smith@example.com",
       "dob": "1998-09-22",
-      "address": "456, Oak Avenue, Los Angeles, USA"
+      "address": "456, Oak Avenue, Los Angeles, USA",
+      "role": "user",
+      "username": "",
+      "password": ""
     },
     {
       "id": 3,
@@ -21,7 +27,10 @@
       "mobile_number": "7654321098",
       "email_id": "amit.kumar@example.com",
       "dob": "1992-12-05",
-      "address": "789, MG Road, Delhi, India"
+      "address": "789, MG Road, Delhi, India",
+      "role": "user",
+      "username": "",
+      "password": ""
     },
     {
       "id": 4,
@@ -29,7 +38,10 @@
       "mobile_number": "6543210987",
       "email_id": "emily.johnson@example.com",
       "dob": "2000-03-30",
-      "address": "101, Pine Street, Toronto, Canada"
+      "address": "101, Pine Street, Toronto, Canada",
+      "role": "user",
+      "username": "",
+      "password": ""
     },
     {
       "id": 5,
@@ -37,7 +49,10 @@
       "mobile_number": "9988776655",
       "email_id": "nanthene@gmail.com",
       "dob": "2005-12-05",
-      "address": "123 , new town street ,Toronto , Canada "
+      "address": "123 , new town street ,Toronto , Canada ",
+      "role": "user",
+      "username": "",
+      "password": ""
     },
     {
       "id": 6,
@@ -45,7 +60,10 @@
       "mobile_number": "9876543211",
       "email_id": "sakthisowmya@gmail.com",
       "dob": "2005-12-30",
-      "address": "123 , new town street ,Toronto , Canada "
+      "address": "123 , new town street ,Toronto , Canada ",
+      "role": "user",
+      "username": "",
+      "password": ""
     },
     {
       "id": 7,
@@ -53,7 +71,21 @@
       "mobile_number": "9170701086",
       "email_id": "effathjans@gmail.com",
       "dob": "2002-02-02",
-      "address": "123 , new town street ,Toronto , Canada "
+      "address": "123 , new town street ,Toronto , Canada ",
+      "role": "user",
+      "username": "",
+      "password": ""
+    },
+    {
+      "id": 8,
+      "name": "Nanthene",
+      "mobile_number": "1234567890",
+      "email_id": "nanthenere@gmail.com",
+      "dob": "2004-06-02",
+      "address": "123 , new town street ,Toronto , Canada ",
+      "role": "admin",
+      "username": "admin123",
+      "password": "admin@123"
     }
   ]
   
