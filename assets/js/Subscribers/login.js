@@ -3,22 +3,22 @@ let timer;
 let user;
 let rechargeUsers;
 
-document.addEventListener("DOMContentLoaded" , function(){
+document.addEventListener("DOMContentLoaded", function () {
     fetch('../assets/data/users.json')
-    .then(response => response.json())
-    .then(users => {
-        rechargeUsers = users;
-    })
+        .then(response => response.json())
+        .then(users => {
+            rechargeUsers = users;
+        })
 })
 
 function isSubscriber(mobileNumber) {
-   for (let a in rechargeUsers){
-    if(rechargeUsers[a].mobile_number === mobileNumber){
-        user = rechargeUsers[a];
-        return true;
+    for (let a in rechargeUsers) {
+        if (rechargeUsers[a].mobile_number === mobileNumber) {
+            user = rechargeUsers[a];
+            return true;
+        }
     }
-   }
-   return false;
+    return false;
 }
 
 document.getElementById("login-form").addEventListener("submit", function (event) {
@@ -27,12 +27,30 @@ document.getElementById("login-form").addEventListener("submit", function (event
 
 function sendOTP() {
 
-    let mobileNumber = document.getElementById("mobile").value;
-    
-    if (isSubscriber(mobileNumber)) {
+    let number = document.getElementById("mobile").value;
+    let errorField = document.getElementById("error-number");
 
-        console.log("noerror");
-        document.getElementById("error-number").style.display = "none";
+    if (number == "") {
+        errorField.style.display = "block";
+        errorField.innerText = "";
+        errorField.innerText = "Field cannot be empty!"
+        return;
+    }
+    else if (number.length !== 10 || isNaN(number)) {
+        errorField.style.display = "block";
+        errorField.innerText = "";
+        errorField.innerText = "Enter a valid 10 digit number!"
+        return;
+    }
+    else if (!isSubscriber(number)) {
+        errorField.style.display = "block";
+        errorField.innerText = "";
+        errorField.innerText = "please enter a valid mobi com number";
+        return;
+    }
+    else {
+        document.getElementById("mobile").disabled = true;
+        errorField.style.display = "none";
         generatedOTP = Math.floor(100000 + Math.random() * 900000);
         // alert("Your OTP is: " + generatedOTP);
         let toast = document.getElementById("toast");
@@ -50,19 +68,13 @@ function sendOTP() {
         startTimer();
         return;
     }
-    else{
-        console.log("error");
-        document.getElementById("error-number").style.display = "block";
-        document.getElementById("error-number").textContent = "Enter a valid number!";
-        document.getElementById("mobile").value = "";
-        return;
-    }
 }
 
 function verifyOTP() {
 
     let enteredOTP = document.getElementById("otp").value;
     if (enteredOTP == generatedOTP) {
+        document.getElementById("mobile").disabled = false;
         document.getElementById("error-otp").style.display = "none";
         sessionStorage.setItem("loggedInUser", JSON.stringify(user));
         checkLoginStatus();
@@ -77,7 +89,7 @@ function verifyOTP() {
 
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = redirectURL;
+                window.location.href = redirectURL || './index.html';
             }
         });
     } else {

@@ -17,16 +17,27 @@ function isSubscriber(mobileNumber) {
  }
  
 function validate(){
-    let mobileNumber = document.getElementById("mobile").value;
-
-    if (mobileNumber.length !== 10 || isNaN(mobileNumber) || !isSubscriber(mobileNumber)) {
-        document.getElementById("error-number").textContent = "Enter a valid number!";
+    let number = document.getElementById("mobile").value;
+    let errorField = document.getElementById("error-number");
+   
+    if (number == "") {
+        errorField.innerText = "";
+        errorField.innerText = "Field cannot be empty!"
+        return;
+    }
+    else if (number.length !== 10 || isNaN(number)) {
+        errorField.innerText = "";
+        errorField.innerText = "Enter a valid 10 digit number!"
+        return;
+    }
+    else if (!isSubscriber(number)) {
+        errorField.innerText = "";
+        errorField.innerText = "please enter a valid mobi com number";
         return;
     }
     else {
-        console.log(mobileNumber);
-        document.getElementById("error-number").textContent = "";
-        sessionStorage.setItem("rechargeNumber" , mobileNumber);
+        errorField.innerText = "";
+        sessionStorage.setItem("rechargeNumber" , number);
         window.location.href = "./recharge.html"; 
     }
 }
@@ -43,6 +54,11 @@ window.onscroll = function () {
         btn.style.display = "none";
     }
 };
+
+function showFeedback(){
+    var myModal = new bootstrap.Modal(document.getElementById('feedback'));
+    myModal.show();
+}
 
 let isLoggedIn = false; // Change this dynamically as per your logic
 

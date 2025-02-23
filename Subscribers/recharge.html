@@ -35,7 +35,7 @@
 
     <section class="d-flex flex-column flex-lg-row">
 
-        <aside class="col-lg-4" style="background-color: rgb(0, 32, 96);">
+        <aside class="col-lg-4" style="background-color: rgb(0, 32, 96);" id="aside">
             <div class="container-fluid d-flex flex-column align-items-center text-center content p-5 mb-5"
                 style="background-color: rgb(0, 32, 96); color: aliceblue; position: sticky; top: 80px;">
                 <h1 class="pt-5">Recharge Online!</h1>
@@ -43,12 +43,15 @@
                     fast , secure and hassel free recharges
                 </p>
                 <div class=" d-flex recharge-number">
-                    <span class="d-flex flex-column me-1">
+                    <span class="me-1">
                         <div class="input-box" style="background-color: white;">
                             <span class="prefix ps-2">+91</span>
-                            <input type="tel" name="rechargeNumber" id="rechargeNumber" placeholder="Mobile Number" maxlength="10">
+                            <input type="tel" name="rechargeNumber" id="rechargeNumber" placeholder="Mobile Number"
+                                maxlength="10">
                         </div>
-                        <div id="error-number" class="text-danger d-none"></div>
+                        <div id="error-number" class="text-danger d-none mt-2"
+                            style="background-color: rgba(0, 0, 0, 0.471);font-size: small ; border-radius: 5px;font-weight: 500;">
+                        </div>
                     </span>
                     <div>
                         <button class="btn btn-success d-none" id="saveBtn" onclick="saveNumber()">save</button>
@@ -133,13 +136,26 @@
                 </ul>
                 <hr class="col-12" style="color: rgb(0, 32, 96);">
             </nav>
-
-
-            <div class="col-10 d-flex justify-content-end my-2">
-                <a onclick="clearFilters()" class="text-decoration-none text-muted mx-1 d-none" id="clear"><i
-                        class="fa-solid fa-x"></i> clear filter</a>
-                <a onclick="showFilters()" class="text-decoration-none me-5" id="filter"><i class="fas fa-filter"></i> filter
-                    plans</a>
+            <div class="container-fluid col-sm-9 d-flex flex-column flex-md-row justify-content-start my-3">
+                <div class="d-flex justify-content-center me-2">
+                    <input id="searchInput" type="search" class="form-control " placeholder="Search" aria-label="Search"
+                        aria-describedby="search-addon" style="border-radius: 5px 0px 0px 5px;" />
+                    <button onclick="searchPlans(document.getElementById('searchInput').value)" class="btn btn-primary"
+                        id="search-addon" style="border-radius: 0px 5px 5px 0px;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <!-- <div onclick="clearFilteredPlans()" id="clearFilter" class="btn btn-secondary ms-2 d-none"><i
+                            class="fas fa-x"></i></div> -->
+                </div>
+                <div class="d-flex justify-content-start pt-2">
+                    <a onclick="showFilters()" class="text-decoration-none mx-2" id="filter"><i class="fas fa-filter"></i>
+                        filter plans
+                    </a>
+                    <a onclick="clearFilters()" class="text-decoration-none text-muted d-none" id="clear"><i
+                            class="fa-solid fa-x"></i> 
+                            clear filter
+                    </a>
+                </div>
             </div>
 
             <div class="container-fluid col-sm-10 overflow-auto" style="height: 500px;position: relative;">
@@ -191,6 +207,9 @@
 
                         </div>
                     </div>
+                    
+                </div>
+                <div id="filterResult" class="m-md-4 my-4 d-none text-danger text-center">
 
                 </div>
         </main>

@@ -150,8 +150,20 @@
         </div>
     </section>
 
+    <section class="container-fluid  p-5 p-md-4 mt-5 d-flex flex-column justify-content-center align-items-center" style="background-color: rgb(1, 32, 96);color: aliceblue;">
+        <h3 class="text-center my-5 ">Want to switch to Mobi-Comm?</h3>
+        <a class="btn btn-light d-flex align-items-center mb-3" href="./NewRegistration.html">
+            <span class="mx-2"><img src="../assets/img/sim.png" alt="simcard" style="height: 50px;"></span>
+            <span class="d-flex flex-column align-items-start justify-content-center my-2">
+                <h5>Port to Mobi-Comm</h5>
+                <span class="text-start d-none d-sm-block">click here to register yourself into Mobi-Comm family!</span>
+            </span>
+        </a>
+        <span class="text-center mb-5">"Better Network , Better Speed Just a Click Away! - Join Mobi-Comm Today"</span>
+
+    </section>
     <!--FAQ Section-->
-    <section class="container-fluid my-5 mb-lg-0 p-5 p-md-4" id="faq"
+    <section class="container-fluid p-5 p-md-4" id="faq"
         style="background-color: white; height: fit-content;">
         <div class="row align-items-center">
 
@@ -303,9 +315,6 @@
         </div>
     </section>
 
-    <!-- <section class="container-fluid py-5" style="background-color: rgb(1, 32, 96);">
-        
-    </section> -->
     <!--Footer Section-->
     <footer class="text-white p-4" style="background-color: rgb(1, 32, 96);">
         <div class="container">
@@ -329,12 +338,13 @@
                     <hr>
                     <ul class="list-unstyled">
                         <li><a href="#contact-us" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#feedback" class="text-white text-decoration-none">Feedback</a></li>
                         <li><a href="#faq" class="text-white text-decoration-none">FAQ</a></li>
                     </ul>
                 </div>
 
                 <!-- Social Media -->
-                <div class="col-md-2">
+                <div class="col-md-2 mb-3 mb-md-0">
                     <h5>Follow Us</h5>
                     <hr>
                     <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
@@ -342,15 +352,19 @@
                     <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
                 </div>
 
-                <div class="col-md-5" id="contact-us">
-                    <h5 class="text-light">Contact Us</h5>
-
-                    <form action="" class="">
-                        <input type="text" class="form-control my-1" placeholder="Name">
-                        <input type="email" name="" id="" placeholder="Email" class="form-control my-1">
-                        <textarea name="" id="" class="form-control my-1" placeholder="Message..."></textarea>
-                        <button class="btn btn-primary">Submit</button>
-                    </form>
+                
+                <div class= "col-md-5">
+                    <h5>Contact Us</h5>
+                    <hr>
+                    <div><i class="fas fa-phone"></i> +91 9998887766</div>
+                    <div><i class="fas fa-globe"></i> www.prepaidgo.com</div>
+                    <div><i class="fas fa-envelope"></i> supportprepaidGo@mobicom.com</div>
+                    <div><i class="fas fa-location-dot"></i>
+                        <span>Infinity Tech Park, Tower 3
+                            15th Floor, Silicon Avenue
+                            Cyber City, Sector 21
+                            Salem, TamilNadu - 560103</span>
+                    </div>
                 </div>
             </div>
 
@@ -360,11 +374,35 @@
         </div>
     </footer>
 
+    <button onclick="showFeedback()" class="btn btn-primary p-3 position-fixed m-3 bottom-0" style="border-radius: 30px; right: 50px">
+        <i class="fas fa-comments "></i><span> Give your feedback</span>
+    </button>
     <!-- Go to Top Button -->
     <button id="goTopBtn" class="btn position-fixed end-0 bottom-0 m-3" onclick="scrollToTop()">
         <i class="fa fa-circle-arrow-up fa-2x text-primary"></i>
     </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <div class="modal fade" id="feedback" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle" style="color: rgb(0, 32, 96);">Give us your feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="col-12 d-flex justify-content-center" id="feedback">    
+                    <form action="" class="col-12 p-2">
+                        <input type="text" class="form-control my-4" placeholder="Name">
+                        <input type="email" name="" id="" placeholder="Email" class="form-control my-4">
+                        <textarea name="" id="" class="form-control my-4" placeholder="feedback..."></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

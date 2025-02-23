@@ -8,7 +8,8 @@
       "address": "123, Elm Street, New York, USA",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
       "id": 2,
@@ -19,7 +20,8 @@
       "address": "456, Oak Avenue, Los Angeles, USA",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
       "id": 3,
@@ -30,7 +32,8 @@
       "address": "789, MG Road, Delhi, India",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
       "id": 4,
@@ -41,21 +44,47 @@
       "address": "101, Pine Street, Toronto, Canada",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
       "id": 5,
-      "name": "Nanthene Elango",
+      "name": "Nanthene",
       "mobile_number": "9988776655",
       "email_id": "nanthene@gmail.com",
       "dob": "2005-12-05",
       "address": "123 , new town street ,Toronto , Canada ",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
       "id": 6,
+      "name": "Raja",
+      "mobile_number": "9786534210",
+      "email_id": "raja1234@gmail.com",
+      "dob": "2005-12-05",
+      "address": "123 , new town street ,Toronto , Canada ",
+      "role": "user",
+      "username": "",
+      "password": "",
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "name": "Nigharika",
+      "mobile_number": "9977886655",
+      "email_id": "nigharika@gmail.com",
+      "dob": "2005-12-05",
+      "address": "123 , new town street ,Toronto , Canada ",
+      "role": "user",
+      "username": "",
+      "password": "",
+      "status": "active"
+    },
+    {
+      "id": 8,
       "name": "SakthiSowmya",
       "mobile_number": "9876543211",
       "email_id": "sakthisowmya@gmail.com",
@@ -63,10 +92,11 @@
       "address": "123 , new town street ,Toronto , Canada ",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
-      "id": 7,
+      "id": 9,
       "name": "Effathjan",
       "mobile_number": "9170701086",
       "email_id": "effathjans@gmail.com",
@@ -74,10 +104,11 @@
       "address": "123 , new town street ,Toronto , Canada ",
       "role": "user",
       "username": "",
-      "password": ""
+      "password": "",
+      "status": "active"
     },
     {
-      "id": 8,
+      "id": 10,
       "name": "Nanthene",
       "mobile_number": "1234567890",
       "email_id": "nanthenere@gmail.com",
@@ -85,7 +116,8 @@
       "address": "123 , new town street ,Toronto , Canada ",
       "role": "admin",
       "username": "admin123",
-      "password": "admin@123"
+      "password": "admin@123",
+      "status": "active"
     }
   ]
   

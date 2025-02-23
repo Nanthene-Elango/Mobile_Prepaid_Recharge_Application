@@ -79,6 +79,7 @@ function clearFilters() {
 
 function displayFilteredPlans(filteredPlans) {
 
+   
     if (document.getElementById("plansContainer").classList.contains("d-none")) {
         document.getElementById("plansContainer").classList.remove("d-none");
     }
@@ -115,7 +116,14 @@ function displayFilteredPlans(filteredPlans) {
 
     if (filteredPlans.length == 0) {
         document.getElementById("plansContainer").classList.add("d-none");
+        document.getElementById("filterResult").classList.remove("d-none");
+        document.getElementById("filterResult").innerText = "Oops! No plans matches your search :(";
         return;
+    }
+
+     
+    if(!document.getElementById("filterResult").classList.contains("d-none")){
+        document.getElementById("filterResult").classList.add("d-none");
     }
     filteredPlans.forEach(plan => {
         let card = document.createElement("div");
@@ -148,7 +156,6 @@ function displayFilteredPlans(filteredPlans) {
         if (plan.category === "Validity") validity.appendChild(card);
         if (plan.category === "Data") data_plans.appendChild(card);
         if (plan.category === "Unlimited") unlimited.appendChild(card);
-
 
         if (popular.children.length == 0) {
             document.getElementById("popular-plans").classList.add("d-none");
@@ -186,7 +193,7 @@ function displayPlans(plans) {
                         <div><strong>${plan.data}</strong><br>Data</div>
                         <div><strong>${plan.validity}</strong><br>Validity</div>
                     </div>
-                    <a onclick='confirmPayment(${JSON.stringify(plan)})'>
+                    <a onclick='confirmPayment(${JSON.stringify(plan)})' id="recharge">
                         <i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i>
                     </a>
                 </div>
@@ -230,7 +237,9 @@ function showDetails(plan) {
 function confirmPayment(plan) {
 
     if (document.getElementById("rechargeNumber").value === "") {
+        window.location.href = '#aside';
         document.getElementById("error-number").classList.remove("d-none");
+        showToast("Recharge Number is Required!" , "error");
         document.getElementById("error-number").innerText = "Recharge Number is Required!";
     }
     else {
@@ -252,4 +261,56 @@ function showFilters() {
 
     var myModal = new bootstrap.Modal(document.getElementById('planFilter'));
     myModal.show();
+}
+
+function showToast(message, indicator) {
+    const toastContainer = document.getElementById("toastContainer") || createToastContainer();
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerHTML = `<div class="toast-body text-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>${message}</div>`;
+    toastContainer.appendChild(toast);
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toastContainer.removeChild(toast), 300);
+    }, 3000);
+}
+
+function createToastContainer() {
+    const toastContainer = document.createElement("div");
+    toastContainer.id = "toastContainer";
+    toastContainer.className = "toast-container p-3 mt-5";
+    toastContainer.style.position = "fixed";
+    toastContainer.style.top = "30px";
+    toastContainer.style.right = "0px";
+    document.body.appendChild(toastContainer);
+    return toastContainer;
+}
+
+function searchPlans(searchInput){
+    console.log(typeof(searchInput));
+    if(searchInput === ""){
+        showToast("please enter a search Value!" , "error");
+        return;
+    }
+    document.getElementById("clear").classList.remove("d-none");
+    let filteredPlans;
+    filteredPlans = plans.filter(plan => {
+        searchInput = searchInput.toLowerCase();
+        if (isNaN(searchInput)){
+            if(plan.data.toLowerCase().includes(searchInput) || plan.validity.toLowerCase().includes(searchInput)){
+            
+                return plan;
+            }
+        }
+        else{
+            if(((searchInput.length > 1) && (plan.price.toString().includes(searchInput))) || (plan.price.toString().charAt(0) === searchInput)){
+                return plan;
+            }
+        }
+    })
+    
+    document.getElementById("searchInput").value = "";
+    displayFilteredPlans(filteredPlans);
 }

@@ -101,7 +101,7 @@
     color: aliceblue;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 450px) {
     .plans-category .nav-item a {
         font-size: 0.8rem;
         padding: 5px;

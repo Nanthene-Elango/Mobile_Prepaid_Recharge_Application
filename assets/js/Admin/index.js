@@ -35,6 +35,28 @@ document.addEventListener("DOMContentLoaded" , ()=>{
         document.getElementById("adminLoginForm").addEventListener("submit" , (event)=>{
             event.preventDefault();
         })
+
+        document.getElementById("username").addEventListener("focus" , validateUsername);
+        document.getElementById("password").addEventListener("focus" , validatePassword);
+        document.getElementById("username").addEventListener("change" , validateUsername);
+        document.getElementById("password").addEventListener("change" , validatePassword);
+
+        function validateUsername(){
+            if (document.getElementById("username").value === ""){
+                document.getElementById("error-username").textContent = "field is required!";
+            }
+            else{
+                document.getElementById("error-username").textContent = "";
+            }
+        }
+        function validatePassword(){
+            if (document.getElementById("password").value === ""){
+                document.getElementById("error-password").textContent = "field is required!";
+            }
+            else{
+                document.getElementById("error-password").textContent = "";
+            }
+        }
 })
 
 function isAdmin(username , password){
@@ -49,11 +71,34 @@ function isAdmin(username , password){
 function validateAdmin(){
    let username =  document.getElementById("username").value;
    let password = document.getElementById("password").value;
-   if (isAdmin(username,password)){
-    document.getElementById("error").textContent = "";
-    window.location.href = '../Admin/dashboard.html';
+   if (!isAdmin(username,password)){
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    showToast("invalid username/password" , "error");
    }
    else{
-    document.getElementById("error").textContent = "invalid username/password";
+    window.location.href = '../Admin/dashboard.html';
    }
+}
+
+function showToast(message, indicator) {
+    const toastContainer = document.getElementById("toastContainer") || createToastContainer();
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerHTML = `<div class="toast-body text-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>${message}</div>`;
+    toastContainer.appendChild(toast);
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toastContainer.removeChild(toast), 300);
+    }, 3000);
+}
+
+function createToastContainer() {
+    const toastContainer = document.createElement("div");
+    toastContainer.id = "toastContainer";
+    toastContainer.className = "toast-container position-fixed top-0 end-0 p-3 mt-5";
+    document.body.appendChild(toastContainer);
+    return toastContainer;
 }

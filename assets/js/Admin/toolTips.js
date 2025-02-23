@@ -1,76 +1,48 @@
 import { computePosition } from 'https://cdn.jsdelivr.net/npm/@floating-ui/dom@latest/+esm';
 
-// Function to show tooltip on hover
-async function showEditTooltip(event) {
-    const button = event.currentTarget;  // The hovered edit button
-    const planId = button.id.replace("editBtn", "");  // Extract the plan ID
-    const tooltip = document.getElementById(`editToolTip${planId}`);
+// Generic function to show tooltip
+async function showTooltip(event, type) {
+    const button = event.currentTarget;
+    const planId = button.id.replace(`${type}Btn`, ""); 
+    console.log(planId);
+    const tooltip = document.getElementById(`${type}ToolTip${planId}`);
 
-    if (!tooltip) return; // If no tooltip found, exit
+    if (!tooltip) return;
 
-    tooltip.classList.remove("d-none"); // Show the tooltip
+    tooltip.classList.remove("d-none"); // Show tooltip
+    tooltip.style.position = "absolute"; // Ensure positioning
+    tooltip.style.zIndex = "1000"; // Bring tooltip to front
 
     // Compute position using Floating UI
     const { x, y } = await computePosition(button, tooltip, {
         placement: 'top',
     });
 
-    // Apply computed position
     tooltip.style.left = `${x}px`;
     tooltip.style.top = `${y}px`;
 }
 
-// Function to hide tooltip when mouse leaves
-function hideEditTooltip(event) {
+// Generic function to hide tooltip
+function hideTooltip(event, type) {
     const button = event.currentTarget;
-    const planId = button.id.replace("editBtn", "");
-    const tooltip = document.getElementById(`editToolTip${planId}`);
+    const planId = button.id.replace(`${type}Btn`, "");
+    const tooltip = document.getElementById(`${type}ToolTip${planId}`);
 
     if (tooltip) {
-        tooltip.classList.add("d-none"); // Hide the tooltip
+        tooltip.classList.add("d-none"); // Hide tooltip
+        tooltip.style.left = ""; // Reset position
+        tooltip.style.top = "";
     }
 }
 
 // Attach hover events to all edit buttons
 document.querySelectorAll("[id^='editBtn']").forEach(button => {
-    button.addEventListener("mouseenter", showEditTooltip);
-    button.addEventListener("mouseleave", hideEditTooltip);
+    button.addEventListener("mouseenter", (e) => showTooltip(e, "edit"));
+    button.addEventListener("mouseleave", (e) => hideTooltip(e, "edit"));
 });
 
-
-// Function to show tooltip on hover
-async function showDeleteTooltip(event) {
-    const button = event.currentTarget;  // The hovered edit button
-    const planId = button.id.replace("deleteBtn", "");  // Extract the plan ID
-    const tooltip = document.getElementById(`deleteToolTip${planId}`);
-
-    if (!tooltip) return; // If no tooltip found, exit
-
-    tooltip.classList.remove("d-none"); // Show the tooltip
-
-    // Compute position using Floating UI
-    const { x, y } = await computePosition(button, tooltip, {
-        placement: 'top',
-    });
-
-    // Apply computed position
-    tooltip.style.left = `${x}px`;
-    tooltip.style.top = `${y}px`;
-}
-
-// Function to hide tooltip when mouse leaves
-function hideDeleteTooltip(event) {
-    const button = event.currentTarget;
-    const planId = button.id.replace("deleteBtn", "");
-    const tooltip = document.getElementById(`deleteToolTip${planId}`);
-
-    if (tooltip) {
-        tooltip.classList.add("d-none"); // Hide the tooltip
-    }
-}
-
-// Attach hover events to all edit buttons
+// Attach hover events to all delete buttons
 document.querySelectorAll("[id^='deleteBtn']").forEach(button => {
-    button.addEventListener("mouseenter", showDeleteTooltip);
-    button.addEventListener("mouseleave", hideDeleteTooltip);
+    button.addEventListener("mouseenter", (e) => showTooltip(e, "delete"));
+    button.addEventListener("mouseleave", (e) => hideTooltip(e, "delete"));
 });

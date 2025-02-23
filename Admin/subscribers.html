@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Plans</title>
+    <title>Subscribers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,8 +29,7 @@
 
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/Admin/index.css">
-    <script  src="../assets/js/Admin/managePlans.js"></script>
-    <script type="module" src="../assets/js/Admin/toolTips.js"></script>
+    <script src="../assets/js/Admin/subscribers.js"></script>
 </head>
 
 <body>
@@ -97,95 +96,41 @@
                 <span class="badge badge-light" style="font-size: 0.67rem;">5</span>
             </span>
         </nav>
+
         <div class="container mt-4">
-            <h2 class="text-center text-light">Manage Plans</h2>
+            <h4 class="text-center">Subscribers</h4>
 
-            <div class="d-flex flex-column flex-md-row ">
-                <div class="d-flex my-3">
-                    <input type="text" id="newCategory" placeholder="Enter new category" class="form-control w-50">
-                    <button class="btn btn-primary ms-2" onclick="addCategory()">Add Category</button>
-                </div>
-
-                <button class="btn btn-primary my-3 " onclick="openAddModal()">Add New Plan</button>
-            </div>
-            <div class="tabs d-flex flex-column flex-md-row" id="categoriesNav">
-                <div class="tab active" onclick="filterPlans('All')">All</div>
-                <div class="tab" onclick="filterPlans('Popular')">Popular</div>
-                <div class="tab" onclick="filterPlans('Data')">Data</div>
-                <div class="tab " onclick="filterPlans('Validity')">Validity</div>
-                <div class="tab " onclick="filterPlans('Unlimited')">Unlimited</div>
-            </div>
-
-            <hr class="col-12 text-light">
-
-            <div class="col-10 col-md-6 col-xl-4 d-flex m-3">
-                <input type="search" class="form-control " placeholder="Search" aria-label="Search"
+            <div class="col-10 col-md-6 col-xl-4 d-flex justify-content-center m-4">
+                <input id="searchInput" type="search" class="form-control " placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" style="border-radius: 5px 0px 0px 5px;" />
-                <span class="input-group-text border-0" id="search-addon" style="border-radius: 0px 5px 5px 0px;">
+                <button onclick="searchUsers(document.getElementById('searchInput').value)" class="btn btn-primary" id="search-addon" style="border-radius: 0px 5px 5px 0px;">
                     <i class="fas fa-search"></i>
-                </span>
-            </div>
-            <!-- Table -->
-            <div class="table-container mb-5 overflow-auto" style="height: 600px;">
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Category</th>
-                            <th>Price (Rs)</th>
-                            <th>Data</th>
-                            <th>Validity</th>
-                            <th>Benefits</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="plansTable"></tbody>
-                </table>
+                </button>
+                <div onclick="clearFilter()" id = "clearFilter" class="btn btn-secondary ms-2 d-none"><i class="fas fa-x"></i></div>
             </div>
         </div>
+        <!-- Table -->
+        <div class="table-container mb-5 overflow-auto" style="height: 600px;">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Mobile Number</th>
+                        <th>Email id</th>
+                        <th>Dob</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="subscribersTable"></tbody>
+            </table>
+            <div id="filterResult" class="text-center text-danger">
 
-
-        <!-- Add/Edit Modal -->
-        <div class="modal fade" id="planModal" tabindex="-1" aria-hidden="true" style="color: black;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitle">Add Plan</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="editPlanId">
-                        <div class="mb-3">
-                            <label>Category</label>
-                            <select class="form-control" id="planCategory"></select>
-                        </div>
-                        <div class="mb-3">
-                            <label>Price</label>
-                            <input type="number" class="form-control" id="planPrice" placeholder="Price">
-                        </div>
-                        <div class="mb-3">
-                            <label>Data</label>
-                            <input type="text" class="form-control" id="planData" placeholder="Data">
-                        </div>
-                        <div class="mb-3">
-                            <label>Validity</label>
-                            <input type="text" class="form-control" id="planValidity" placeholder="Validity">
-                        </div>
-                        <div class="mb-3">
-                            <label>Benefits</label>
-                            <input type="text" class="form-control" id="planBenefits"
-                                placeholder="Benefits separated by comma">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" id="savePlanBtn">Save</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

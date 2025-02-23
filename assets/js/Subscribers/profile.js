@@ -6,3 +6,11 @@ document.addEventListener("DOMContentLoaded" , function(){
     document.getElementById("userDOB").textContent = user.dob;
     document.getElementById("userAddress").textContent = user.address;
 })
+
+function showNotification(){
+    if(document.getElementById("notification").classList.contains("d-none")){
+        document.getElementById("notification").classList.remove("d-none");
+    }else{
+        document.getElementById("notification").classList.add("d-none")
+    }
+}

@@ -1,6 +1,7 @@
 let plansData = [];
 let categories = ["Data", "Validity", "Unlimited", "Popular"]; // Default categories
 
+
 fetch('../assets/data/plans.json')
     .then(response => response.json())
     .then(data => {
@@ -22,23 +23,12 @@ function displayPlans(plans) {
                         <td>${plan.validity}</td>
                         <td>${plan.benefits}</td>
                         <td>
-                            <span id="editBtn${plan.planid}" class="action-btn text-primary mx-2" style="cursor:pointer;" onclick="editPlan(${plan.planid})"><i class="fas fa-edit text-primary"></i></span>
+                            <span id="editBtn${plan.planid}" class="action-btn text-primary me-2" style="cursor:pointer;" onclick="editPlan(${plan.planid})"><i class="fas fa-edit text-primary"></i></span>
                             <div id="editToolTip${plan.planid}" class ="position-absolute text-light p-1 d-none" style = " background-color: rgba(0, 0, 0, 0.49);border-radius: 2px;font-size:small">edit</div>
-                            <span id="deleteBtn${plan.planid}" class="action-btn text-danger mx-2" style="cursor:pointer" onclick="deletePlan(${plan.planid})"><i class="fas fa-trash text-danger"></i></span>
+                            <span id="deleteBtn${plan.planid}" class="action-btn text-danger ms-2" style="cursor:pointer" onclick="deletePlan(${plan.planid})"><i class="fas fa-trash text-danger"></i></span>
                             <div id="deleteToolTip${plan.planid}" class ="position-absolute text-light p-1 d-none"  style = "background-color: rgba(0, 0, 0, 0.49);border-radius: 2px;font-size:small">delete</div>
                         </td>
                     </tr>`;
-    });
-}
-
-function loadCategories() {
-    const categorySelect = document.getElementById("planCategory");
-    categorySelect.innerHTML = ""; // Clear previous options
-    categories.forEach(category => {
-        const option = document.createElement("option");
-        option.value = category;
-        option.textContent = category;
-        categorySelect.appendChild(option);
     });
 }
 
@@ -53,6 +43,19 @@ function filterPlans(category) {
         displayPlans(filteredPlans);
     }
 }
+
+
+function loadCategories() {
+    const categorySelect = document.getElementById("planCategory");
+    categorySelect.innerHTML = ""; // Clear previous options
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+    });
+}
+
 
 function openAddModal() {
     document.getElementById("modalTitle").innerText = "Add Plan";

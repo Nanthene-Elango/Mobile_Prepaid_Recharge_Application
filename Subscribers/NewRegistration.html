@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Port to Mobi Comm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .progress {
+            height: 5px;
+        }
+
+        body {
+            background-color: rgb(0, 32, 96);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid d-block mb-5">
+        <a class="btn btn-light m-2" href="./index.html">
+           <i class="fas fa-chevron-left"></i> back
+        </a>
+        <div class="container col-10 col-md-6 col-xl-4 p-5" style="background-color: rgb(255, 255, 255); border-radius: 10px; box-shadow: 1px 2px 10px darkgray;">
+            <h2 class="text-center" style="color: rgb(0, 32, 96);">Port to Mobi-Comm</h2>
+            <p class="text-center">Your seamless transition starts here!</p>
+    
+            <div class="progress my-5">
+                <div class="progress-bar bg-primary" id="progressBar" style="width: 20%;"></div>
+            </div>
+    
+            <form id="portForm">
+                <!-- Step 1: Personal Details -->
+                <div class="form-step active">
+                    <h4>Step 1: Personal Details</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary next-step">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+    
+                <!-- Step 2: Address Details -->
+                <div class="form-step">
+                    <h4>Step 2: Address Details</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Current Address</label>
+                        <textarea class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="mb-3">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+            
+                        <div class="mb-3">
+                            <label class="form-label">State</label>
+                            <select class="form-select" required>
+                                <option selected disabled>Select State</option>
+                                <option>Maharashtra</option>
+                                <option>Karnataka</option>
+                                <option>Tamil Nadu</option>
+                                <option>Delhi</option>
+                                <option>Uttar Pradesh</option>
+                                <option>West Bengal</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">PIN Code</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary prev-step"><i class="fas fa-chevron-left"></i> Back</button>
+                        <button type="button" class="btn btn-primary next-step">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+    
+                <!-- Step 3: Porting Details -->
+                <div class="form-step">
+                    <h4>Step 3: Porting Details</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Existing Mobile Number</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Operator</label>
+                        <select class="form-select" required>
+                            <option selected disabled>Choose...</option>
+                            <option>Airtel</option>
+                            <option>Jio</option>
+                            <option>Vi</option>
+                            <option>BSNL</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Unique Porting Code (UPC)</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary prev-step"><i class="fas fa-chevron-left"></i> Back</button>
+                        <button type="button" class="btn btn-primary next-step">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+    
+                <!-- Step 4: Document Upload -->
+                <div class="form-step">
+                    <h4>Step 4: Document Upload</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Upload Aadhaar/PAN</label>
+                        <input type="file" class="form-control" id="fileInput" required>
+                        <img id="previewImg" class="mt-3" width="100" style="display: none;">
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary prev-step"><i class="fas fa-chevron-left"></i> Back</button>
+                        <button type="button" class="btn btn-success" id="submitBtn">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentStep = 0;
+            const formSteps = document.querySelectorAll(".form-step");
+            const progressBar = document.getElementById("progressBar");
+            const nextBtns = document.querySelectorAll(".next-step");
+            const prevBtns = document.querySelectorAll(".prev-step");
+
+            function updateStep() {
+                formSteps.forEach((step, index) => {
+                    step.classList.toggle("active", index === currentStep);
+                });
+                progressBar.style.width = ((currentStep + 1) / formSteps.length) * 100 + "%";
+            }
+
+            nextBtns.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    if (currentStep < formSteps.length - 1) {
+                        currentStep++;
+                        updateStep();
+                    }
+                });
+            });
+
+            prevBtns.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        updateStep();
+                    }
+                });
+            });
+
+            document.getElementById("fileInput").addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById("previewImg").src = e.target.result;
+                        document.getElementById("previewImg").style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById("submitBtn").addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent actual form submission
+                Swal.fire({
+                    title: "Success!",
+                    text: "Your Porting Request has been submitted successfully!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    document.getElementById("portForm").reset();
+                    currentStep = 0;
+                    updateStep();
+                    window.location.href = "./index.html"
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

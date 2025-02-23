@@ -30,6 +30,16 @@
             background-color: rgb(0, 32, 96);
             color: aliceblue;
         }
+
+        .badge {
+            position: relative;
+            top: -9px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -38,14 +48,45 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top"
         style="box-shadow: 1px 2px 10px rgb(198, 198, 198);">
         <div class="container-fluid" id="navbarContainer">
-            
+
         </div>
     </nav>
 
-    <section class="container-fluid">
+    <section class="container-fluid d-flex flex-column align-items-center">
+        <div class="col-10 col-md-9 p-2 my-3 d-flex justify-content-end">
+            <button class="btn btn-secondary me-3">
+                <span class="text-light">Deactivate Sim</span>
+
+            </button>
+            <div>
+                
+            </div>
+            <i class="far fa-bell d-flex align-items-center text-primary"
+                style="font-size: x-large;cursor: pointer;" onclick="showNotification()"></i>
+            <span class="badge badge-light" style="font-size: 0.65rem;">5</span>
+
+        </div>
+        <div class="container col-sm-9 d-flex justify-content-end d-none " style="position:absolute; top: 150px;z-index: 1;" id="notification">
+            <div class="col-md-7 col-xl-6 overflow-auto" style="border-radius: 10px;background-color: hsla(0, 0%, 0%, 0.853);height: 400px;">
+                <div class="card" style="background: transparent;color: aliceblue">
+                    <div class="card-header" style="background-color: black">
+                        Notifications
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis pariatur repudiandae laborum asperiores similique! Odio, doloremque unde ab quas officiis labore, architecto perspiciatis harum, minus earum assumenda expedita error commodi!
+                        </div>
+                        <hr>
+                        <div>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam unde, assumenda non in quam esse. Deserunt, ea magni eligendi officia ratione excepturi deleniti nisi nulla ut voluptates non facere cumque?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <section class="container d-flex flex-column justify-content-around align-items-center">
-            <div class="col-12 d-flex flex-column flex-md-row justify-content-center mt-5"
-                style="background-color: white;">
+            <div class="col-12 d-flex flex-column flex-md-row justify-content-center" style="background-color: white;">
+
 
                 <!--Profile-->
                 <div class="col-12 col-md-6 me-md-1"
@@ -55,13 +96,12 @@
                             <i class="fa-solid fa-user-circle fa-5x" style="color: rgb(0,32,96);"></i>
                             <h1 class="text-center" id="userName"></h1>
                             <div class="text-left pt-3">
-                                <div class="pb-2"><i class="fa-solid fa-phone pe-3"></i><span id="userNumber">+91 9487381354</span>
+                                <div class="pb-2"><i class="fa-solid fa-phone pe-3"></i><span id="userNumber"></span>
                                 </div>
-                                <div class="pb-2"><i class="fa-solid fa-envelope pe-3"></i><span id="userEmail">nanthene05@gmail.com
+                                <div class="pb-2"><i class="fa-solid fa-envelope pe-3"></i><span id="userEmail">
                                     </span></div>
-                                <div class="pb-2"><i class="fa-solid fa-cake pe-3"></i><span id="userDOB">05/04/2004 </span></div>
-                                <div class=""><i class="fa-solid fa-home pe-3"></i><span id="userAddress">57 , Bharathi Street ,
-                                        Allikuttai , Salem -636014</span>
+                                <div class="pb-2"><i class="fa-solid fa-cake pe-3"></i><span id="userDOB"></span></div>
+                                <div class=""><i class="fa-solid fa-home pe-3"></i><span id="userAddress"></span>
                                 </div>
                             </div>
                         </div>
@@ -99,24 +139,153 @@
                         <a class="nav-link " id="transactions-link">Transactions</a>
                     </li>
                 </ul>
-                <div class="col-11">
+                <div class="col-12">
                     <div id="recharge-history">
                         <div class="card">
-                            <div class="card-header" style="background-color: rgb(0, 32, 96); color: aliceblue;">
+                            <div class="card-header"
+                                style="background-color: rgb(0, 32, 96); color: aliceblue;font-size: large;">
                                 Recharge History</div>
                             <div class="card-body">
-
+                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
+                                    <div class="text-danger">25 Mar 2023 11:30:34</div>
+                                    <div>
+                                        <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="my-1">
+                                                <strong>Rs. 299</strong>
+                                            </div>
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <div class="d-flex my-1 me-md-4">
+                                                    <div class="me-4">
+                                                        <div> 2.5GB/day</div>
+                                                        <div class="text-muted">data</div>
+                                                    </div>
+                                                    <div>
+                                                        <div> 28 days</div>
+                                                        <div class="text-muted">validity</div>
+                                                    </div>
+                                                </div>
+                                                <div class="my-1">
+                                                    <i class="fas fa-circle-plus"></i><span> Unlimited 5G , free OTT
+                                                        acccess</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
+                                    <div class="text-danger">25 Mar 2023 11:30:34</div>
+                                    <div>
+                                        <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="my-1">
+                                                <strong>Rs. 299</strong>
+                                            </div>
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <div class="d-flex my-1 me-md-4">
+                                                    <div class="me-4">
+                                                        <div> 2.5GB/day</div>
+                                                        <div class="text-muted">data</div>
+                                                    </div>
+                                                    <div>
+                                                        <div> 28 days</div>
+                                                        <div class="text-muted">validity</div>
+                                                    </div>
+                                                </div>
+                                                <div class="my-1">
+                                                    <i class="fas fa-circle-plus"></i><span> Unlimited 5G , free OTT
+                                                        acccess</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
+                                    <div class="text-danger">25 Mar 2023 11:30:34</div>
+                                    <div>
+                                        <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="my-1">
+                                                <strong>Rs. 299</strong>
+                                            </div>
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <div class="d-flex my-1 me-md-4">
+                                                    <div class="me-4">
+                                                        <div> 2.5GB/day</div>
+                                                        <div class="text-muted">data</div>
+                                                    </div>
+                                                    <div>
+                                                        <div> 28 days</div>
+                                                        <div class="text-muted">validity</div>
+                                                    </div>
+                                                </div>
+                                                <div class="my-1">
+                                                    <i class="fas fa-circle-plus"></i><span> Unlimited 5G , free OTT
+                                                        acccess</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-11">
+                <div class="col-12">
                     <div id="transactions" style="display: none;">
                         <div class="card">
-                            <div class="card-header" style="background-color: rgb(0, 32, 96); color: aliceblue;">
+                            <div class="card-header"
+                                style="background-color: rgb(0, 32, 96); color: aliceblue;font-size: large;">
                                 Transactions</div>
                             <div class="card-body">
-
+                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
+                                    <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
+                                    <div class="d-flex flex-column">
+                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
+                                        <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
+                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.299</span></div>
+                                        <div class="my-1"><b>Mode of Payment: </b>UPI</div>
+                                    </div>
+                                </div>
+                                <div class="my-3 text-center text-md-end">
+                                    <button class="btn btn-primary">
+                                        Download invoice
+                                    </button>
+                                </div>
+                                <hr>
+                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
+                                    <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
+                                    <div class="d-flex flex-column">
+                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
+                                        <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
+                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.299</span></div>
+                                        <div class="my-1"><b>Mode of Payment: </b>UPI</div>
+                                    </div>
+                                </div>
+                                <div class="my-3 text-center text-md-end">
+                                    <button class="btn btn-primary">
+                                        Download invoice
+                                    </button>
+                                </div>
+                                <hr>
+                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
+                                    <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
+                                    <div class="d-flex flex-column">
+                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
+                                        <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
+                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.299</span></div>
+                                        <div class="my-1"><b>Mode of Payment: </b>UPI</div>
+                                    </div>
+                                </div>
+                                <div class="my-3 text-center text-md-end">
+                                    <button class="btn btn-primary">
+                                        Download invoice
+                                    </button>
+                                </div>
+                                <hr>
                             </div>
                         </div>
                     </div>

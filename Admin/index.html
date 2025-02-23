@@ -43,14 +43,15 @@
                 <form action="" class="col-10 py-4 my-lg-5" id="adminLoginForm">
                     <h5 class="text-center py-3">Admin Login</h5>
 
-                    <div class="d-flex my-4"
+                    <div class="d-flex mt-4"
                         style="border: 1px solid gainsboro; border-radius: 5px;background-color: white;">
                         <i class="fa fa-solid fa-user mx-2 d-flex align-items-center"></i>
                         <input type="text" class="p-2" id="username" placeholder="Username"
                             style="border: none;outline: none;">
                     </div>
+                    <div id="error-username" class="text-danger" style="min-height: 10px; font-size: small;"></div>
 
-                    <div class="d-flex mt-4"
+                    <div class="d-flex mt-3"
                         style="border: 1px solid gainsboro; border-radius: 5px;background-color: white;">
                         <i class="fas fa-lock mx-2 d-flex align-items-center"></i>
                         <input type="password" id="password" class="col-9 p-2" placeholder="Password"
@@ -65,7 +66,7 @@
                             <i class="fas fa-eye-slash "></i>
                         </a>
                     </div>
-                    <div id="error" class="text-danger" style="min-height: 40px; font-size: small;"></div>
+                    <div id="error-password" class="text-danger mb-2" style="min-height: 10px; font-size: small;"></div>
 
 
                     <button class="btn btn-primary col-12 mb-1" id="loginBtn" onclick="validateAdmin()">
