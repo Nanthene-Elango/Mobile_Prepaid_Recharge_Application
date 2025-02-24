@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 
-// Function to Check User Login Status
+
 function checkLoginStatus() {
     let user = sessionStorage.getItem("loggedInUser");
     let loginBtn = document.getElementById("loginBtn");
@@ -27,7 +27,7 @@ function checkLoginStatus() {
     }
 }
 
-// Function to Handle Logout
+
 function setupLogout() {
     let logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
@@ -37,7 +37,7 @@ function setupLogout() {
             sessionStorage.removeItem("rechargeNumber");
             sessionStorage.removeItem("rechargeUser");
             setTimeout(() => {
-                window.location.href = "../index.html"; // Redirect to home page
+                window.location.href = "../index.html"; 
             }, 500);
         });
     }

@@ -2,7 +2,7 @@ let users;
 document.addEventListener("DOMContentLoaded", function () {
 
     fetch('../assets/data/users.json')
-        .then(response => response.json()) // Convert response to JSON
+        .then(response => response.json())
         .then(data => {
             users = data;
         })

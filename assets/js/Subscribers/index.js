@@ -60,9 +60,3 @@ function showFeedback(){
     var myModal = new bootstrap.Modal(document.getElementById('feedback'));
     myModal.show();
 }
-
-let isLoggedIn = false; // Change this dynamically as per your logic
-
-if (isLoggedIn) {
-    document.getElementById("accountMenu").classList.remove("d-none");
-}

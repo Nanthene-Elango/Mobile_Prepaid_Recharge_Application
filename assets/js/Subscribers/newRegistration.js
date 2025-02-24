@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("submitBtn").addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent actual form submission
+        event.preventDefault();
         Swal.fire({
             title: "Success!",
             text: "Your Porting Request has been submitted successfully!",

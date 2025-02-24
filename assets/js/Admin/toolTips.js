@@ -1,6 +1,5 @@
 import { computePosition } from 'https://cdn.jsdelivr.net/npm/@floating-ui/dom@latest/+esm';
 
-// Generic function to show tooltip
 async function showTooltip(event, type) {
     const button = event.currentTarget;
     const planId = button.id.replace(`${type}Btn`, ""); 
@@ -9,11 +8,10 @@ async function showTooltip(event, type) {
 
     if (!tooltip) return;
 
-    tooltip.classList.remove("d-none"); // Show tooltip
-    tooltip.style.position = "absolute"; // Ensure positioning
-    tooltip.style.zIndex = "1000"; // Bring tooltip to front
+    tooltip.classList.remove("d-none"); 
+    tooltip.style.position = "absolute"; 
+    tooltip.style.zIndex = "1000"; 
 
-    // Compute position using Floating UI
     const { x, y } = await computePosition(button, tooltip, {
         placement: 'top',
     });
@@ -22,26 +20,24 @@ async function showTooltip(event, type) {
     tooltip.style.top = `${y}px`;
 }
 
-// Generic function to hide tooltip
 function hideTooltip(event, type) {
     const button = event.currentTarget;
     const planId = button.id.replace(`${type}Btn`, "");
     const tooltip = document.getElementById(`${type}ToolTip${planId}`);
 
     if (tooltip) {
-        tooltip.classList.add("d-none"); // Hide tooltip
-        tooltip.style.left = ""; // Reset position
+        tooltip.classList.add("d-none");
+        tooltip.style.left = ""; 
         tooltip.style.top = "";
     }
 }
 
-// Attach hover events to all edit buttons
+
 document.querySelectorAll("[id^='editBtn']").forEach(button => {
     button.addEventListener("mouseenter", (e) => showTooltip(e, "edit"));
     button.addEventListener("mouseleave", (e) => hideTooltip(e, "edit"));
 });
 
-// Attach hover events to all delete buttons
 document.querySelectorAll("[id^='deleteBtn']").forEach(button => {
     button.addEventListener("mouseenter", (e) => showTooltip(e, "delete"));
     button.addEventListener("mouseleave", (e) => hideTooltip(e, "delete"));

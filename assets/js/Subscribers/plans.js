@@ -3,11 +3,9 @@ var plans = [];
 document.addEventListener("DOMContentLoaded", function () {
 
     fetch('../assets/data/plans.json')
-        .then(response => response.json()) // Convert response to JSON
+        .then(response => response.json()) 
         .then(data => {
-            plans = data.plans; // Store fetched data in the array
-            console.log("Fetched Plans:", plans); // Debugging (Check in console)
-
+            plans = data.plans; 
             displayPlans(plans);
         })
         .catch(error => console.error("Error fetching plans:", error));
@@ -47,9 +45,8 @@ function clearFilters() {
 
     let rangeInput = document.getElementById("pricerange");
     rangeInput.value = 2500;
-    document.getElementById("rangeValue").innerText = "2500"; // Update displayed value
+    document.getElementById("rangeValue").innerText = "2500"; 
 
-    // Uncheck all checkboxes in Data and Validity sections
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
@@ -72,7 +69,6 @@ function clearFilters() {
         }
     }
 
-    // Re-display all plans (You may need to refetch or re-render them)
     displayPlans(plans);
     document.getElementById("clear").classList.add("d-none");
 }
@@ -217,12 +213,10 @@ function displayPlans(plans) {
 
 function showDetails(plan) {
 
-    // Update modal content
     document.getElementById("price").textContent = `Rs. ${plan.price}`;
     document.getElementById("validity").textContent = plan.validity;
     document.getElementById("data").textContent = plan.data;
 
-    // Show additional benefits if they exist, otherwise display "No additional benefits"
     let benefitsContainer = document.getElementById("benefits");
     if (plan.benefits && plan.benefits.length > 0) {
         benefitsContainer.innerHTML = plan.benefits.map(b => `<p>${b}</p>`).join('');

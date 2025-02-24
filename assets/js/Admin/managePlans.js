@@ -1,6 +1,5 @@
 let plansData = [];
-let categories = ["Data", "Validity", "Unlimited", "Popular"]; // Default categories
-
+let categories = ["Data", "Validity", "Unlimited", "Popular"];
 
 fetch('../assets/data/plans.json')
     .then(response => response.json())
@@ -47,7 +46,7 @@ function filterPlans(category) {
 
 function loadCategories() {
     const categorySelect = document.getElementById("planCategory");
-    categorySelect.innerHTML = ""; // Clear previous options
+    categorySelect.innerHTML = ""; 
     categories.forEach(category => {
         const option = document.createElement("option");
         option.value = category;
@@ -60,7 +59,7 @@ function loadCategories() {
 function openAddModal() {
     document.getElementById("modalTitle").innerText = "Add Plan";
     document.getElementById("editPlanId").value = "";
-    document.getElementById("planCategory").value = categories[0]; // Set default to first category
+    document.getElementById("planCategory").value = categories[0]; 
     document.getElementById("planData").value = "";
     document.getElementById("planValidity").value = "";
     document.getElementById("planPrice").value = "";
