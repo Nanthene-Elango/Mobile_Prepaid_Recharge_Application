@@ -77,6 +77,8 @@ function verifyOTP() {
         document.getElementById("mobile").disabled = false;
         document.getElementById("error-otp").style.display = "none";
         sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+        sessionStorage.setItem("rechargeNumber",user.mobile_number);
+        sessionStorage.setItem("rechargeUser" , JSON.stringify(user));
         checkLoginStatus();
         let redirectURL = sessionStorage.getItem("redirectAfterLogin");
         sessionStorage.removeItem("redirectAfterLogin");

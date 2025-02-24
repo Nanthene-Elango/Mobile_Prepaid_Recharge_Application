@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    fetch("navbar.html")
+    fetch("../Subscribers/navbar.html")
         .then(response => response.text())
         .then(data => {
             document.getElementById("navbarContainer").innerHTML = data;
@@ -35,8 +35,9 @@ function setupLogout() {
 
             sessionStorage.removeItem("loggedInUser");
             sessionStorage.removeItem("rechargeNumber");
+            sessionStorage.removeItem("rechargeUser");
             setTimeout(() => {
-                window.location.href = "index.html"; // Redirect to home page
+                window.location.href = "../index.html"; // Redirect to home page
             }, 500);
         });
     }

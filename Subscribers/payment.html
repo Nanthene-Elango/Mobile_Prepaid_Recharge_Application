@@ -21,10 +21,6 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-
-    </style>
-
 </head>
 
 <body style="background-color: aliceblue;">
@@ -32,7 +28,7 @@
         style="box-shadow: 1px 2px 10px rgb(198, 198, 198);">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand mx-4" href="./index.html">
+            <a class="navbar-brand mx-4" href="../index.html">
                 <img src="../assets/img/Logo.png" alt="Logo" style="height: 60px;">
             </a>
         </div>
@@ -279,9 +275,11 @@
 
         function showInvoice() {
             let paymentMethod = sessionStorage.getItem("paymentMethod");
+            let number = sessionStorage.getItem("rechargeNumber");
             const invoiceHTML = `
         <div style="text-align:left;">
-            <p><strong>Transaction ID:</strong> #INV${Math.floor(Math.random() * 100000)}</p>
+            <p><strong>Transaction ID: </strong> #INV${Math.floor(Math.random() * 100000)}</p>
+            <p><strong>Mobile Number: </strong>${number}</p>
             <p><strong>Recharge Date: </strong> ${new Date().toLocaleDateString()}</p>
             <p><strong>Amount Paid: </strong>${plan.price}</p>
             <p><strong>Mode of Payment: </strong>${paymentMethod}</p>
@@ -311,7 +309,8 @@
                         localStorage.removeItem("rechargePlans");
                         sessionStorage.removeItem("rechargeNumber");
                         sessionStorage.removeItem("rechargeUser");
-                        window.location.href = "./index.html";
+                        sessionStorage.removeItem("paymentMethod");
+                        window.location.href = "../index.html";
                     }, 3000);
 
                 }
@@ -323,6 +322,7 @@
         function downloadInvoicePDF() {
 
             let paymentMethod = sessionStorage.getItem("paymentMethod");
+            let number = sessionStorage.getItem("rechargeNumber");
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -334,10 +334,11 @@
             doc.setFontSize(12);
             doc.text(`Transaction ID: #INV${Math.floor(Math.random() * 100000)}`, 20, 60);
             doc.text(`Mode of Payment: ${paymentMethod}` , 20 , 70)
-            doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 80);
-            doc.text(`Amount Paid: Rs. ${plan.price}`, 20, 90);
-            doc.text(`Plan: ${plan.data} - ${plan.validity}`, 20, 100);
-            doc.text("Your plan has been activated. Enjoy uninterrupted service!", 20, 110);
+            doc.text(`Mobile Number: ${number}` , 20 , 80);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 90);
+            doc.text(`Amount Paid: Rs. ${plan.price}`, 20, 100);
+            doc.text(`Plan: ${plan.data} - ${plan.validity}`, 20, 110);
+            doc.text("Your plan has been activated. Enjoy uninterrupted service!", 20, 120);
 
             doc.save("invoice.pdf");
             redirect();
@@ -345,7 +346,8 @@
         function redirect() {
             setTimeout(() => {
                 localStorage.removeItem("rechargePlans");
-                window.location.href = "./index.html";
+                sessionStorage.removeItem("paymentMethod");
+                window.location.href = "../index.html";
             }, 1000);
         }
     </script>

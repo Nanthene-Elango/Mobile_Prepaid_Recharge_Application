@@ -9,11 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let user = JSON.parse(sessionStorage.getItem("loggedInUser"));
     let rechargeInput = document.getElementById("rechargeNumber");
 
+    // if (rechargeInput && user && user.mobile_number) {
+    //     rechargeInput.value = user.mobile_number;
+    //     sessionStorage.setItem("rechargeUser" , sessionStorage.getItem("loggedInUser"));
+    // }
+    
     if (sessionStorage.getItem("rechargeNumber") !== null) {
         rechargeInput.value = sessionStorage.getItem("rechargeNumber");
-    }
-    else if (rechargeInput && user && user.mobile_number) {
-        rechargeInput.value = user.mobile_number;
+        rechargeInput.readOnly = true;
+        for (let a in users){
+            if (users[a].mobile_number === rechargeInput.value) {
+                sessionStorage.setItem("rechargeUser", JSON.stringify(users[a]));
+                console.log(sessionStorage.getItem("rechargeUser"));
+            }
+        }
     }
     else {
         document.getElementById("saveBtn").classList.remove("d-none");
@@ -73,7 +82,7 @@ function saveNumber() {
     let rechargeInput = document.getElementById("rechargeNumber");
     let number = rechargeInput.value;
     if (validateNumber()) {
-        rechargeInput.readOnly = !rechargeInput.readOnly;
+        rechargeInput.readOnly = true;
         sessionStorage.setItem("rechargeNumber", number);
         document.getElementById("saveBtn").classList.add("d-none");
         document.getElementById("changeBtn").classList.remove("d-none");
@@ -84,8 +93,9 @@ function saveNumber() {
 }
 
 function changeNumber() {
+    console.log("hello");
     let rechargeInput = document.getElementById("rechargeNumber");
-    rechargeInput.readOnly = !rechargeInput.readOnly;
+    rechargeInput.readOnly = false;
     rechargeInput.value = "";
     document.getElementById("saveBtn").classList.remove("d-none");
     document.getElementById("changeBtn").classList.add("d-none");

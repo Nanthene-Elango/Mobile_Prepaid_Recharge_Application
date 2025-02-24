@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded" , function(){
 function isSubscriber(mobileNumber) {
     for (let a in users){
      if(users[a].mobile_number === mobileNumber){
-         return true;
+        sessionStorage.setItem("rechargeUser" , JSON.stringify(users[a]));
+        return true;
      }
     }
     return false;
@@ -38,7 +39,7 @@ function validate(){
     else {
         errorField.innerText = "";
         sessionStorage.setItem("rechargeNumber" , number);
-        window.location.href = "./recharge.html"; 
+        window.location.href = "../Subscribers/recharge.html"; 
     }
 }
 function scrollToTop() {
