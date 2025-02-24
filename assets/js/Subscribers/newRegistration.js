@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("portForm").reset();
             currentStep = 0;
             updateStep();
-            window.location.href = "./index.html"
+            window.location.href = "../../index.html"
         });
     });
 });
