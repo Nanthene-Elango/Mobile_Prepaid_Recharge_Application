@@ -55,31 +55,35 @@
 
     <section class="container-fluid d-flex flex-column align-items-center">
         <div class="col-10 col-md-9 p-2 my-3 d-flex justify-content-end">
-            <button class="btn btn-secondary me-3">
+            <!-- <button class="btn btn-secondary me-3">
                 <span class="text-light">Deactivate Sim</span>
 
-            </button>
-            <div>
-                
-            </div>
-            <i class="far fa-bell d-flex align-items-center text-primary"
-                style="font-size: x-large;cursor: pointer;" onclick="showNotification()"></i>
+            </button> -->
+        
+            <i class="far fa-bell d-flex align-items-center text-primary" style="font-size: x-large;cursor: pointer;"
+                onclick="showNotification()"></i>
             <span class="badge badge-light" style="font-size: 0.65rem;">5</span>
 
         </div>
-        <div class="container col-sm-9 d-flex justify-content-end d-none " style="position:absolute; top: 150px;z-index: 1;" id="notification">
-            <div class="col-md-7 col-xl-6 overflow-auto" style="border-radius: 10px;background-color: hsla(0, 0%, 0%, 0.686);backdrop-filter: blur(30px); height: 400px;">
+        <div class="container col-sm-9 d-flex justify-content-end d-none "
+            style="position:absolute; top: 150px;z-index: 1;" id="notification">
+            <div class="col-md-7 col-xl-6 overflow-auto"
+                style="border-radius: 10px;background-color: hsla(0, 0%, 0%, 0.686);backdrop-filter: blur(30px); height: 400px;">
                 <div class="card" style="background: transparent;color: aliceblue">
                     <div class="card-header" style="background-color: black">
                         Notifications
                     </div>
                     <div class="card-body">
                         <div>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis pariatur repudiandae laborum asperiores similique! Odio, doloremque unde ab quas officiis labore, architecto perspiciatis harum, minus earum assumenda expedita error commodi!
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis pariatur repudiandae laborum
+                            asperiores similique! Odio, doloremque unde ab quas officiis labore, architecto perspiciatis
+                            harum, minus earum assumenda expedita error commodi!
                         </div>
                         <hr>
                         <div>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam unde, assumenda non in quam esse. Deserunt, ea magni eligendi officia ratione excepturi deleniti nisi nulla ut voluptates non facere cumque?
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam unde, assumenda non in quam
+                            esse. Deserunt, ea magni eligendi officia ratione excepturi deleniti nisi nulla ut
+                            voluptates non facere cumque?
                         </div>
                     </div>
                 </div>
@@ -142,6 +146,26 @@
                 </ul>
                 <div class="col-12">
                     <div id="recharge-history">
+                        <div class="container-fluid d-flex flex-column flex-lg-row justify-content-between my-3">
+                            <div class="col-lg-6 d-flex justify-content-center mb-2 mb-lg-0">
+                                <input id="searchInput" type="search" class="form-control " placeholder="Search"
+                                    aria-label="Search" aria-describedby="search-addon"
+                                    style="border-radius: 5px 0px 0px 5px;" />
+                                <button onclick="searchPlans(document.getElementById('searchInput').value)"
+                                    class="btn btn-primary" id="search-addon" style="border-radius: 0px 5px 5px 0px;">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <!-- <div onclick="clearFilteredPlans()" id="clearFilter" class="btn btn-secondary ms-2 d-none"><i
+                                        class="fas fa-x"></i></div> -->
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <a onclick="clearFilters()" class="text-decoration-none text-muted m-3 d-none" id="clear"><i
+                                class="fa-solid fa-x"></i>
+                            clear filter
+                        </a>
                         <div class="card">
                             <div class="card-header"
                                 style="background-color: rgb(0, 32, 96); color: aliceblue;font-size: large;">
@@ -237,6 +261,26 @@
                 </div>
                 <div class="col-12">
                     <div id="transactions" style="display: none;">
+                        <div class="container-fluid d-flex flex-column flex-lg-row justify-content-between my-3">
+                            <div class="col-lg-6 d-flex justify-content-center mb-2 mb-lg-0">
+                                <input id="searchInput" type="search" class="form-control " placeholder="Search"
+                                    aria-label="Search" aria-describedby="search-addon"
+                                    style="border-radius: 5px 0px 0px 5px;" />
+                                <button onclick="searchPlans(document.getElementById('searchInput').value)"
+                                    class="btn btn-primary" id="search-addon" style="border-radius: 0px 5px 5px 0px;">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <!-- <div onclick="clearFilteredPlans()" id="clearFilter" class="btn btn-secondary ms-2 d-none"><i
+                                        class="fas fa-x"></i></div> -->
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <a onclick="clearFilters()" class="text-decoration-none text-muted m-3 d-none" id="clear"><i
+                                class="fa-solid fa-x"></i>
+                            clear filter
+                        </a>
                         <div class="card">
                             <div class="card-header"
                                 style="background-color: rgb(0, 32, 96); color: aliceblue;font-size: large;">

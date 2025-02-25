@@ -38,11 +38,11 @@
             <h3 class="mt-5">Explore Our Exclusive Recharge Plans</h3>
         </aside>
 
-        <main class="col-lg-8 d-flex flex-column justify-content-center align-items-center pt-3">
+        <main class="col-lg-8 col-12 d-flex flex-column justify-content-center align-items-center pt-3">
 
             <div id="planCarousel" class="carousel slide col-10 col-md-8 my-5" data-bs-ride="carousel">
                 <div class="carousel-inner">
-    
+
                     <!-- First Plan (Active by Default) -->
                     <div class="carousel-item active">
                         <div class="card text-center p-4 d-flex align-items-center"
@@ -54,7 +54,7 @@
                             <button class="btn btn-primary col-6 col-lg-4">Recharge Now</button>
                         </div>
                     </div>
-    
+
                     <!-- Second Plan -->
                     <div class="carousel-item">
                         <div class="card text-center p-4 d-flex align-items-center"
@@ -66,7 +66,7 @@
                             <button class="btn btn-primary col-6 col-lg-4">Recharge Now</button>
                         </div>
                     </div>
-    
+
                     <!-- Third Plan -->
                     <div class="carousel-item">
                         <div class="card text-center p-4 d-flex align-items-center"
@@ -78,9 +78,9 @@
                             <button class="btn btn-primary col-6 col-lg-4">Recharge Now</button>
                         </div>
                     </div>
-    
+
                 </div>
-    
+
                 <!-- Carousel Controls -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#planCarousel" data-bs-slide="prev">
                     <i class="fa fa-chevron-left text-dark"></i>
@@ -89,7 +89,7 @@
                     <i class="fa fa-chevron-right text-dark"></i>
                 </button>
             </div>
-            <nav id="plans-nav">
+            <!-- <nav id="plans-nav">
                 <ul class="nav nav-pills mt-3 plans-category">
                     <li class="nav-item">
                         <a class="nav-link" href="#all-plans">All Plans</a>
@@ -108,11 +108,35 @@
                     </li>
                 </ul>
                 <hr class="col-12" style="color: rgb(0, 32, 96);">
-            </nav>
+            </nav> -->
+
+            <div id="plans-nav" class = "mt-5 d-flex align-items-center justify-content-center">
+                <i class="me-1 fas fa-chevron-left"></i>
+                <div class="plans-category d-flex noScrollBar p-3" style="overflow-x: auto; width: 80%;">
+                    <div class="plan-item col-4">
+                        <a class="plan-link p-2" href="#all-plans">All Plans</a>    
+                    </div>
+                    <div class="plan-item col-6 col-sm-5">
+                        <a class="plan-link p-2" href="#popular-plans">Popular Plans</a>
+                    </div>
+                    <div class="plan-item col-6 col-sm-5">
+                        <a class="plan-link p-2" href="#validity-plans">Validity Plans</a>
+                    </div>
+                    <div class="plan-item col-5 col-sm-4">
+                        <a class="plan-link p-2" href="#data-plans">Data Plans</a>
+                    </div>
+                    <div class="plan-item col-7 col-sm-6">
+                        <a class="plan-link p-2" href="#unlimited-plans">Unlimited Plans</a>
+                    </div>
+                </div>
+                <i class="ms-1 fas fa-chevron-right"></i>
+            </div>
 
             <div class="col-10 d-flex justify-content-end m-4 px-5">
-                <a onclick="clearFilters()" class="text-decoration-none text-muted me-1 d-none" id="clear"><i class="fa-solid fa-x"></i> clear filter</a>
-                <a onclick = "showFilters()" class="text-decoration-none" id="filter"><i class="fas fa-filter"></i> filter plans</a>
+                <a onclick="clearFilters()" class="text-decoration-none text-muted me-1 d-none" id="clear"><i
+                        class="fa-solid fa-x"></i> clear filter</a>
+                <a onclick="showFilters()" class="text-decoration-none" id="filter"><i class="fas fa-filter"></i> filter
+                    plans</a>
             </div>
             <div class="container-fluid col-sm-10 overflow-auto " style="height: 500px;position: relative;">
 
@@ -162,7 +186,7 @@
 
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </main>
@@ -176,41 +200,43 @@
                 </div>
                 <div class="modal-body">
                     <div class="text-end d-none">
-                        <a class="text-secondary text-decoration-none me-2"><i class="fa-solid fa-x"></i> Clear filter</a>
-                     </div>
-                     <div class="container mb-5">
-                         <label for="pricerange" class="form-label"><strong>Choose Price Range:</strong></label><br>
-                         <input type="range" class="form-range w-75" id="pricerange" min="0" max="5000" step="100" value="2500"
-                             oninput="rangeValue.innerText = this.value">
-                         <p>Maximum Price: Rs.<span id="rangeValue">2500</span></p>
-                     </div>
-                     
-                     <div class="container mb-5">
-                         <label for="dataFilter"><strong>Data: </strong></label>
-                         <div class="d-flex flex-wrap" id="dataFilter">
-                             <span class="p-1"><input type="checkbox" id="1GB" value="1GB"> 1GB</span>
-                             <span class="p-1"><input type="checkbox" id="1.5GB" value="1.5GB"> 1.5GB</span>
-                             <span class="p-1"><input type="checkbox" id="2GB" value="2GB"> 2GB</span>
-                             <span class="p-1"><input type="checkbox" id="2.5GB" value="2.5GB"> 2.5GB</span>
-                             <span class="p-1"><input type="checkbox" id="3GB" value="3GB"> 3GB</span>
-                             <span class="p-1"><input type="checkbox" id=">3GB" value=">3GB"> >3GB</span>
-                         </div>
-                     </div>
-     
-                     <div class="container mb-5">
-                         <label for="validityFilter"><strong>Validity: </strong></label>
-                         <div class="d-flex flex-wrap" id="validityFilter">
-                             <span class="p-1"><input type="checkbox" id="1day" value="1 day"> 1 day</span>
-                             <span class="p-1"><input type="checkbox" id="28days" value="28 days"> 28 days</span>
-                             <span class="p-1"><input type="checkbox" id="30days" value="30 days"> 30 days</span>
-                             <span class="p-1"><input type="checkbox" id="56days" value="56 days"> 56 days</span>
-                             <span class="p-1"><input type="checkbox" id="86days" value="84 days"> 84 days</span>
-                             <span class="p-1"><input type="checkbox" id="365days" value="365 days"> 365 days</span>
-                         </div>
-                     </div>
+                        <a class="text-secondary text-decoration-none me-2"><i class="fa-solid fa-x"></i> Clear
+                            filter</a>
+                    </div>
+                    <div class="container mb-5">
+                        <label for="pricerange" class="form-label"><strong>Choose Price Range:</strong></label><br>
+                        <input type="range" class="form-range w-75" id="pricerange" min="0" max="5000" step="100"
+                            value="2500" oninput="rangeValue.innerText = this.value">
+                        <p>Maximum Price: Rs.<span id="rangeValue">2500</span></p>
+                    </div>
+
+                    <div class="container mb-5">
+                        <label for="dataFilter"><strong>Data: </strong></label>
+                        <div class="d-flex flex-wrap" id="dataFilter">
+                            <span class="p-1"><input type="checkbox" id="1GB" value="1GB"> 1GB</span>
+                            <span class="p-1"><input type="checkbox" id="1.5GB" value="1.5GB"> 1.5GB</span>
+                            <span class="p-1"><input type="checkbox" id="2GB" value="2GB"> 2GB</span>
+                            <span class="p-1"><input type="checkbox" id="2.5GB" value="2.5GB"> 2.5GB</span>
+                            <span class="p-1"><input type="checkbox" id="3GB" value="3GB"> 3GB</span>
+                            <span class="p-1"><input type="checkbox" id=">3GB" value=">3GB"> >3GB</span>
+                        </div>
+                    </div>
+
+                    <div class="container mb-5">
+                        <label for="validityFilter"><strong>Validity: </strong></label>
+                        <div class="d-flex flex-wrap" id="validityFilter">
+                            <span class="p-1"><input type="checkbox" id="1day" value="1 day"> 1 day</span>
+                            <span class="p-1"><input type="checkbox" id="28days" value="28 days"> 28 days</span>
+                            <span class="p-1"><input type="checkbox" id="30days" value="30 days"> 30 days</span>
+                            <span class="p-1"><input type="checkbox" id="56days" value="56 days"> 56 days</span>
+                            <span class="p-1"><input type="checkbox" id="86days" value="84 days"> 84 days</span>
+                            <span class="p-1"><input type="checkbox" id="365days" value="365 days"> 365 days</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="filterPlans()">Apply Filter</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="filterPlans()">Apply
+                        Filter</button>
                 </div>
             </div>
         </div>
@@ -275,4 +301,5 @@
         </div>
     </div>
 </body>
+
 </html>

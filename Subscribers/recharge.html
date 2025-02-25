@@ -115,7 +115,7 @@
                     <i class="fa fa-chevron-right text-light"></i>
                 </button>
             </div>
-
+<!-- 
             <nav id="plans-nav">
                 <ul class="nav nav-pills mt-3 plans-category">
                     <li class="nav-item">
@@ -135,7 +135,30 @@
                     </li>
                 </ul>
                 <hr class="col-12" style="color: rgb(0, 32, 96);">
+            </nav> -->
+
+            <nav id="plans-nav" class = "my-4 d-flex align-items-center justify-content-center">
+                <i class="me-1 fas fa-chevron-left"></i>
+                <div class="plans-category d-flex noScrollBar p-3" style="overflow-x: auto; width: 90%;">
+                    <div class="plan-item text-center col-3">
+                        <a class="plan-link p-2" href="#all-plans">All Plans</a>    
+                    </div>
+                    <div class="plan-item text-center col-5 col-sm-3">
+                        <a class="plan-link p-2" href="#popular-plans">Popular Plans</a>
+                    </div>
+                    <div class="plan-item text-center col-5 col-sm-4">
+                        <a class="plan-link p-2" href="#validity-plans">Validity Plans</a>
+                    </div>
+                    <div class="plan-item text-center col-4 col-sm-3">
+                        <a class="plan-link p-2" href="#data-plans">Data Plans</a>
+                    </div>
+                    <div class="plan-item text-center col-5 col-sm-4">
+                        <a class="plan-link p-2" href="#unlimited-plans">Unlimited Plans</a>
+                    </div>
+                </div>
+                <i class="ms-1 fas fa-chevron-right"></i>
             </nav>
+
             <div class="container-fluid col-sm-9 d-flex flex-column flex-md-row justify-content-start my-3">
                 <div class="d-flex justify-content-center me-2">
                     <input id="searchInput" type="search" class="form-control " placeholder="Search" aria-label="Search"
@@ -161,7 +184,7 @@
             <div class="container-fluid col-sm-10 overflow-auto" style="height: 500px;position: relative;">
 
 
-                <div data-bs-spy="scroll" data-bs-target="#plans-nav" data-bs-offset="0" tabindex="0"
+                <div data-bs-spy="scroll" data-bs-target="#plans-nav"
                     class="scrollspy-example" id="plansContainer">
                     <div class="card m-md-4 my-4 plans" id="all-plans">
                         <div class="card-header" style="border-radius: 5px;">
