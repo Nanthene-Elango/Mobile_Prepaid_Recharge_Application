@@ -6,7 +6,10 @@ fetch('../assets/data/plans.json')
     .then(data => {
         plansData = data.plans;
         displayPlans(plansData);
-        loadCategories();
+        // loadCategories();
+        $(document).ready(function () {
+            $('#planTable').DataTable();
+        });
     });
 
 function displayPlans(plans) {
@@ -21,11 +24,9 @@ function displayPlans(plans) {
                         <td>${plan.data}</td>
                         <td>${plan.validity}</td>
                         <td>${plan.benefits}</td>
-                        <td>
-                            <span id="editBtn${plan.planid}" class="action-btn text-primary me-2" style="cursor:pointer;" onclick="editPlan(${plan.planid})"><i class="fas fa-edit text-primary"></i></span>
-                            <div id="editToolTip${plan.planid}" class ="position-absolute text-light p-1 d-none" style = " background-color: rgba(0, 0, 0, 0.49);border-radius: 2px;font-size:small">edit</div>
-                            <span id="deleteBtn${plan.planid}" class="action-btn text-danger ms-2" style="cursor:pointer" onclick="deletePlan(${plan.planid})"><i class="fas fa-trash text-danger"></i></span>
-                            <div id="deleteToolTip${plan.planid}" class ="position-absolute text-light p-1 d-none"  style = "background-color: rgba(0, 0, 0, 0.49);border-radius: 2px;font-size:small">delete</div>
+                        <td class="d-flex justify-content-around">
+                            <span id="editBtn${plan.planid}" class="action-btn text-primary" style="cursor:pointer;" onclick="editPlan(${plan.planid})"><abbr data-title = "Edit"><i class="fas fa-edit text-primary"></i></abbr></span>
+                            <span id="deleteBtn${plan.planid}" class="action-btn text-danger" style="cursor:pointer" onclick="deletePlan(${plan.planid})"><abbr data-title="Delete"><i class="fas fa-trash text-danger"></i></abbr></span>
                         </td>
                     </tr>`;
     });
@@ -46,7 +47,7 @@ function filterPlans(category) {
 
 function loadCategories() {
     const categorySelect = document.getElementById("planCategory");
-    categorySelect.innerHTML = ""; 
+    categorySelect.innerHTML = "";
     categories.forEach(category => {
         const option = document.createElement("option");
         option.value = category;
@@ -59,7 +60,7 @@ function loadCategories() {
 function openAddModal() {
     document.getElementById("modalTitle").innerText = "Add Plan";
     document.getElementById("editPlanId").value = "";
-    document.getElementById("planCategory").value = categories[0]; 
+    document.getElementById("planCategory").value = categories[0];
     document.getElementById("planData").value = "";
     document.getElementById("planValidity").value = "";
     document.getElementById("planPrice").value = "";
@@ -174,4 +175,10 @@ function createToastContainer() {
     toastContainer.className = "toast-container position-fixed top-0 end-0 p-3 mt-5";
     document.body.appendChild(toastContainer);
     return toastContainer;
+}
+
+
+function logout() {
+    sessionStorage.removeItem("adminUser");
+    window.location.href = '../Admin/index.html';
 }

@@ -24,6 +24,10 @@ body {
     background-color: aliceblue;
 }
 
+#goTopBtn:hover{
+    border: none;
+}
+
 nav {
     background-color: white;
 }

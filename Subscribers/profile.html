@@ -34,10 +34,10 @@
 
         .badge {
             position: relative;
-            top: -9px;
+            top: -11px;
             left: -10px;
-            width: 20px;
-            height: 20px;
+            width: 17px;
+            height: 17px;
             background-color: red;
             border-radius: 50%;
         }
@@ -59,10 +59,15 @@
                 <span class="text-light">Deactivate Sim</span>
 
             </button> -->
-        
-            <i class="far fa-bell d-flex align-items-center text-primary" style="font-size: x-large;cursor: pointer;"
-                onclick="showNotification()"></i>
-            <span class="badge badge-light" style="font-size: 0.65rem;">5</span>
+
+            <div onclick="showNotification()" class="btn p-2" style="background-color: rgb(0, 32, 96);color: aliceblue;">
+                <i class="far fa-bell"
+                    style="font-size: large; cursor: pointer;">
+                    <!-- <span class="badge badge-light" style="font-size: 0.65rem;">1</span> -->
+                </i>
+                Notifications
+            </div>
+
 
         </div>
         <div class="container col-sm-9 d-flex justify-content-end d-none "

@@ -134,7 +134,7 @@ function displayFilteredPlans(filteredPlans) {
                         <div><strong>${plan.validity}</strong><br>Validity</div>
                     </div>
                     <a onclick='confirmPayment(${JSON.stringify(plan)})'>
-                        <i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i>
+                        <abbr data-title="Recharge"><i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i></abbr>
                     </a>
                 </div>
                 <hr>
@@ -190,7 +190,7 @@ function displayPlans(plans) {
                         <div><strong>${plan.validity}</strong><br>Validity</div>
                     </div>
                     <a onclick='confirmPayment(${JSON.stringify(plan)})' id="recharge">
-                        <i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i>
+                        <abbr data-title = "Recharge"><i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i></abbr>
                     </a>
                 </div>
                 <hr>

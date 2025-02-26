@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded" , ()=>{
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            labels: ['2021', '2022', '2023', '2024', '2025'],
             datasets: [{
                 label: 'Subscribers',
                 data: [10, 20, 15, 25, 30],

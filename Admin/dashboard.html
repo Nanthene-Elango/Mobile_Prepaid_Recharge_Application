@@ -52,17 +52,36 @@
     <div id="main-sidebar" class="d-none d-md-block sidebar">
         <img src="../assets/img/Logo.png" alt="Logo" class="m-3" style="height: 60px;">
         <ul class="nav flex-column">
-            <li class="nav-item my-2 mx-3"><a href="./dashboard.html" class="nav-link"><i class="fas fa-line-chart"></i>
+            <li class="nav-item my-2 mx-3"><a href="./dashboard.html" class="nav-link"><i
+                        class="fas fa-line-chart"></i>
                     Dashboard</a>
             </li>
             <li class="nav-item my-2 mx-3"><a href="./managePlans.html" class="nav-link"><i class="fas fa-cog"></i>
                     Manage Plans
                 </a>
             </li>
-            <li class="nav-item my-2 mx-3"><a href="./subscribers.html" class="nav-link"><i class="fas fa-users"></i>
+            <li class="nav-item my-2 mx-3">
+                <a href="./subscribers.html" class="nav-link"><i class="fas fa-users"></i>
                     Subscribers</a>
             </li>
+            <li id="group" class="nav-item my-2 mx-2">
+                <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
+                <a href="./notifications.html" class="nav-link ms-2"><i class="fas fa-bell"></i>
+                    Notifications</a>
+            </li>
         </ul>
+
+        <li class="nav-item dropdown list-unstyled my-2 mx-3" id="accountMenu">
+            <a class="nav-link ms-2 p-2" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa fa-user-circle fa-2x"></i>
+                <span>Admin <i class="fa-solid fa-caret-down"></i> </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-start">
+                <li><a class="dropdown-item" href="./profile">Profile</a></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </li>
     </div>
 
     <!-- Mobile Sidebar (Offcanvas) -->
@@ -71,7 +90,7 @@
             <h5 class="offcanvas-title">Menu</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body flex-column justify-content-between">
             <ul class="nav flex-column">
                 <li class="nav-item my-2 mx-3"><a href="./dashboard.html" class="nav-link"><i
                             class="fas fa-line-chart"></i>
@@ -83,7 +102,23 @@
                 <li class="nav-item my-2 mx-3"><a href="./subscribers.html" class="nav-link"><i
                             class="fas fa-users"></i>
                         Subscribers</a></li>
+                <li id="group" class="nav-item my-2 mx-2">
+                    <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
+                    <a href="./subscribers.html" class="nav-link ms-2"><i class="fa-regular fa-bell"></i>
+                        Notifications</a>
+                </li>
             </ul>
+            <li class="nav-item dropdown list-unstyled my-2 mx-3" id="accountMenu">
+                <a class="nav-link ms-2 p-2" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fa-2x"></i>
+                    <span>Admin <i class="fa-solid fa-caret-down"></i> </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-start">
+                    <li><a class="dropdown-item" href="./profile">Profile</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </li>
         </div>
     </div>
 
@@ -92,7 +127,7 @@
         <button class="btn btn-light d-md-none mb-4" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">☰
             Menu</button>
 
-        <nav class="navbar navbar-expand navbar-light d-flex flex-row-reverse col-12 sticky-top bg-white"
+        <!-- <nav class="navbar navbar-expand navbar-light d-flex flex-row-reverse col-12 sticky-top bg-white"
             style="box-shadow: 1px 2px 10px rgb(198, 198, 198); border-radius: 50px;">
 
             <li class="nav-item dropdown pe-3 list-unstyled" id="accountMenu">
@@ -111,14 +146,14 @@
                 </button>
                 <span class="badge badge-light" style="font-size: 0.67rem;">5</span>
             </span>
-        </nav>
+        </nav> -->
 
         <!--Dashboard-->
         <div class="container">
-            <div class="col-12 d-flex flex-column flex-md-row justify-content-around align-items-center my-3">
+            <div class="col-12 d-flex flex-column flex-lg-row justify-content-around align-items-center my-3">
                 <div class="col-md-7 col-11 d-flex flex-column">
                     <div class="col-12 d-flex justify-content-evenly">
-                        <div class="col-5 my-3 p-3"
+                        <div class="col-5  my-3 p-3"
                             style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;color: rgb(0, 32, 96);">
                             <h2>1K</h2>
                             <h6>Active Subscribers</h6>
@@ -133,7 +168,7 @@
 
 
                     <div class="col-12 d-flex justify-content-evenly">
-                        <div class="col-5 my-3 p-3"
+                        <div class="col-5  my-3 p-3"
                             style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;color: rgb(0, 32, 96);">
                             <h2>100</h2>
                             <h6>Users Expiry nearing</h6>
@@ -146,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-11  my-2 p-4 d-flex justify-content-center align-items-center"
+                <div class="col-lg-5 col-11  my-2 p-4 d-flex justify-content-center align-items-center"
                     style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 250px;">
                     <canvas id="myLineChart"></canvas>
                 </div>
@@ -155,11 +190,11 @@
             </div>
 
             <div class="d-flex flex-column flex-lg-row justify-content-evenly align-items-center">
-                <div class="col-md-8 my-2 p-4 col-11 d-flex justify-content-center"
+                <div class="col-lg-8 my-2 p-4 col-11 d-flex justify-content-center"
                     style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 300px;">
                     <canvas id="myChart"></canvas>
                 </div>
-                <div class="col-md-3 col-11 my-2 p-4 d-flex flex-column justify-content-center align-items-center"
+                <div class="col-lg-3 col-11 my-2 p-4 d-flex flex-column justify-content-center align-items-center"
                     style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 300px;">
                     <label for="myPieChart1" class="text-dark text-center my-2"><strong>Plans Recharged</strong></label>
                     <canvas id="myPieChart1"></canvas>
@@ -183,7 +218,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody style="background: rgba(255, 255, 255, 0.452)">
+                        <tbody>
                             <tr>
                                 <td>John</td>
                                 <td>+91 1234567890</td>
@@ -241,6 +276,62 @@
                                 <td><button class="btn btn-primary">View Profile</button></td>
                             </tr>
 
+                            <tr>
+                                <td>John</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Alice</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Harry</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Peter</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Smith</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Charlie</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Nixen</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04/05/2023</td>
+                                <td>24/05/2023</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

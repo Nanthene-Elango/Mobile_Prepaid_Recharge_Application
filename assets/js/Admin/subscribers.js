@@ -5,11 +5,15 @@ fetch('../assets/data/users.json')
     .then(data => {
         subscribers = data;
         displaySubscribers(subscribers);
+
+        $(document).ready(function () {
+            $('#subscriberTable').DataTable();
+        });
     });
 
 function displaySubscribers(subscribers) {
 
-    if(subscribers.length === 0){
+    if (subscribers.length === 0) {
         document.getElementById("filterResult").innerText = "No data found!";
         return;
     }
@@ -17,7 +21,7 @@ function displaySubscribers(subscribers) {
     const tableBody = document.getElementById("subscribersTable");
     tableBody.innerHTML = "";
     subscribers.forEach((subscribers) => {
-        if (subscribers.role !== "admin"){
+        if (subscribers.role !== "admin") {
             tableBody.innerHTML += `
             <tr>
                 <td>${subscribers.id}</td>
@@ -32,33 +36,33 @@ function displaySubscribers(subscribers) {
                 </td>
             </tr>`;
         }
-        
+
     });
 }
 
-document.addEventListener("DOMContentLoaded" , ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     displaySubscribers(subscribers);
 })
 
-function showProfile(userid){
+function showProfile(userid) {
     window.location.href = "./subscriberProfile.html";
 }
 
-function searchUsers(searchInput){
-    if (searchInput === ""){
-        showToast("Please Enter a search value!" , "error");
+function searchUsers(searchInput) {
+    if (searchInput === "") {
+        showToast("Please Enter a search value!", "error");
         return;
     }
     let filteredUser;
     searchInput = searchInput.toLowerCase();
-    filteredUser =  subscribers.filter(function(user){
-        if (isNaN(searchInput)){
-            if((user.name.toLowerCase().includes(searchInput) || user.email_id.toLowerCase().includes(searchInput) || user.address.toLowerCase().includes(searchInput))){
+    filteredUser = subscribers.filter(function (user) {
+        if (isNaN(searchInput)) {
+            if ((user.name.toLowerCase().includes(searchInput) || user.email_id.toLowerCase().includes(searchInput) || user.address.toLowerCase().includes(searchInput))) {
                 return user;
             }
         }
-        else{
-            if(user.id.toString().includes(searchInput) || user.mobile_number.includes(searchInput)){
+        else {
+            if (user.id.toString().includes(searchInput) || user.mobile_number.includes(searchInput)) {
                 return user;
             }
         }
@@ -68,7 +72,7 @@ function searchUsers(searchInput){
     document.getElementById("clearFilter").classList.remove("d-none");
 }
 
-function clearFilter(){
+function clearFilter() {
     document.getElementById("clearFilter").classList.add("d-none");
     displaySubscribers(subscribers);
 }
@@ -93,4 +97,10 @@ function createToastContainer() {
     toastContainer.className = "toast-container position-fixed top-0 end-0 p-3 mt-5";
     document.body.appendChild(toastContainer);
     return toastContainer;
+}
+
+
+function logout() {
+    sessionStorage.removeItem("adminUser");
+    window.location.href = '../Admin/index.html';
 }
