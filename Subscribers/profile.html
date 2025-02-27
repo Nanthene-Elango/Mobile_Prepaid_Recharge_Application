@@ -41,6 +41,9 @@
             background-color: red;
             border-radius: 50%;
         }
+        #active-plan{
+            height: 400px;
+        }
     </style>
 </head>
 
@@ -60,9 +63,9 @@
 
             </button> -->
 
-            <div onclick="showNotification()" class="btn p-2" style="background-color: rgb(0, 32, 96);color: aliceblue;">
-                <i class="far fa-bell"
-                    style="font-size: large; cursor: pointer;">
+            <div onclick="showNotification()" class="btn p-2"
+                style="background-color: rgb(0, 32, 96);color: aliceblue;">
+                <i class="far fa-bell" style="font-size: large; cursor: pointer;">
                     <!-- <span class="badge badge-light" style="font-size: 0.65rem;">1</span> -->
                 </i>
                 Notifications
@@ -73,22 +76,50 @@
         <div class="container col-sm-9 d-flex justify-content-end d-none "
             style="position:absolute; top: 150px;z-index: 1;" id="notification">
             <div class="col-md-7 col-xl-6 overflow-auto"
-                style="border-radius: 10px;background-color: hsla(0, 0%, 0%, 0.686);backdrop-filter: blur(30px); height: 400px;">
-                <div class="card" style="background: transparent;color: aliceblue">
-                    <div class="card-header" style="background-color: black">
+                style="border-radius: 10px;background-color: rgba(240, 248, 255, 0.46);backdrop-filter: blur(30px); height: 400px;">
+                <div class="card" style="background: transparent;color: black;border: none;">
+                    <div class="card-header" style="background-color: rgb(0, 32, 96);color: aliceblue;">
                         Notifications
                     </div>
                     <div class="card-body">
                         <div>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis pariatur repudiandae laborum
-                            asperiores similique! Odio, doloremque unde ab quas officiis labore, architecto perspiciatis
-                            harum, minus earum assumenda expedita error commodi!
+                            <div class="d-flex justify-content-between">
+                                <div><i class="fas fa-user-circle me-1"></i><b>Admin</b></div>
+                                <div>22 Oct 2024 11:30:23 AM</div>
+                            </div>
+
+                            <p>your plan validity is expiring on 25 Oct 2024 . Recharge soon without losing your current
+                                validity.</p>
                         </div>
                         <hr>
                         <div>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam unde, assumenda non in quam
-                            esse. Deserunt, ea magni eligendi officia ratione excepturi deleniti nisi nulla ut
-                            voluptates non facere cumque?
+                            <div class="d-flex justify-content-between">
+                                <div><i class="fas fa-user-circle me-1"></i><b>Admin</b></div>
+                                <div>23 Oct 2024 11:30:23 AM</div>
+                            </div>
+
+                            <p>your plan validity is expiring on 25 Oct 2024 . Recharge soon without losing your current
+                                validity.</p>
+                        </div>
+                        <hr>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <div><i class="fas fa-user-circle me-1"></i><b>Admin</b></div>
+                                <div>23 Oct 2024 11:30:23 AM</div>
+                            </div>
+
+                            <p>your plan validity is expiring on 25 Oct 2024 . Recharge soon without losing your current
+                                validity.</p>
+                        </div>
+                        <hr>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <div><i class="fas fa-user-circle me-1"></i><b>Admin</b></div>
+                                <div>23 Oct 2024 11:30:23 AM</div>
+                            </div>
+
+                            <p>your plan validity is expiring on 25 Oct 2024 . Recharge soon without losing your current
+                                validity.</p>
                         </div>
                     </div>
                 </div>
@@ -119,18 +150,50 @@
                 </div>
 
                 <!--Active Plan-->
-                <div class="col-12 col-md-5 mt-3 mt-md-0 p-3"
-                    style="box-shadow: 1px 2px 10px darkgray; border-radius: 10px; height: 400px;">
+                <div class="col-12 col-md-5 mt-3 mt-md-0 p-3" id="active-plan"
+                    style="box-shadow: 1px 2px 10px darkgray; border-radius: 10px;">
                     <div class="card" style="border: none">
                         <div class="card-header text-center"
                             style="background-color: rgb(0, 32, 96); color: aliceblue;">
                             <h5>Active plan</h5>
                         </div>
-                        <div class="card-body d-flex justify-content-center align-items-center" style="height: 320px;">
-                            <div class="p-5 d-flex flex-column align-items-center" id="no-plans">
+                        <div class="card-body" style="height: 320px;">
+                            <div class="p-5 d-flex flex-column align-items-center d-none" id="no-plans">
                                 <div class="lead text-muted text-center"><strong>No Active Plan</strong></div>
                                 <button class="btn btn-primary text-center mt-2"><a href="./recharge.html"
                                         class="text-light text-decoration-none">Recharge</a></button>
+                            </div>
+                            <div class="">
+                                <h4 class="text-center mt-3">Rs. <span>299</span></h4>
+                                <div class="px-5">
+                                    <div class="d-flex justify-content-evenly">
+                                        <div>
+                                            <h6>Data: <span id="data" class="text-muted">1GB/day</span></h6>
+                                        </div>
+                                        <div>
+                                            <h6>Validity: <span class="text-muted" id="validity">28 days</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="text-center d-none d-lg-block">
+                                        
+                                        <div id="benefits">
+                                            <h6>Benefits: </h6>
+                                            <span class="text-muted">
+                                                <i class="fas fa-phone"></i> Unlimited Calls
+                                                <i class="fas fa-message"></i> 100 SMS/day
+                                                <i class="fas fa-gift"></i> Amazon Prime Subscription
+                                            </span>
+                                           
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="text-start">
+                                        <div><span>Recharge Date: </span><span class="text-muted">12 Jan 2023
+                                                11:03:14</span></div>
+                                        <div><span>Expiry Date: </span><span class="text-muted">30 Jan 2023
+                                                11:03:14</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -177,7 +240,7 @@
                                 Recharge History</div>
                             <div class="card-body">
                                 <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger">25 Mar 2023 11:30:34</div>
+                                    <div class="text-danger">23 May 2023 11:30:34</div>
                                     <div>
                                         <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
                                         <div class="d-flex flex-column justify-content-between">
@@ -205,17 +268,17 @@
                                 </div>
                                 <hr>
                                 <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger">25 Mar 2023 11:30:34</div>
+                                    <div class="text-danger">24 Apr 2023 10:03:34</div>
                                     <div>
                                         <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
                                         <div class="d-flex flex-column justify-content-between">
                                             <div class="my-1">
-                                                <strong>Rs. 299</strong>
+                                                <strong>Rs. 199</strong>
                                             </div>
                                             <div class="d-flex flex-column flex-md-row">
                                                 <div class="d-flex my-1 me-md-4">
                                                     <div class="me-4">
-                                                        <div> 2.5GB/day</div>
+                                                        <div> 1.5GB/day</div>
                                                         <div class="text-muted">data</div>
                                                     </div>
                                                     <div>
@@ -238,12 +301,12 @@
                                         <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
                                         <div class="d-flex flex-column justify-content-between">
                                             <div class="my-1">
-                                                <strong>Rs. 299</strong>
+                                                <strong>Rs. 399</strong>
                                             </div>
                                             <div class="d-flex flex-column flex-md-row">
                                                 <div class="d-flex my-1 me-md-4">
                                                     <div class="me-4">
-                                                        <div> 2.5GB/day</div>
+                                                        <div> 3GB/day</div>
                                                         <div class="text-muted">data</div>
                                                     </div>
                                                     <div>
@@ -292,7 +355,7 @@
                                 Transactions</div>
                             <div class="card-body">
                                 <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
+                                    <div class="text-danger text-end">23 May 2023 14:30:34</div>
                                     <div class="d-flex flex-column">
                                         <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
                                         <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
@@ -307,11 +370,11 @@
                                 </div>
                                 <hr>
                                 <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
+                                    <div class="text-danger text-end">24 Apr 2023 10:03:34</div>
                                     <div class="d-flex flex-column">
-                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
+                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV783762</span></div>
                                         <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
-                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.299</span></div>
+                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.199</span></div>
                                         <div class="my-1"><b>Mode of Payment: </b>UPI</div>
                                     </div>
                                 </div>
@@ -324,9 +387,9 @@
                                 <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
                                     <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
                                     <div class="d-flex flex-column">
-                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
+                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV272995</span></div>
                                         <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
-                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.299</span></div>
+                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.399</span></div>
                                         <div class="my-1"><b>Mode of Payment: </b>UPI</div>
                                     </div>
                                 </div>

@@ -40,7 +40,7 @@
         </div>
     </nav>
 
-    <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
 
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active"></button>
@@ -317,7 +317,7 @@
 
     <!--Footer Section-->
     <footer class="text-white p-4" style="background-color: rgb(1, 32, 96);">
-        <div class="container">
+        <div class="container" id="footerContainer">
             <div class="row">
 
                 <!-- Quick Links -->
@@ -374,11 +374,12 @@
         </div>
     </footer>
 
-    <button onclick="showFeedback()" class="btn btn-primary p-3 position-fixed m-3 bottom-0" style="border-radius: 30px; right: 50px">
+    <button id="feedbackBtn" onclick="showFeedback()" class="btn btn-primary p-3 position-fixed m-3 bottom-0 d-none" style="border-radius: 30px; right: 50px">
         <i class="fas fa-comments "></i><span> Give your feedback</span>
     </button>
+
     <!-- Go to Top Button -->
-    <button id="goTopBtn" class="btn position-fixed end-0 bottom-0 m-3" onclick="scrollToTop()">
+    <button id="goTopBtn" class="btn position-fixed end-0 bottom-0 m-3 d-none" onclick="scrollToTop()">
         <i class="fa fa-circle-arrow-up fa-2x text-primary"></i>
     </button>
 

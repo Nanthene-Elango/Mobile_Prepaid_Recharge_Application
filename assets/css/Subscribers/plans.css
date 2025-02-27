@@ -34,7 +34,7 @@ abbr::after {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.834);
     color: white;
     padding: 5px;
     border-radius: 5px;
@@ -117,13 +117,8 @@ abbr:hover::after {
 
 .card-body {
     background: rgba(255, 255, 255, 0.7);
-    /* Glass effect */
-
-    /* Blur background */
     border-radius: 12px;
-    /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* Soft shadow */
     padding: 5px;
     transition: transform 0.2s ease-in-out;
 }

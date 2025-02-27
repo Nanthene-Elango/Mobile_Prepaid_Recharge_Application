@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(users => {
             rechargeUsers = users;
         })
+
+    document.getElementById("mobile").addEventListener("input" , validateNumber);
+    document.getElementById("mobile").addEventListener("change" , validateNumber);
+
 })
 
 function isSubscriber(mobileNumber) {
@@ -25,8 +29,7 @@ document.getElementById("login-form").addEventListener("submit", function (event
     event.preventDefault();
 })
 
-function sendOTP() {
-
+function validateNumber(){
     let number = document.getElementById("mobile").value;
     let errorField = document.getElementById("error-number");
 
@@ -34,23 +37,31 @@ function sendOTP() {
         errorField.style.display = "block";
         errorField.innerText = "";
         errorField.innerText = "Field cannot be empty!"
-        return;
+        return false;
     }
     else if (number.length !== 10 || isNaN(number)) {
         errorField.style.display = "block";
         errorField.innerText = "";
         errorField.innerText = "Enter a valid 10 digit number!"
-        return;
+        return false;
     }
     else if (!isSubscriber(number)) {
         errorField.style.display = "block";
         errorField.innerText = "";
         errorField.innerText = "please enter a valid mobi com number";
-        return;
+        return false;
     }
-    else {
-        document.getElementById("mobile").disabled = true;
+    else{
         errorField.style.display = "none";
+        document.getElementById("sendOtpBtn").disabled = false;
+        return true;
+    }
+}
+function sendOTP() {
+
+    
+    if(validateNumber()){
+        document.getElementById("mobile").disabled = true;
         generatedOTP = Math.floor(100000 + Math.random() * 900000);
         // alert("Your OTP is: " + generatedOTP);
         let toast = document.getElementById("toast");
@@ -91,7 +102,8 @@ function verifyOTP() {
 
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = redirectURL || './index.html';
+                // window.location.href = redirectURL || './index.html';
+                window.location.href = "./recharge.html";
             }
         });
     } else {

@@ -51,7 +51,17 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = './recharge.html';
     })
 
-    document.getElementById("upiInput").addEventListener("change" , ()=>{
+    document.getElementById("cardNumber").addEventListener("change" , validateCard);
+    document.getElementById("mm").addEventListener("change" , validateMM);
+    document.getElementById("yy").addEventListener("change" , validateYY);
+    document.getElementById("cvv").addEventListener("change" , validateCVV);
+
+    document.getElementById("cardNumber").addEventListener("input" , validateCard);
+    document.getElementById("mm").addEventListener("input" , validateMM);
+    document.getElementById("yy").addEventListener("input" , validateYY);
+    document.getElementById("cvv").addEventListener("input" , validateCVV);
+
+    document.getElementById("upiInput").addEventListener("input" , ()=>{
         console.log(document.getElementById("upiInput").value);
         if (document.getElementById("upiInput").value == ""){
             document.getElementById("upiVerify").disabled = true;
@@ -65,6 +75,79 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 })
 
+function validateCard(){
+   let cardNumber = document.getElementById("cardNumber").value;
+   let errorFeild = document.getElementById("error-card");
+   if (cardNumber === ""){
+    errorFeild.innerText = "Please fill your card number!";
+    return false;
+   }
+   else if (isNaN(cardNumber)){
+    errorFeild.innerText = "card number must contains only digits!";
+    return false;
+   }
+   else if(cardNumber.length !== 16){
+    errorFeild.innerText = "Enter a valid 16 digit card number!";
+    return false;
+   }
+   else{
+    errorFeild.innerText = "";
+    return true;
+   }
+}
+
+function validateMM(){
+    let mm = document.getElementById("mm").value;
+    let errorField = document.getElementById("error-mm");
+    if (mm === ""){
+        errorField.innerText = "MM is Required!";
+    }
+    else if (!(mm.charAt(0) === '0' || mm.charAt(0) === '1')){
+        errorField.innerText = "Enter a valid month between ('01' - '12')";
+    }
+    else if(isNaN(mm) || mm.length !== 2){
+        errorField.innerText = "Enter a valid month 'MM'";
+    }
+    else{
+        errorField.innerText = "";
+        return true;
+    }
+    return false;
+
+}
+function validateYY(){
+    let yy = document.getElementById("yy").value;
+    let errorField = document.getElementById("error-yy");
+    if (yy === ""){
+        errorField.innerText = "YY is Required!";
+    }
+    else if(isNaN(yy) || yy.length !== 2){
+        errorField.innerText = "Enter a valid year 'YY'";
+    }
+    else{
+        errorField.innerText = "";
+        return true;
+    }
+    return false;
+}
+
+function validateCVV(){
+    let cvv = document.getElementById("cvv").value;
+    let errorField = document.getElementById("error-cvv");
+    if (cvv === ""){
+        errorField.innerText = "CVV is Required!";
+    }
+    else if(isNaN(cvv) || cvv.length !== 3){
+        errorField.innerText = "Enter a valid 3 digit CVV";
+    }
+    else{
+        errorField.innerText = "";
+        return true;
+    }
+    return false;
+
+}
+
 function processPayment(paymentMethod) {
 
     document.getElementById("payment_form1").addEventListener("submit", function (event) {
@@ -73,6 +156,12 @@ function processPayment(paymentMethod) {
     document.getElementById("payment_form2").addEventListener("submit", function (event) {
         event.preventDefault();
     })
+
+    if (paymentMethod === "Credit/Debit Card"){
+        if (!(validateCard() && validateMM() && validateYY() && validateCVV())){
+            return;
+        }
+    }
 
     sessionStorage.setItem("paymentMethod", paymentMethod)
     Swal.fire({
@@ -165,6 +254,7 @@ function downloadInvoicePDF() {
     doc.save("invoice.pdf");
     redirect();
 }
+
 function redirect() {
     setTimeout(() => {
         localStorage.removeItem("rechargePlans");

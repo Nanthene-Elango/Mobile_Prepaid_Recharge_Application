@@ -1,4 +1,4 @@
-let users;
+let users = [];
 
 document.addEventListener("DOMContentLoaded" , ()=>{
     fetch('../assets/data/users.json')
@@ -36,8 +36,11 @@ document.addEventListener("DOMContentLoaded" , ()=>{
             event.preventDefault();
         })
 
-        document.getElementById("username").addEventListener("focus" , validateUsername);
-        document.getElementById("password").addEventListener("focus" , validatePassword);
+        let admin = users.filter(user => user.role === "admin");
+        console.log(admin);
+        console.log(users);
+        document.getElementById("username").addEventListener("input" , validateUsername);
+        document.getElementById("password").addEventListener("input" , validatePassword);
         document.getElementById("username").addEventListener("change" , validateUsername);
         document.getElementById("password").addEventListener("change" , validatePassword);
 

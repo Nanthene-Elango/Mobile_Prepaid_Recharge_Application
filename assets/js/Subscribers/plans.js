@@ -2,7 +2,7 @@ var plans = [];
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    fetch('../assets/data/plans.json')
+    fetch('../assets/data/updatedPlans.json')
         .then(response => response.json()) 
         .then(data => {
             plans = data.plans; 
@@ -67,6 +67,27 @@ function clearFilters() {
         if (document.getElementById("unlimited-plans").classList.contains("d-none")) {
             document.getElementById("unlimited-plans").classList.remove("d-none")
         }
+        if (document.getElementById("annual-plans").classList.contains("d-none")) {
+            document.getElementById("annual-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("streaming-plans").classList.contains("d-none")) {
+            document.getElementById("streaming-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("student-plans").classList.contains("d-none")) {
+            document.getElementById("student-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("ott-plans").classList.contains("d-none")) {
+            document.getElementById("ott-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("gaming-plans").classList.contains("d-none")) {
+            document.getElementById("gaming-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("wfh-plans").classList.contains("d-none")) {
+            document.getElementById("wfh-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("short-term-plans").classList.contains("d-none")) {
+            document.getElementById("short-term-plans").classList.remove("d-none")
+        }
     }
 
     displayPlans(plans);
@@ -92,6 +113,27 @@ function displayFilteredPlans(filteredPlans) {
         if (document.getElementById("unlimited-plans").classList.contains("d-none")) {
             document.getElementById("unlimited-plans").classList.remove("d-none")
         }
+        if (document.getElementById("annual-plans").classList.contains("d-none")) {
+            document.getElementById("annual-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("streaming-plans").classList.contains("d-none")) {
+            document.getElementById("streaming-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("student-plans").classList.contains("d-none")) {
+            document.getElementById("student-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("ott-plans").classList.contains("d-none")) {
+            document.getElementById("ott-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("gaming-plans").classList.contains("d-none")) {
+            document.getElementById("gaming-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("wfh-plans").classList.contains("d-none")) {
+            document.getElementById("wfh-plans").classList.remove("d-none")
+        }
+        if (document.getElementById("short-term-plans").classList.contains("d-none")) {
+            document.getElementById("short-term-plans").classList.remove("d-none")
+        }
     }
 
 
@@ -100,13 +142,26 @@ function displayFilteredPlans(filteredPlans) {
     let validity = document.getElementById("validity-plan-cards");
     let data_plans = document.getElementById("data-plan-cards");
     let unlimited = document.getElementById("unlimited-plan-cards");
-
+    let streaming = document.getElementById("streaming-plan-cards");
+    let student = document.getElementById("student-plan-cards");
+    let ott = document.getElementById("ott-plan-cards");
+    let gaming = document.getElementById("gaming-plan-cards");
+    let wfh = document.getElementById("wfh-plan-cards");
+    let annual = document.getElementById("annual-plan-cards");
+    let shortterm = document.getElementById("short-term-plan-cards");
 
     allPlans.innerHTML = "";
     popular.innerHTML = "";
     validity.innerHTML = "";
     data_plans.innerHTML = "";
     unlimited.innerHTML = "";
+    streaming.innerHTML = "";
+    student.innerHTML = "";
+    ott.innerHTML = "";
+    gaming.innerHTML = "";
+    wfh.innerHTML = "";
+    annual.innerHTML = "";
+    shortterm.innerHTML = "";
 
     console.log(filteredPlans)
 
@@ -152,6 +207,13 @@ function displayFilteredPlans(filteredPlans) {
         if (plan.category === "Validity") validity.appendChild(card);
         if (plan.category === "Data") data_plans.appendChild(card);
         if (plan.category === "Unlimited") unlimited.appendChild(card);
+        if (plan.category === "Streaming") streaming.appendChild(card);
+        if (plan.category === "Gaming") gaming.appendChild(card);
+        if (plan.category === "OTT Subscriptions") ott.appendChild(card);
+        if (plan.category === "Student") student.appendChild(card);
+        if (plan.category === "Work From Home") wfh.appendChild(card);
+        if (plan.category === "Annual") annual.appendChild(card);
+        if (plan.category === "Short-term") shortterm.appendChild(card);
 
         if (popular.children.length == 0) {
             document.getElementById("popular-plans").classList.add("d-none");
@@ -165,6 +227,27 @@ function displayFilteredPlans(filteredPlans) {
         if (unlimited.children.length == 0) {
             document.getElementById("unlimited-plans").classList.add("d-none");
         }
+        if (annual.children.length == 0) {
+            document.getElementById("annual-plans").classList.add("d-none");
+        }
+        if (streaming.children.length == 0) {
+            document.getElementById("streaming-plans").classList.add("d-none");
+        }
+        if (student.children.length == 0) {
+            document.getElementById("student-plans").classList.add("d-none");
+        }
+        if (wfh.children.length == 0) {
+            document.getElementById("wfh-plans").classList.add("d-none");
+        }
+        if (ott.children.length == 0) {
+            document.getElementById("ott-plans").classList.add("d-none");
+        }
+        if (shortterm.children.length == 0) {
+            document.getElementById("short-term-plans").classList.add("d-none");
+        }
+        if (gaming.children.length == 0) {
+            document.getElementById("gaming-plans").classList.add("d-none");
+        }
 
     });
 }
@@ -176,6 +259,13 @@ function displayPlans(plans) {
     let data_plans = document.getElementById("data-plan-cards");
     let unlimited = document.getElementById("unlimited-plan-cards");
 
+    let streaming = document.getElementById("streaming-plan-cards");
+    let student = document.getElementById("student-plan-cards");
+    let ott = document.getElementById("ott-plan-cards");
+    let gaming = document.getElementById("gaming-plan-cards");
+    let wfh = document.getElementById("wfh-plan-cards");
+    let annual = document.getElementById("annual-plan-cards");
+    let shortterm = document.getElementById("short-term-plan-cards");
 
     plans.forEach(plan => {
         let card = document.createElement("div");
@@ -208,6 +298,13 @@ function displayPlans(plans) {
         if (plan.category === "Validity") validity.appendChild(card);
         if (plan.category === "Data") data_plans.appendChild(card);
         if (plan.category === "Unlimited") unlimited.appendChild(card);
+        if (plan.category === "Streaming") streaming.appendChild(card);
+        if (plan.category === "Gaming") gaming.appendChild(card);
+        if (plan.category === "OTT Subscriptions") ott.appendChild(card);
+        if (plan.category === "Student") student.appendChild(card);
+        if (plan.category === "Work From Home") wfh.appendChild(card);
+        if (plan.category === "Annual") annual.appendChild(card);
+        if (plan.category === "Short-term") shortterm.appendChild(card);
     });
 }
 
@@ -304,7 +401,6 @@ function searchPlans(searchInput){
             }
         }
     })
-    
-    document.getElementById("searchInput").value = "";
+
     displayFilteredPlans(filteredPlans);
 }

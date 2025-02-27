@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded" , function(){
         .then(user => {
             users = user;
         }); 
+
+    document.getElementById("mobile").addEventListener("input" , validate);
+    document.getElementById("mobile").addEventListener("change" , validate);
 });
 
 function isSubscriber(mobileNumber) {
@@ -23,7 +26,7 @@ function validate(){
    
     if (number == "") {
         errorField.innerText = "";
-        errorField.innerText = "Field cannot be empty!"
+        errorField.innerText = "Please Enter your mobi-comm mobile number!"
         return;
     }
     else if (number.length !== 10 || isNaN(number)) {
@@ -46,13 +49,19 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Show/hide button on scroll
 window.onscroll = function () {
     let btn = document.getElementById("goTopBtn");
-    if (document.documentElement.scrollTop > 600) {
-        btn.style.display = "block";
+    if (document.documentElement.scrollTop > 500) {
+        btn.classList.remove("d-none");
     } else {
-        btn.style.display = "none";
+        btn.classList.add("d-none");
+    }
+
+    let btn1 = document.getElementById("feedbackBtn");
+    if (document.documentElement.scrollTop > 2100) {
+        btn1.classList.remove("d-none");
+    } else {
+        btn1.classList.add("d-none");
     }
 };
 

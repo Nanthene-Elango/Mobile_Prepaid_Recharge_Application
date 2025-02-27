@@ -13,11 +13,7 @@ fetch('../assets/data/users.json')
 
 function displaySubscribers(subscribers) {
 
-    if (subscribers.length === 0) {
-        document.getElementById("filterResult").innerText = "No data found!";
-        return;
-    }
-    document.getElementById("filterResult").innerText = "";
+   
     const tableBody = document.getElementById("subscribersTable");
     tableBody.innerHTML = "";
     subscribers.forEach((subscribers) => {
@@ -45,6 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function showProfile(userid) {
+    let userDetail =  subscribers.filter(user => user.id === userid);
+    console.log(userDetail[0]);
+    sessionStorage.setItem("displayUser" , JSON.stringify(userDetail[0]));
+
     window.location.href = "./subscriberProfile.html";
 }
 

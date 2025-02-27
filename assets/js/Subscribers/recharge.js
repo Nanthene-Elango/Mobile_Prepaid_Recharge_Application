@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("changeBtn").classList.remove("d-none");
     }
 
+    document.getElementById("rechargeNumber").addEventListener("input" , validateNumber)
+    document.getElementById("rechargeNumber").addEventListener("change" , validateNumber)
 });
 
 function isSubscriber(mobileNumber) {
@@ -93,7 +95,7 @@ function saveNumber() {
 }
 
 function changeNumber() {
-    console.log("hello");
+   
     let rechargeInput = document.getElementById("rechargeNumber");
     rechargeInput.readOnly = false;
     rechargeInput.value = "";

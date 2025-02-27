@@ -1,0 +1,165 @@
+{
+    "plans": [
+      {"planid": 1, "category": "Popular", "data": "2GB/day", "validity": "28 days", "price": 299, "benefits": ["Unlimited Calls", "100 SMS/day", "Amazon Prime Subscription"]},
+      {"planid": 2, "category": "Popular", "data": "3GB/day", "validity": "28 days", "price": 399, "benefits": ["Unlimited Calls", "100 SMS/day", "Netflix Subscription"]},
+      {"planid": 3, "category": "Popular", "data": "1.5GB/day", "validity": "56 days", "price": 499, "benefits": ["Unlimited Calls", "200 SMS/day", "Hotstar Subscription"]},
+      {"planid": 4, "category": "Popular", "data": "2.5GB/day", "validity": "84 days", "price": 899, "benefits": ["Unlimited Calls", "300 SMS/day", "Spotify Premium"]},
+      {"planid": 5, "category": "Popular", "data": "2GB/day", "validity": "90 days", "price": 999, "benefits": ["Unlimited Calls", "200 SMS/day", "Amazon Music"]},
+      {"planid": 6, "category": "Popular", "data": "3GB/day", "validity": "60 days", "price": 899, "benefits": ["Unlimited Calls", "300 SMS/day", "Zee5 Premium"]},
+      {"planid": 7, "category": "Popular", "data": "2.5GB/day", "validity": "70 days", "price": 949, "benefits": ["Unlimited Calls", "100 SMS/day", "Gaana Plus"]},
+      {"planid": 8, "category": "Popular", "data": "3GB/day", "validity": "84 days", "price": 1299, "benefits": ["Unlimited Calls", "300 SMS/day", "Sony Liv Subscription"]},
+      {"planid": 9, "category": "Popular", "data": "4GB/day", "validity": "90 days", "price": 1499, "benefits": ["Unlimited Calls", "Unlimited SMS", "YouTube Premium"]},
+      {"planid": 10, "category": "Popular", "data": "5GB/day", "validity": "100 days", "price": 1799, "benefits": ["Unlimited Calls", "Unlimited SMS", "Disney+ Hotstar VIP"]},
+      
+      {"planid": 11, "category": "Data", "data": "10GB", "validity": "30 days", "price": 99, "benefits": ["High-speed 4G/5G access", "No voice or SMS"]},
+      {"planid": 12, "category": "Data", "data": "50GB", "validity": "30 days", "price": 361, "benefits": ["5G Priority Access", "Free Weekend Data"]},
+      {"planid": 13, "category": "Data", "data": "25GB", "validity": "45 days", "price": 199, "benefits": ["High-speed 5G Access", "Bonus Night Data"]},
+      {"planid": 14, "category": "Data", "data": "100GB", "validity": "60 days", "price": 499, "benefits": ["5G Premium Access", "Streaming Boost"]},
+      {"planid": 15, "category": "Data", "data": "200GB", "validity": "90 days", "price": 999, "benefits": ["Unlimited Night Data", "Cloud Storage"]},
+      {"planid": 16, "category": "Data", "data": "5GB/day", "validity": "30 days", "price": 249, "benefits": ["High-speed 5G", "Zero-speed Throttle"]},
+      {"planid": 17, "category": "Data", "data": "10GB/day", "validity": "60 days", "price": 599, "benefits": ["Gaming Boost", "Exclusive Network Access"]},
+      {"planid": 18, "category": "Data", "data": "Unlimited", "validity": "7 days", "price": 199, "benefits": ["No Speed Restrictions", "Includes Free SMS"]},
+      {"planid": 19, "category": "Data", "data": "150GB", "validity": "120 days", "price": 1199, "benefits": ["High-speed Data", "International Roaming Addon"]},
+      {"planid": 20, "category": "Data", "data": "Unlimited", "validity": "30 days", "price": 999, "benefits": ["No FUP", "Premium Support"]},
+
+      {"planid": 21, "category": "Work From Home", "data": "1GB/day", "validity": "30 days", "price": 211, "benefits": ["Double data on weekdays", "Zoom & Teams Data Pack"]},
+      {"planid": 22, "category": "Work From Home", "data": "2GB/day", "validity": "56 days", "price": 599, "benefits": ["Work & Study Apps Free", "Free VPN Access"]},
+      {"planid": 23, "category": "Work From Home", "data": "3GB/day", "validity": "90 days", "price": 999, "benefits": ["Priority Network", "Free International Calls"]},
+      {"planid": 24, "category": "Work From Home", "data": "Unlimited", "validity": "120 days", "price": 1299, "benefits": ["Exclusive Business Network", "Free Zoom Pro"]},
+      {"planid": 25, "category": "Work From Home", "data": "500GB", "validity": "180 days", "price": 1999, "benefits": ["5G Priority Access", "Free Cloud Storage"]},
+      {"planid": 26, "category": "Work From Home", "data": "5GB/day", "validity": "30 days", "price": 349, "benefits": ["High-speed Video Calls", "Free Office 365"]},
+      {"planid": 27, "category": "Work From Home", "data": "750GB", "validity": "365 days", "price": 2999, "benefits": ["Dedicated Support", "Microsoft Teams Pro"]},
+      {"planid": 28, "category": "Work From Home", "data": "1TB", "validity": "365 days", "price": 4999, "benefits": ["Unlimited Premium Data", "Business Suite"]},
+      {"planid": 29, "category": "Work From Home", "data": "3GB/day", "validity": "150 days", "price": 1799, "benefits": ["Secure VPN", "Free Remote Desktop"]},
+      {"planid": 30, "category": "Work From Home", "data": "Unlimited", "validity": "180 days", "price": 2399, "benefits": ["Best for Professionals", "Free Conference Hosting"]},
+
+      {"planid": 31, "category": "Annual", "data": "2GB/day", "validity": "365 days", "price": 2399, "benefits": ["Unlimited Calls", "100 SMS/day", "Amazon Prime Subscription"]},
+    {"planid":31, "category": "Annual", "data": "3GB/day", "validity": "365 days", "price": 2999, "benefits": ["Unlimited Calls", "100 SMS/day", "Netflix Subscription"]},
+    {"planid": 33, "category": "Annual", "data": "1.5GB/day", "validity": "365 days", "price": 1999, "benefits": ["Unlimited Calls", "200 SMS/day", "Hotstar Subscription"]},
+    {"planid": 34, "category": "Annual", "data": "Unlimited", "validity": "365 days", "price": 3599, "benefits": ["Unlimited Calls", "Unlimited SMS", "5G Priority Access"]},
+    {"planid": 35, "category": "Annual", "data": "4GB/day", "validity": "365 days", "price": 3299, "benefits": ["Unlimited Calls", "300 SMS/day", "Zee5 Premium"]},
+    {"planid": 36, "category": "Annual", "data": "5GB/day", "validity": "365 days", "price": 3999, "benefits": ["Unlimited Calls", "Unlimited SMS", "YouTube Premium"]},
+    {"planid": 37, "category": "Annual", "data": "3GB/day", "validity": "365 days", "price": 2899, "benefits": ["Unlimited Calls", "300 SMS/day", "Sony Liv Subscription"]},
+    {"planid": 38, "category": "Annual", "data": "6GB/day", "validity": "365 days", "price": 4499, "benefits": ["Unlimited Calls", "Unlimited SMS", "Gaming Booster"]},
+    {"planid": 39, "category": "Annual", "data": "7GB/day", "validity": "365 days", "price": 4999, "benefits": ["Unlimited Calls", "Unlimited SMS", "Disney+ Hotstar VIP"]},
+    {"planid": 40, "category": "Annual", "data": "Unlimited", "validity": "365 days", "price": 5999, "benefits": ["Unlimited Calls", "Unlimited SMS", "5G Ultra Speed"]},
+    
+    {"planid": 41, "category": "Short-term", "data": "2GB/day", "validity": "10 days", "price": 109, "benefits": ["Unlimited Calls", "100 SMS/day"]},
+    {"planid": 42, "category": "Short-term", "data": "5GB", "validity": "7 days", "price": 49, "benefits": ["No Calls", "Data Only"]},
+    {"planid": 43, "category": "Short-term", "data": "3GB/day", "validity": "15 days", "price": 199, "benefits": ["Unlimited Calls", "200 SMS/day"]},
+    {"planid": 44, "category": "Short-term", "data": "Unlimited", "validity": "3 days", "price": 79, "benefits": ["Unlimited Calls", "Unlimited SMS"]},
+  
+    {"planid": 45, "category": "Streaming", "data": "10GB/day", "validity": "30 days", "price": 349, "benefits": ["Netflix Access", "YouTube Premium"]},
+    {"planid": 46, "category": "Streaming", "data": "5GB/day", "validity": "30 days", "price": 299, "benefits": ["Disney+ Hotstar VIP", "Amazon Prime Video"]},
+
+    {
+        "planid": 47,
+        "category": "Unlimited",
+        "data": "2.5GB/day",
+        "validity": "365 days",
+        "price": 3599,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 48,
+        "category": "Unlimited",
+        "data": "2.5GB/day",
+        "validity": "365 days",
+        "price": 3999,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 49,
+        "category": "Unlimited",
+        "data": "2.5GB/day",
+        "validity": "84 days",
+        "price": 1199,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 50,
+        "category": "Unlimited",
+        "data": "2GB/day",
+        "validity": "84 days",
+        "price": 979,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 51,
+        "category": "Unlimited",
+        "data": "1.5GB/day",
+        "validity": "90 days",
+        "price": 929,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 52,
+        "category": "Unlimited",
+        "data": "1.5GB/day",
+        "validity": "84 days",
+        "price": 859,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 53,
+        "category": "Unlimited",
+        "data": "3GB/day",
+        "validity": "56 days",
+        "price": 838,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 54,
+        "category": "Unlimited",
+        "data": "2GB/day",
+        "validity": "56 days",
+        "price": 649,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 55,
+        "category": "Unlimited",
+        "data": "1.5GB/day",
+        "validity": "60 days",
+        "price": 619,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 56,
+        "category": "Unlimited",
+        "data": "3GB/day",
+        "validity": "28 days",
+        "price": 549,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {"planid": 57, "category": "Student", "data": "1GB/day", "validity": "30 days", "price": 199, "benefits": ["Unlimited Calls", "50 SMS/day", "Free Access to Educational Apps"]},
+    {"planid": 58, "category": "Student", "data": "2GB/day", "validity": "60 days", "price": 499, "benefits": ["Unlimited Calls", "100 SMS/day", "Amazon Prime Subscription"]},
+
+
+    {"planid": 59, "category": "OTT Subscriptions", "data": "2GB/day", "validity": "28 days", "price": 299, "benefits": ["Unlimited Calls", "100 SMS/day", "Netflix Subscription"]},
+    {"planid": 60, "category": "OTT Subscriptions", "data": "3GB/day", "validity": "28 days", "price": 399, "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar VIP"]},
+    {"planid": 61, "category": "OTT Subscriptions", "data": "1.5GB/day", "validity": "56 days", "price": 499, "benefits": ["Unlimited Calls", "200 SMS/day", "Hotstar Subscription"]},
+    {"planid": 62, "category": "OTT Subscriptions", "data": "3GB/day", "validity": "60 days", "price": 899, "benefits": ["Unlimited Calls", "300 SMS/day", "Zee5 Premium"]},
+
+    {"planid": 63, "category": "Gaming", "data": "2.5GB/day", "validity": "30 days", "price": 599, "benefits": ["Unlimited Calls", "200 SMS/day", "Gaming Booster"]},
+    {"planid": 64, "category": "Gaming", "data": "5GB/day", "validity": "90 days", "price": 1299, "benefits": ["Unlimited Calls", "Unlimited SMS", "Exclusive Game Access"]},
+    {"planid": 65, "category": "Gaming", "data": "Unlimited", "validity": "365 days", "price": 4999, "benefits": ["Unlimited Calls", "Unlimited SMS", "5G Ultra Speed"]},
+    {
+        "planid": 66,
+        "category": "Validity",
+        "data": "1.5GB/day",
+        "validity": "365 days",
+        "price": 999,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      },
+      {
+        "planid": 67,
+        "category": "Validity",
+        "data": "500MB/day",
+        "validity": "56 days",
+        "price": 179,
+        "benefits": ["Unlimited Calls", "100 SMS/day", "Disney+ Hotstar Subscription"]
+      }
+    ]
+  }
+  

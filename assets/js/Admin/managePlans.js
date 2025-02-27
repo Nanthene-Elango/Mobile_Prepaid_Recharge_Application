@@ -1,7 +1,7 @@
 let plansData = [];
-let categories = ["Data", "Validity", "Unlimited", "Popular"];
+let categories = ["Data", "Validity", "Unlimited", "Popular" , "Student" , "Work from home" , "Streaming" , "Gaming" , "OTT Subscription" , "Short-Term" , "Annual"];
 
-fetch('../assets/data/plans.json')
+fetch('../assets/data/updatedPlans.json')
     .then(response => response.json())
     .then(data => {
         plansData = data.plans;
@@ -127,7 +127,7 @@ function addCategory() {
     const newCategory = document.getElementById("newCategory").value.trim();
     if (newCategory && !categories.includes(newCategory)) {
         categories.push(newCategory);
-        addCategoryTab(newCategory);
+        // addCategoryTab(newCategory);
         loadCategories();
         document.getElementById("newCategory").value = "";
         showToast(`Category "${newCategory}" added successfully!`, "success");
