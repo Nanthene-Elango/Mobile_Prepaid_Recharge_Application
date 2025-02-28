@@ -184,7 +184,7 @@ function displayFilteredPlans(filteredPlans) {
             <div class="col-12 card-body d-flex flex-column my-1 p-4">
                 <div class="col-12 d-flex justify-content-between">
                     <div class="d-flex justify-content-between col-10">
-                        <div><strong>Rs. ${plan.price}</strong><br>Unlimited Calls</div>
+                        <div><strong>Rs. ${plan.price}</strong><br>Price</div>
                         <div><strong>${plan.data}</strong><br>Data</div>
                         <div><strong>${plan.validity}</strong><br>Validity</div>
                     </div>
@@ -275,7 +275,7 @@ function displayPlans(plans) {
             <div class="col-12 card-body d-flex flex-column my-1 p-4">
                 <div class="col-12 d-flex justify-content-between">
                     <div class="d-flex justify-content-between col-10">
-                        <div><strong>Rs. ${plan.price}</strong><br>Unlimited Calls</div>
+                        <div><strong>Rs. ${plan.price}</strong><br>Price</div>
                         <div><strong>${plan.data}</strong><br>Data</div>
                         <div><strong>${plan.validity}</strong><br>Validity</div>
                     </div>

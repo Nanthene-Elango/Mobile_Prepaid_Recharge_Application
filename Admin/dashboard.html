@@ -23,7 +23,10 @@
         rel="stylesheet">
 
     <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
     <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <!-- jQuery and Bootstrap Bundle -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,6 +34,9 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <!--charts-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -40,20 +46,37 @@
     <!-- Include SweetAlert2 (Add this to your HTML head) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+
+    <!--Custom files-->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/Admin/index.css">
     <script src="../assets/js/Admin/dashboard.js"></script>
+    <link rel="stylesheet" href="../assets/js/Admin/util.js">
+
 
     <style>
-        .stats a{
+        .stats a {
             text-decoration: none;
             box-shadow: 1px 2px 10px darkgrey;
-            border-radius: 5px;background-color: white;
-            color: rgb(0, 32, 96); 
+            border-radius: 5px;
+            background-color: white;
+            color: rgb(0, 32, 96);
             transition: transform 0.2s ease-in-out;
         }
-        .stats a:hover{
+
+        .stats a:hover {
             transform: scale(1.04);
+        }
+
+        table {
+            border-collapse: collapse;
         }
     </style>
 </head>
@@ -63,36 +86,34 @@
     <!-- Sidebar -->
     <div id="main-sidebar" class="d-none d-md-block sidebar">
         <a href="../index.html"><img src="../assets/img/Logo.png" alt="Logo" class="m-3" style="height: 60px;"></a>
-        <ul class="nav flex-column">
-            <li class="nav-item my-2 mx-3"><a href="./dashboard.html" class="nav-link"><i class="fas fa-line-chart"></i>
-                    Dashboard</a>
-            </li>
-            <li class="nav-item my-2 mx-3"><a href="./managePlans.html" class="nav-link"><i class="fas fa-cog"></i>
-                    Manage Plans
-                </a>
-            </li>
-            <li class="nav-item my-2 mx-3">
-                <a href="./subscribers.html" class="nav-link"><i class="fas fa-users"></i>
-                    Subscribers</a>
-            </li>
-            <li id="group" class="nav-item my-2 mx-2">
-                <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
-                <a href="./notifications.html" class="nav-link ms-2"><i class="fas fa-bell"></i>
-                    Notifications</a>
-            </li>
-        </ul>
-
-        <li class="nav-item dropdown list-unstyled my-2 mx-3" id="accountMenu">
-            <a class="nav-link ms-2 p-2" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="fa fa-user-circle fa-2x"></i>
-                <span>Admin <i class="fa-solid fa-caret-down"></i> </span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-start">
-                <li><a class="dropdown-item" href="./profile">Profile</a></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+        <div class="d-flex flex-column justify-content-between" style="height: 600px;">
+            <ul class="nav flex-column">
+                <li class="nav-item my-2 mx-3">
+                    <a href="./dashboard.html" class="nav-link active"><i class="fas fa-line-chart"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item my-2 mx-3">
+                    <a href="./managePlans.html" class="nav-link"><i class="fas fa-cog"></i>
+                        Manage Plans
+                    </a>
+                </li>
+                <li class="nav-item my-2 mx-3">
+                    <a href="./subscribers.html" class="nav-link"><i class="fas fa-users"></i>
+                        Subscribers
+                    </a>
+                </li>
+                <li id="group" class="nav-item my-2 mx-2">
+                    <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
+                    <a href="./support.html" class="nav-link ms-2"><i class="fas fa-headset"></i>
+                        Support
+                    </a>
+                </li>
             </ul>
-        </li>
+            <a href="./index.html" class="btn my-2 mx-4" style="background-color: rgb(0, 32, 96);color: aliceblue;">
+                <i class="fas fa-sign-out"></i><span> Logout</span>
+            </a>
+        </div>
     </div>
 
     <!-- Mobile Sidebar (Offcanvas) -->
@@ -103,7 +124,7 @@
         </div>
         <div class="offcanvas-body flex-column justify-content-between">
             <ul class="nav flex-column">
-                <li class="nav-item my-2 mx-3"><a href="./dashboard.html" class="nav-link"><i
+                <li class="nav-item my-2 mx-3"><a href="./dashboard.html" class="nav-link active"><i
                             class="fas fa-line-chart"></i>
                         Dashboard</a>
                 </li>
@@ -115,8 +136,8 @@
                         Subscribers</a></li>
                 <li id="group" class="nav-item my-2 mx-2">
                     <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
-                    <a href="./subscribers.html" class="nav-link ms-2"><i class="fa-regular fa-bell"></i>
-                        Notifications</a>
+                    <a href="#" class="nav-link ms-2"><i class="fas fa-headset"></i>
+                        Support</a>
                 </li>
             </ul>
             <li class="nav-item dropdown list-unstyled my-2 mx-3" id="accountMenu">
@@ -126,7 +147,7 @@
                     <span>Admin <i class="fa-solid fa-caret-down"></i> </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-start">
-                    <li><a class="dropdown-item" href="./profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="./adminProfile.html">Profile</a></li>
                     <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
                 </ul>
             </li>
@@ -134,9 +155,28 @@
     </div>
 
     <!-- Page Content -->
-    <div id="content" style="min-height: 800px;">
-        <button class="btn btn-light d-md-none mb-4" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">☰
-            Menu</button>
+    <div id="content">
+        <button class="btn btn-primary d-md-none m-4" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">☰
+            Menu
+        </button>
+
+        <!--nav bar-->
+        <nav class=" container-fluid d-md-flex flex-row-reverse sticky-top d-none"
+            style="background-color: white; box-shadow: 1px 2px 10px gainsboro;">
+            <li class="nav-item dropdown list-unstyled my-2 mx-3" id="accountMenu">
+                <a class="nav-link ms-2 p-2" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <div class="d-flex">
+                        <i class="fa fa-user-circle fa-2x me-1"></i>
+                        <span class="d-flex justify-content-center align-items-center">Admin <i class="fa-solid fa-caret-down ms-1"></i> </span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-start">
+                    <li><a class="dropdown-item" href="./adminProfile.html">Profile</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </li>
+        </nav>
 
         <!--Dashboard-->
         <div class="container">
@@ -144,190 +184,203 @@
                 <div class="col-md-7 col-11 d-flex flex-column">
                     <div class="col-12 d-flex justify-content-evenly stats">
                         <a href="./subscribers.html" class="col-5  my-3 p-3">
-                            <h2>1K</h2>
+                            <h2>2000</h2>
                             <h6>Active Subscribers</h6>
                         </a>
 
-                        <a class="col-5  my-3 p-3">
-                            <h2>500+</h2>
-                            <h6>Active Plan Users</h6>
+                        <a href="./subscribers.html" class="col-5  my-3 p-3">
+                            <h2>100</h2>
+                            <h6>Inactive Subscribers</h6>
                         </a>
+                    </div>
+
+
+                    <div class="col-12 d-flex justify-content-evenly stats">
+                        <a href="#exampleTable" class="col-5  my-3 p-3">
+                            <h2>100</h2>
+                            <h6>Users Expiry nearing</h6>
+                        </a>
+
+                        <a href="./managePlans.html" class="col-5 p-3 my-3">
+                            <h2>50</h2>
+                            <h6>Plans Available</h6>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-11  my-2 p-4 d-flex flex-column justify-content-center align-items-center"
+                    style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 300px;">
+                    <label for="myLineChart" class="text-dark text-center my-2">
+                        <h5>Recharge Growth Rate</h5>
+                    </label>
+                    <canvas id="myLineChart"></canvas>
                 </div>
 
 
-                <div class="col-12 d-flex justify-content-evenly stats">
-                    <a class="col-5  my-3 p-3">
-                        <h2>100</h2>
-                        <h6>Users Expiry nearing</h6>
-                    </a>
+            </div>
 
-                    <a class="col-5 p-3 my-3">
-                        <h2>50</h2>
-                        <h6>Plans Available</h6>
-                    </a>
+            <div class="d-flex flex-column flex-lg-row justify-content-evenly align-items-center">
+                <div class="col-lg-7 my-2 p-4 col-11 d-flex flex-column justify-content-center align-items-center"
+                    style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 500px;">
+                    <label for="myChart" class="text-dark text-center my-2">
+                        <h5>Subscribers Growth Rate</h5>
+                    </label>
+                    <canvas id="myChart"></canvas>
                 </div>
-            </div>
-            <div class="col-lg-5 col-11  my-2 p-4 d-flex justify-content-center align-items-center"
-                style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 250px;">
-                <canvas id="myLineChart"></canvas>
-            </div>
+                <div class="col-lg-4 col-11 my-2 p-4 d-flex flex-column justify-content-center align-items-center"
+                    style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 500px;">
+                    <label for="myPieChart1" class="text-dark text-center my-2">
+                        <h5>Plans Recharged</h5>
+                    </label>
+                    <canvas id="myPieChart1"></canvas>
+                </div>
 
-
-        </div>
-
-        <div class="d-flex flex-column flex-lg-row justify-content-evenly align-items-center">
-            <div class="col-lg-8 my-2 p-4 col-11 d-flex justify-content-center"
-                style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 300px;">
-                <canvas id="myChart"></canvas>
-            </div>
-            <div class="col-lg-3 col-11 my-2 p-4 d-flex flex-column justify-content-center align-items-center"
-                style="box-shadow: 1px 2px 10px darkgrey;border-radius: 5px;background-color: white;height: 300px;">
-                <label for="myPieChart1" class="text-dark text-center my-2"><strong>Plans Recharged</strong></label>
-                <canvas id="myPieChart1"></canvas>
             </div>
 
-        </div>
+            <div class="card m-4">
+                <div class="card-header">
+                    <h5 class="p-1">Users Nearing Expiry</h5>
+                </div>
+                <div class="m-3 d-flex justify-content-end">
+                    <button id="exportCSV" class="btn btn-primary"><i class="fas fa-download"></i> Export to
+                        CSV</button>
+                </div>
+                <div class="card-body table-container">
+                    <table id="exampleTable" class="table table-bordered p-2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Mobile Number</th>
+                                <th>Plan Details</th>
+                                <th>Recharge Date</th>
+                                <th>Expiry Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
+                            </tr>
+                            <tr>
+                                <td>Alice</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
+                            </tr>
+                            <tr>
+                                <td>Harry</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Peter</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Smith</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Charlie</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Nixen</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
 
-        <div class="card m-4">
-            <div class="card-header">
-                <h5 class="p-1">Users Nearing Expiry</h5>
-            </div>
-            <div class="card-body table-container">
-                <table id="exampleTable" class="table table-striped table-bordered p-2" style="width:100%;">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Mobile Number</th>
-                            <th>Plan Details</th>
-                            <th>Recharge Date</th>
-                            <th>Expiry Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>John</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
-                        </tr>
-                        <tr>
-                            <td>Alice</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
-                        </tr>
-                        <tr>
-                            <td>Harry</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Peter</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Smith</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Charlie</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Nixen</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
+                            <tr>
+                                <td>John</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Alice</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
+                            </tr>
+                            <tr>
+                                <td>Harry</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Peter</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Smith</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Charlie</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                            <tr>
+                                <td>Nixen</td>
+                                <td>+91 1234567890</td>
+                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
+                                <td>04 Mar 2023 11:30:45</td>
+                                <td>24 Mar 2023 11:30:45</td>
+                                <td><button class="btn btn-primary">View Profile</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                        <tr>
-                            <td>John</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Alice</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
-                        </tr>
-                        <tr>
-                            <td>Harry</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Peter</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Smith</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Charlie</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                        <tr>
-                            <td>Nixen</td>
-                            <td>+91 1234567890</td>
-                            <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                            <td>04 Mar 2023 11:30:45</td>
-                            <td>24 Mar 2023 11:30:45</td>
-                            <td><button class="btn btn-primary">View Profile</button></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
 
         </div>
-
-    </div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

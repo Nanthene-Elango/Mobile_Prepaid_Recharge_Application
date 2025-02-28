@@ -26,16 +26,25 @@ function displaySubscribers(subscribers) {
                 <td>${subscribers.email_id}</td>
                 <td>${subscribers.dob}</td>
                 <td>${subscribers.address}</td>
-                <td id ="status">${subscribers.status}</td>
+                <td id ="status${subscribers.id}">${subscribers.status}</td>
                 <td>
                     <button class="btn btn-primary" onclick="showProfile(${subscribers.id})">view</button>
                 </td>
             </tr>`;
+            setColor(subscribers.status , subscribers.id);
         }
 
     });
 }
 
+function setColor(status , id){
+    if (status === "active"){
+        document.getElementById(`status${id}`).style.color = "green";
+    }
+    else{
+        document.getElementById(`status${id}`).style.color = "red";
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
     displaySubscribers(subscribers);
 })

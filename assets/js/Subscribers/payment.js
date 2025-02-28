@@ -51,96 +51,99 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = './recharge.html';
     })
 
-    document.getElementById("cardNumber").addEventListener("change" , validateCard);
-    document.getElementById("mm").addEventListener("change" , validateMM);
-    document.getElementById("yy").addEventListener("change" , validateYY);
-    document.getElementById("cvv").addEventListener("change" , validateCVV);
+    document.getElementById("cardNumber").addEventListener("change", validateCard);
+    document.getElementById("mm").addEventListener("change", validateMM);
+    document.getElementById("yy").addEventListener("change", validateYY);
+    document.getElementById("cvv").addEventListener("change", validateCVV);
 
-    document.getElementById("cardNumber").addEventListener("input" , validateCard);
-    document.getElementById("mm").addEventListener("input" , validateMM);
-    document.getElementById("yy").addEventListener("input" , validateYY);
-    document.getElementById("cvv").addEventListener("input" , validateCVV);
+    document.getElementById("cardNumber").addEventListener("input", validateCard);
+    document.getElementById("mm").addEventListener("input", validateMM);
+    document.getElementById("yy").addEventListener("input", validateYY);
+    document.getElementById("cvv").addEventListener("input", validateCVV);
 
-    document.getElementById("upiInput").addEventListener("input" , ()=>{
+    document.getElementById("upiInput").addEventListener("input", () => {
         console.log(document.getElementById("upiInput").value);
-        if (document.getElementById("upiInput").value == ""){
+        if (document.getElementById("upiInput").value == "") {
             document.getElementById("upiVerify").disabled = true;
-            document.getElementById("error-upi").textContent = "Enter valid UPI ID!"
+            document.getElementById("error-upi").textContent = "UPI ID is required!"
         }
-        else{
+        else if (!(new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+$').test(document.getElementById("upiInput").value))) {
+            document.getElementById("upiVerify").disabled = true;
+            document.getElementById("error-upi").textContent = "Enter a valid UPI ID!";
+        }
+        else {
             document.getElementById("error-upi").textContent = "";
             document.getElementById("upiVerify").disabled = false;
         }
-        
     })
 })
 
-function validateCard(){
-   let cardNumber = document.getElementById("cardNumber").value;
-   let errorFeild = document.getElementById("error-card");
-   if (cardNumber === ""){
-    errorFeild.innerText = "Please fill your card number!";
-    return false;
-   }
-   else if (isNaN(cardNumber)){
-    errorFeild.innerText = "card number must contains only digits!";
-    return false;
-   }
-   else if(cardNumber.length !== 16){
-    errorFeild.innerText = "Enter a valid 16 digit card number!";
-    return false;
-   }
-   else{
-    errorFeild.innerText = "";
-    return true;
-   }
+function validateCard() {
+    let cardNumber = document.getElementById("cardNumber").value;
+    let errorFeild = document.getElementById("error-card");
+    if (cardNumber === "") {
+        errorFeild.innerText = "Please fill your card number!";
+        return false;
+    }
+    else if (isNaN(cardNumber)) {
+        errorFeild.innerText = "card number must contains only digits!";
+        return false;
+    }
+    else if (cardNumber.length !== 16) {
+        errorFeild.innerText = "Enter a valid 16 digit card number!";
+        return false;
+    }
+    else {
+        errorFeild.innerText = "";
+        return true;
+    }
 }
 
-function validateMM(){
+function validateMM() {
     let mm = document.getElementById("mm").value;
     let errorField = document.getElementById("error-mm");
-    if (mm === ""){
+    if (mm === "") {
         errorField.innerText = "MM is Required!";
     }
-    else if (!(mm.charAt(0) === '0' || mm.charAt(0) === '1')){
+    else if (!(mm.charAt(0) === '0' || mm.charAt(0) === '1')) {
         errorField.innerText = "Enter a valid month between ('01' - '12')";
     }
-    else if(isNaN(mm) || mm.length !== 2){
+    else if (isNaN(mm) || mm.length !== 2) {
         errorField.innerText = "Enter a valid month 'MM'";
     }
-    else{
+    else {
         errorField.innerText = "";
         return true;
     }
     return false;
 
 }
-function validateYY(){
+function validateYY() {
     let yy = document.getElementById("yy").value;
     let errorField = document.getElementById("error-yy");
-    if (yy === ""){
+    if (yy === "") {
         errorField.innerText = "YY is Required!";
     }
-    else if(isNaN(yy) || yy.length !== 2){
+    else if (isNaN(yy) || yy.length !== 2) {
         errorField.innerText = "Enter a valid year 'YY'";
     }
-    else{
+    else {
         errorField.innerText = "";
         return true;
     }
     return false;
 }
 
-function validateCVV(){
+function validateCVV() {
     let cvv = document.getElementById("cvv").value;
     let errorField = document.getElementById("error-cvv");
-    if (cvv === ""){
+    if (cvv === "") {
         errorField.innerText = "CVV is Required!";
     }
-    else if(isNaN(cvv) || cvv.length !== 3){
+    else if (isNaN(cvv) || cvv.length !== 3) {
         errorField.innerText = "Enter a valid 3 digit CVV";
     }
-    else{
+    else {
         errorField.innerText = "";
         return true;
     }
@@ -148,6 +151,16 @@ function validateCVV(){
 
 }
 
+function validateBank() {
+    if (document.getElementById("bank").value === "") {
+        document.getElementById("error-bank").innerText = "Please choose a bank to proceed!";
+        return false;
+    }
+    else {
+        document.getElementById("error-bank").innerText = "";
+        return true;
+    }
+}
 function processPayment(paymentMethod) {
 
     document.getElementById("payment_form1").addEventListener("submit", function (event) {
@@ -156,13 +169,25 @@ function processPayment(paymentMethod) {
     document.getElementById("payment_form2").addEventListener("submit", function (event) {
         event.preventDefault();
     })
+    document.getElementById("payment_form3").addEventListener("submit", function (event) {
+        event.preventDefault();
+    })
 
-    if (paymentMethod === "Credit/Debit Card"){
-        if (!(validateCard() && validateMM() && validateYY() && validateCVV())){
+
+    if (paymentMethod === "Credit/Debit Card") {
+        if (!(validateCard() && validateMM() && validateYY() && validateCVV())) {
             return;
         }
     }
 
+    if (paymentMethod === "Net Banking") {
+        if (validateBank()){
+            sessionStorage.setItem("bank", document.getElementById("bank").value);
+        }
+        else{
+            return;
+        }
+    }
     sessionStorage.setItem("paymentMethod", paymentMethod)
     Swal.fire({
         title: "Processing Payment...",
@@ -223,7 +248,7 @@ function showInvoice() {
             downloadInvoicePDF(paymentMethod);
         }
         else {
-           redirect();
+            redirect();
         }
     });
 }

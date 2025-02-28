@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded" , ()=>{
     new Chart(chart, {
         type: 'pie',
         data: {
-            labels: ['Data', 'Validity', 'Unlimited', 'Popular'],
+            labels: ["Data", "Validity", "Unlimited", "Popular" , "Student" , "Work from home" , "Streaming" , "Gaming" , "OTT Subscription" , "Short-Term" , "Annual"],
             datasets: [{
-                data: [20, 25, 15, 30],
+                data: [5 , 2 , 10 , 20 , 25 , 5 , 5 , 5 , 10 , 18],
                 backgroundColor: ['#1E88E5', '#64B5F6', '#90CAF9', '#BBDEFB']
                 ,
             }]
@@ -50,15 +50,28 @@ document.addEventListener("DOMContentLoaded" , ()=>{
             responsive: true
         }
     });
+
+    new DataTable("#exampleTable");
+
+    
+    // var table = new DataTable("#exampleTable", {
+    //     paging: true,
+    //     searching: true,
+    //     ordering: true,
+    //     info: true,
+    //     lengthChange: true,
+    //     pageLength: 10,
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         {
+    //             extend: 'csvHtml5',
+    //             text: 'Export to CSV',
+    //             title: 'Subscriber Feedback & Issues'
+    //         }
+    //     ]
+    // });
+
+    // document.getElementById("exportCSV").addEventListener("click", function () {
+    //     table.button('.buttons-csv').trigger();
+    // });
 })
-
-
-$(document).ready(function () {
-    $('#exampleTable').DataTable();
-});
-
-
-function logout() {
-    sessionStorage.removeItem("adminUser");
-    window.location.href = '../Admin/index.html';
-}

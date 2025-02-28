@@ -21,7 +21,7 @@
       "role": "user",
       "username": "",
       "password": "",
-      "status": "active"
+      "status": "inactive"
     },
     {
       "id": 3,
@@ -33,7 +33,7 @@
       "role": "user",
       "username": "",
       "password": "",
-      "status": "active"
+      "status": "inactive"
     },
     {
       "id": 4,
@@ -105,7 +105,7 @@
       "role": "user",
       "username": "",
       "password": "",
-      "status": "active"
+      "status": "inactive"
     },
     {
       "id": 10,

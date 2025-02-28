@@ -82,10 +82,7 @@ abbr:hover::after {
 /* Content */
 #content {
     margin-left: 250px;
-    padding: 20px;
     transition: margin-left 0.3s;
-    /* background-color: rgb(0, 32, 96); */
-    /* color: aliceblue; */
 }
 
 .badge {
@@ -135,9 +132,13 @@ abbr:hover::after {
 .dataTables_filter input {
     outline: none;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 20px;
+    border-color: gainsboro;
 }
 
+.dataTables_filter input:hover{
+    border-color:  rgb(0, 32, 96);
+}
 /* Header Row */
 .dataTables_wrapper thead th {
     background: rgb(0, 32, 96);

@@ -6,6 +6,17 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("navbarContainer").innerHTML = data;
             checkLoginStatus();
             setupLogout();
+            const navLinks = document.querySelectorAll(".navbar-link");
+            console.log(navLinks);
+            const currentPath = window.location.pathname; 
+
+            navLinks.forEach(link => {
+                if (link.getAttribute("href").includes(currentPath)) {
+                    document.querySelectorAll(".navbar-link").forEach(nav => nav.classList.remove("active"));
+                    link.classList.add("active"); 
+                }
+            });
+    
         });
 });
 
@@ -37,7 +48,7 @@ function setupLogout() {
             sessionStorage.removeItem("rechargeNumber");
             sessionStorage.removeItem("rechargeUser");
             setTimeout(() => {
-                window.location.href = "../index.html"; 
+                window.location.href = "../index.html";
             }, 500);
         });
     }

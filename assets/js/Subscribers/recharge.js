@@ -52,8 +52,6 @@ function isSubscriber(mobileNumber) {
     return false;
 }
 
-
-
 function validateNumber() {
 
     let number = document.getElementById("rechargeNumber").value;

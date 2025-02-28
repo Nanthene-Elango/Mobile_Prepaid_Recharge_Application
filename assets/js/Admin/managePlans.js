@@ -6,7 +6,7 @@ fetch('../assets/data/updatedPlans.json')
     .then(data => {
         plansData = data.plans;
         displayPlans(plansData);
-        // loadCategories();
+        loadCategories();
         $(document).ready(function () {
             $('#planTable').DataTable();
         });

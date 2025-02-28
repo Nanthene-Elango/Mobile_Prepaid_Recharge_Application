@@ -16,6 +16,9 @@
     width: 100%;
 }
 
+button{
+    background-color: #a0a0a0;
+}
 .toast {
     visibility: hidden;
 }

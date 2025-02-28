@@ -1,0 +1,33 @@
+.navbar-link {
+    position: relative;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: rgb(0, 32, 96) ; /* Blue underline */
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+/* Hover effect */
+.navbar-link:hover::after {
+    width: 100%;
+}
+
+/* Active state */
+.navbar-link.active {
+    color: rgb(0, 32, 96) !important; /* Change text color */
+    font-weight: bold;
+}
+
+.navbar-link.active::after {
+    width: 100%;
+}

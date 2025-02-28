@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- <script src="script.js"></script> -->
     <script src="../assets/js/Subscribers/util.js"></script>
+    <link rel="stylesheet" href="../assets/css/Subscribers/util.css">
     <script src="../assets/js/Subscribers/profile.js"></script>
     <title>Profile</title>
     <style>
@@ -139,8 +140,11 @@
                             <div class="text-left pt-3">
                                 <div class="pb-2"><i class="fa-solid fa-phone pe-3"></i><span id="userNumber"></span>
                                 </div>
-                                <div class="pb-2"><i class="fa-solid fa-envelope pe-3"></i><span id="userEmail">
+                                <div class="d-flex justify-content-between">
+                                    <div class="pb-2"><i class="fa-solid fa-envelope pe-3"></i><span id="userEmail">
                                     </span></div>
+                                    <a onclick="editEmail()"><i class="fas fa-edit"></i></a>
+                                </div>
                                 <div class="pb-2"><i class="fa-solid fa-cake pe-3"></i><span id="userDOB"></span></div>
                                 <div class=""><i class="fa-solid fa-home pe-3"></i><span id="userAddress"></span>
                                 </div>
@@ -188,9 +192,9 @@
                                     </div>
                                     <hr>
                                     <div class="text-start">
-                                        <div><span>Recharge Date: </span><span class="text-muted">12 Jan 2023
+                                        <div><span>Recharge Date: </span><span class="text-muted">12 Jan 2024
                                                 11:03:14</span></div>
-                                        <div><span>Expiry Date: </span><span class="text-muted">30 Jan 2023
+                                        <div><span>Expiry Date: </span><span class="text-muted">30 Jan 2024
                                                 11:03:14</span></div>
                                     </div>
                                 </div>
@@ -206,7 +210,7 @@
                 <ul class="nav mb-4 d-flex align-items-center button-toggle"
                     style="border: 1px solid rgb(0, 32, 96); border-radius: 25px; width: max-content;">
                     <li class="nav-item">
-                        <a class="nav-link" id="recharge-link">Recharge History</a>
+                        <a class="nav-link active" id="recharge-link">Recharge History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " id="transactions-link">Transactions</a>
@@ -404,21 +408,26 @@
                     </div>
                 </div>
             </div>
-
         </section>
     </section>
-
-    <script>
-        document.getElementById("transactions-link").addEventListener("click", () => {
-            document.getElementById("recharge-history").style.display = "none";
-            document.getElementById("transactions").style.display = "block";
-
-        });
-        document.getElementById("recharge-link").addEventListener("click", () => {
-            document.getElementById("transactions").style.display = "none";
-            document.getElementById("recharge-history").style.display = "block";
-        });
-    </script>
+    <div class="modal fade" id="editEmail" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle" style="color: rgb(0, 32, 96);">Enter your New Email ID</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="col-12 d-flex justify-content-center">    
+                    <form action="" class="col-12 p-2">
+                        <input type="email" name="" id="" placeholder="Email" class="form-control">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
