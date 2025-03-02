@@ -47,6 +47,8 @@ function clearFilters() {
     rangeInput.value = 2500;
     document.getElementById("rangeValue").innerText = "2500"; 
 
+    document.getElementById("searchInput").value = "";
+    
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
@@ -390,7 +392,7 @@ function createToastContainer() {
 }
 
 function searchPlans(searchInput){
-    console.log(typeof(searchInput));
+
     if(searchInput === ""){
         showToast("please enter a search Value!" , "error");
         return;

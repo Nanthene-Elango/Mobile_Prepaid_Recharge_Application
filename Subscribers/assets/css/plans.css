@@ -148,15 +148,14 @@ abbr:hover::after {
 
 @media screen and (max-width: 450px) {
     .plans-category .plan-item a {
-        font-size: 0.8rem;
-        padding: 5px;
+        font-size: 0.89rem;
     }
 
-    .card-body {
-        font-size: small;
+    .card-body{
+        font-size: 0.89rem;
+    }
+    .card-header{
+        font-size: 0.89rem;
     }
 
-    .card-header {
-        font-size: small;
-    }
 }
