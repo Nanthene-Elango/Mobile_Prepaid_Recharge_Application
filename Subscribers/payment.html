@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
+    <title>PrepaidGo | Payment</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,8 +20,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
 </head>
 
@@ -28,8 +33,8 @@
         style="box-shadow: 1px 2px 10px rgb(198, 198, 198);">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand mx-4" href="../index.html">
-                <img src="../assets/img/Logo.png" alt="Logo" style="height: 60px;">
+            <a class="navbar-brand mx-4" href="./index.html">
+                <img src="./assets/img/Logo.png" alt="Logo" style="height: 60px;">
             </a>
         </div>
     </nav>
@@ -49,7 +54,7 @@
             <div class="p-4 pb-0 d-flex flex-column flex-sm-row justify-content-between position-sticky top-0"
                 style="border-radius: 5px; background-color: white;">
                 <h5 style="color: rgb(0,32,96);">Choose Payment Method</h5>
-                <div><img src="../assets/img/safe.png" style="height: 15px;"><span style="font-size: x-small;"
+                <div><img src="./assets/img/safe.png" style="height: 15px;"><span style="font-size: x-small;"
                         class="text-muted">100% SAFE PAYMENTS</span></div>
             </div>
             <hr class="mx-4">
@@ -60,7 +65,7 @@
                     <h2 class="accordion-header" id="method1">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#answer1">
-                            <div style="font-size: 1.07rem; font-weight: 500;"><img src="../assets/img/upi.jpeg" alt=""
+                            <div style="font-size: 1.07rem; font-weight: 500;"><img src="./assets/img/upi.jpeg" alt=""
                                     style="height: 8px;"> Pay by an UPI App</div>
                         </button>
                     </h2>
@@ -69,13 +74,13 @@
                             <form action="" id="payment_form1">
                                 Choose an UPI App:
                                 <div class="d-flex align-items-center justify-content-center pb-3 upiapp">
-                                    <a href="#upiId" id="phonePay"><img class="mx-1" src="../assets/img/phonePe.png"
+                                    <a href="#upiId" id="phonePay"><img class="mx-1" src="./assets/img/phonePe.png"
                                             alt="" style="height: 40px;"></a>
-                                    <a href="#upiId" id="googlePay"><img class="mx-1" src="../assets/img/google-pay.png"
+                                    <a href="#upiId" id="googlePay"><img class="mx-1" src="./assets/img/google-pay.png"
                                             alt="" style="height: 40px;"></a>
-                                    <a href="#upiId" id="paytm"><img class="mx-1" src="../assets/img/paytm.png" alt=""
+                                    <a href="#upiId" id="paytm"><img class="mx-1" src="./assets/img/paytm.png" alt=""
                                             style="height: 40px;"></a>
-                                    <a href="#upiId" id="amazonPay"><img class="mx-1" src="../assets/img/amazonPay.png"
+                                    <a href="#upiId" id="amazonPay"><img class="mx-1" src="./assets/img/amazonPay.png"
                                             alt="" style="height: 40px;"></a>
                                 </div>
                                 <div class="d-none" id="upiId">
@@ -186,7 +191,8 @@
                                 </select>
                                 <div id="error-bank" class="text-danger" style="min-height: 3vh;"></div>
                                 <div class="d-flex justify-content-end">
-                                    <button id="bankBtn" onclick="processPayment('Net Banking')" class="btn mt-2" style="background-color: rgb(0,32,96);color: aliceblue;">Proceed to Pay</button>
+                                    <button id="bankBtn" onclick="processPayment('Net Banking')" class="btn mt-2"
+                                        style="background-color: rgb(0,32,96);color: aliceblue;">Proceed to Pay</button>
                                 </div>
                             </form>
                         </div>
@@ -211,10 +217,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.9/jspdf.plugin.autotable.min.js"></script>
-
-    <script src="../assets/js/Subscribers/payment.js"></script>
+    <script src="./assets/js/payment.js"></script>
 
 </body>
 

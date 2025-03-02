@@ -1,0 +1,57 @@
+.heading-underline {
+    display: inline-block;
+    position: relative;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid gainsboro;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.input-box .prefix {
+    color: rgb(76, 76, 76);
+}
+
+.invalid{
+    border: 1px solid red;
+}
+.input-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.input-box:focus-within {
+    outline: 4px solid #c2dbff;
+    border: 1px solid #6bb3ff;
+}
+
+.invalid:focus-within {
+    outline: 4px solid #ffc2c2;
+    border: 1px solid #ff6b6b;
+}
+
+
+.heading-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: #007bff;
+    animation: expandUnderline 1s ease-in-out forwards;
+}
+
+@keyframes expandUnderline {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}

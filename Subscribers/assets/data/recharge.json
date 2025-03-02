@@ -1,0 +1,74 @@
+[
+    {
+        "rechargeId":1,
+        "userid":1,
+        "planid":2,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":2,
+        "userid":3,
+        "planid":15,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":3,
+        "userid":5,
+        "planid":5,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":4,
+        "userid":2,
+        "planid":6,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":5,
+        "userid":7,
+        "planid":2,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":6,
+        "userid":1,
+        "planid":19,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":7,
+        "userid":1,
+        "planid":23,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":8,
+        "userid":4,
+        "planid":2,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    },
+    {
+        "rechargeId":9,
+        "userid":2,
+        "planid":2,
+        "mobileNumber":"9988776655",
+        "rechargeDate":"12 feb 2023 12:30:43",
+        "expiryDate": "02 mar 2023 00:00:00"
+    }
+]

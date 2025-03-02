@@ -1,0 +1,56 @@
+[
+    {
+        "transactionId": "#INV123456",
+        "rechargeId": 1,
+        "paymentMethod":"UPI",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV123344",
+        "rechargeId": 2,
+        "paymentMethod":"Debit/Credit",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV128956",
+        "rechargeId": 3,
+        "paymentMethod":"UPI",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV653456",
+        "rechargeId": 4,
+        "paymentMethod":"UPI",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV352246",
+        "rechargeId": 5,
+        "paymentMethod":"Net Banking",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV232456",
+        "rechargeId": 6,
+        "paymentMethod":"UPI",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV224216",
+        "rechargeId": 7,
+        "paymentMethod":"UPI",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV458256",
+        "rechargeId": 8,
+        "paymentMethod":"UPI",
+        "amount":250
+    },
+    {
+        "transactionId": "#INV134226",
+        "rechargeId": 9,
+        "paymentMethod":"UPI",
+        "amount":250
+    }
+]

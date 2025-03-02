@@ -17,13 +17,15 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/Subscribers/plans.css">
-    <link rel="stylesheet" href="../assets/css/Subscribers/util.css">
-    <script src="../assets/js/Subscribers/plans.js"></script>
-    <script src="../assets/js/Subscribers/recharge.js"></script>
-    <script src="../assets/js/Subscribers/util.js"></script>
-    <title>Recharge</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/plans.css">
+    <link rel="stylesheet" href="./assets/css/util.css">
+    <script src="./assets/js/plans.js"></script>
+    <script src="./assets/js/recharge.js"></script>
+    <script src="./assets/js/util.js"></script>
+    <title>PrepaidGo | Plans</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico">
+
 </head>
 
 <body style="height: fit-content;">
@@ -45,13 +47,14 @@
                 </p>
                 <div class=" d-flex recharge-number">
                     <span class="me-1">
-                        <div class="input-box" style="background-color: white;">
+                        <div class="input-box" style="background-color: white;" id="mobile-input">
                             <span class="prefix ps-2">+91</span>
                             <input type="tel" name="rechargeNumber" id="rechargeNumber" placeholder="Mobile Number"
                                 maxlength="10">
+                            <i class="fas fa-circle-exclamation text-danger me-2 d-none" id="error-icon"></i>
                         </div>
                         <div id="error-number" class="text-danger d-none mt-2"
-                            style="background-color: rgba(0, 0, 0, 0.471);font-size: small ; border-radius: 5px;font-weight: 500;">
+                            style="color: rgba(255, 0, 0);font-size: 0.89rem; border-radius: 2px;font-weight: 500;padding: 2px;">
                         </div>
                     </span>
                     <div>
@@ -116,10 +119,34 @@
                     <i class="fa fa-chevron-right text-light"></i>
                 </button>
             </div>
+<!-- 
+            <nav id="plans-nav">
+                <ul class="nav nav-pills mt-3 plans-category">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#all-plans">All Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#popular-plans">Popular Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#validity-plans">Validity Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#data-plans">Data Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#unlimited-plans">Unlimited Plans</a>
+                    </li>
+                </ul>
+                <hr class="col-12" style="color: rgb(0, 32, 96);">
+            </nav> -->
 
             <nav id="plans-nav" class = "my-4 d-flex align-items-center justify-content-center col-11">
                 <i class="me-1 fas fa-chevron-left"></i>
-                <div class="plans-category d-flex noScrollBar p-3" style="overflow-x: auto; width: 90%;gap: 20px;padding: 10px;white-space: nowrap;">
+                <div class="plans-category d-flex noScrollBar p-3" style="overflow-x: auto; width: 90%;
+                gap: 20px;
+                padding: 10px;
+                white-space: nowrap;">
                     <div class="plan-item text-center">
                         <a class="plan-link p-2" href="#all-plans">All Plans</a>    
                     </div>

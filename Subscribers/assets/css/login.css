@@ -1,0 +1,38 @@
+.input-box {
+    display: flex;
+    align-items: center;
+    border: 2px solid gainsboro;
+    border-radius: 4px;
+    width: 100%;
+    outline: none;
+}
+
+.input-box .prefix {
+    color: rgb(76, 76, 76);
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+.invalid{
+    border: 1px solid red;
+}
+.toast {
+    visibility: hidden;
+}
+
+.toast.show {
+    visibility: visible;
+}
+
+.input-box:focus-within {
+    outline: 4px solid #c2dbff;
+    border: 1px solid #6bb3ff;
+}
+
+.invalid:focus-within{
+    outline: 4px solid #ffc2c2;
+    border: 1px solid #ff6b6b;
+}
