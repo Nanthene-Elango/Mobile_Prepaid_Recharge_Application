@@ -316,6 +316,7 @@ function showDetails(plan) {
 
     let benefitsContainer = document.getElementById("benefits");
     if (plan.benefits && plan.benefits.length > 0) {
+        benefitsContainer.innerHTML = "";
         for (let i of plan.benefits) {
             let b = document.createElement("div");
             b.classList.add("benefits");
