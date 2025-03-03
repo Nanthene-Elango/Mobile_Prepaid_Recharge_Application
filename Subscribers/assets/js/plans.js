@@ -400,7 +400,7 @@ function searchPlans(searchInput){
     document.getElementById("clear").classList.remove("d-none");
     let filteredPlans;
     filteredPlans = plans.filter(plan => {
-        searchInput = searchInput.toLowerCase();
+        searchInput = searchInput.trim().toLowerCase();
         if (isNaN(searchInput)){
             if(plan.data.toLowerCase().includes(searchInput) || plan.validity.toLowerCase().includes(searchInput)){
             

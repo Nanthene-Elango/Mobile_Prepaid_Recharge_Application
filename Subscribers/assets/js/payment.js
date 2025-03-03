@@ -389,5 +389,5 @@ function redirect() {
         sessionStorage.removeItem("paymentMethod");
         sessionStorage.removeItem("rechargeDate");
         window.location.href = "./index.html";
-    }, 500);
+    }, 1000);
 }
