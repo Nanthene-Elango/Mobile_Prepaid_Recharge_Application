@@ -1,50 +1,25 @@
 .invoice-box {
-    width: 80%;
+    width: 100%;  /* Ensures full width */
+    max-width: 800px;  /* Maintains a proper size */
     margin: auto;
-    margin-top: 100px;
-    /* border: 1px solid #ddd; */
+    margin-top: 20px;  /* Reduced for better mobile fit */
     padding: 20px;
     text-align: left;
-}
-
-.logo {
-    text-align: left;
-    font-size: 24px;
-    font-weight: bold;
-    color: #003366;
-}
-
-.invoice-title {
-    text-align: center;
-    font-size: 22px;
-    margin-top: 10px;
-}
-
-.details {
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-.table-container {
-    margin-top: 20px;
+    background: white;
+    box-sizing: border-box;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    table-layout: fixed;  /* Prevents table cut-off */
 }
 
 th,
 td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-th {
-    background-color: #003366;
-    color: white;
+    word-wrap: break-word;  /* Prevents text overflow */
+    white-space: normal;
 }
 
 .footer {
@@ -53,14 +28,18 @@ th {
     margin-top: 20px;
 }
 
-.signature {
-    margin-top: 40px;
-    text-align: right;
-    font-size: 16px;
-}
+@media screen and (max-width: 600px) {
+    .invoice-box {
+        width: 100%;
+        padding: 10px;
+    }
 
-.signature-line {
-    width: 200px;
-    border-top: 1px solid black;
-    margin-top: 10px;
+    th, td {
+        padding: 5px;
+        font-size: 12px; /* Smaller text for better fit */
+    }
+
+    .signature {
+        text-align: center; /* Align for better mobile layout */
+    }
 }
