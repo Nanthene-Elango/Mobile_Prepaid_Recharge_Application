@@ -377,7 +377,10 @@ function downloadInvoicePDF() {
     const element = document.getElementById("invoice");
     html2pdf().from(element).save("invoice.pdf");
 
-    redirect();
+    setTimeout(() => {
+        document.body.removeChild(invoice);
+        redirect();
+    }, 2000);
 }
 
 
@@ -390,5 +393,5 @@ function redirect() {
         sessionStorage.removeItem("paymentMethod");
         sessionStorage.removeItem("rechargeDate");
         window.location.href = "./index.html";
-    }, 1000);
+    }, 500);
 }
