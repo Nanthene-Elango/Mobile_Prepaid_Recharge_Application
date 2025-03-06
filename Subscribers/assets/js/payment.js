@@ -389,7 +389,7 @@ function downloadInvoicePDF() {
                 document.body.removeChild(invoice);
                 redirect();
             });
-    }, 500);
+    }, 2000);
 
     // const element = document.getElementById("invoice");
     // html2pdf().from(element).save("invoice.pdf");
