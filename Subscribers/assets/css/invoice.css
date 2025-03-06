@@ -1,7 +1,8 @@
 .invoice-box {
-    width: 80%;
+    width: 100%;
+    max-width: 800px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 20px;
     padding: 20px;
     text-align: left;
 }
@@ -32,10 +33,13 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    table-layout: fixed;
 }
 
 th,
 td {
+    word-wrap: break-word;
+    white-space: normal;
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
@@ -62,4 +66,20 @@ th {
     width: 200px;
     border-top: 1px solid black;
     margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .invoice-box {
+        width: 100%;
+        padding: 10px;
+    }
+
+    th, td {
+        padding: 5px;
+        font-size: 12px; /* Smaller text for better fit */
+    }
+
+    .signature {
+        text-align: center; /* Align for better mobile layout */
+    }
 }
