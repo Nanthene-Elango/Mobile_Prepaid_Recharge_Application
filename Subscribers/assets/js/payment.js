@@ -376,12 +376,28 @@ function downloadInvoicePDF() {
 
 
     const element = document.getElementById("invoice");
-    html2pdf().from(element).set({pagebreak: {mode: 'avoid-all'}}).save("invoice.pdf");
+    // html2pdf().from(element).set({pagebreak: {mode: 'avoid-all'}}).save("invoice.pdf");
 
     setTimeout(() => {
-        document.body.removeChild(invoice);
-        redirect();
-    }, 1000);
+        html2pdf()
+            .from(invoice)
+            .set({
+                margin: 10,
+                filename: 'invoice.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { format: 'a4', orientation: 'landscape' }
+            })
+            .save()
+            .then(() => {
+                document.body.removeChild(invoice);
+                redirect();
+            });
+    }, 500);
+    // setTimeout(() => {
+    //     document.body.removeChild(invoice);
+    //     redirect();
+    // }, 1000);
 }
 
 
