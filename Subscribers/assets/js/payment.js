@@ -378,7 +378,7 @@ function downloadInvoicePDF() {
     doc.text("Your plan has been activated. Enjoy uninterrupted service!", 50, finalY + 20);
 
     // Save PDF
-    doc.save("invoice.pdf");
+    doc.save(`invoice_${transactionId}.pdf`);
 
     redirect();
 }
