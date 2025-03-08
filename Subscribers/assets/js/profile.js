@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded" , function(){
     let user = JSON.parse(sessionStorage.getItem("loggedInUser"));
-    document.getElementById("userName").textContent = user.name;
-    document.getElementById("userEmail").textContent = user.email_id;
-    document.getElementById("userNumber").textContent = "+91 " + user.mobile_number;
-    document.getElementById("userDOB").textContent = user.dob;
-    document.getElementById("userAddress").textContent = user.address;
+    document.getElementById("userName").innerText = user.name;
+    document.getElementById("userEmail").value = user.email_id;
+    document.getElementById("userNumber").value = "+91 " + user.mobile_number;
+    document.getElementById("userDOB").value = user.dob;
+    document.getElementById("userAddress").innerText = user.address;
 
     document.getElementById("transactions-link").addEventListener("click", () => {
         document.getElementById("transactions-link").classList.add("active");
@@ -31,6 +31,19 @@ function showNotification(){
 }
 
 function editEmail(){
-    var myModal = new bootstrap.Modal(document.getElementById('editEmail'));
-    myModal.show();
+
+    document.getElementById("userEmail").classList.add("edit");
+    document.getElementById("userEmail").readOnly = false;
+    document.getElementById("editEmail").classList.add("d-none");
+    document.getElementById("saveEmail").classList.remove("d-none");
+    // var myModal = new bootstrap.Modal(document.getElementById('editEmail'));
+    // myModal.show();
+}
+
+function saveEmail(){
+    let mailBox = document.getElementById("userEmail");
+    mailBox.readOnly = true;
+    mailBox.classList.remove("edit");
+    document.getElementById("editEmail").classList.remove("d-none");
+    document.getElementById("saveEmail").classList.add("d-none");
 }

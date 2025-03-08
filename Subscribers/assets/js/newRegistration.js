@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
         progressBar.style.width = ((currentStep + 1) / formSteps.length) * 100 + "%";
     }
 
-    // Validate the current step before moving to the next one
     function validateStep() {
         const currentFormStep = formSteps[currentStep];
         const inputs = currentFormStep.querySelectorAll('input, select, textarea');
@@ -21,18 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
         inputs.forEach(input => {
             if (!input.checkValidity()) {
                 valid = false;
-                input.classList.add('is-invalid');  // Show invalid styling
-                showErrorMessage(input); // Show error message
+                input.classList.add('is-invalid'); 
+                showErrorMessage(input); 
             } else {
-                input.classList.remove('is-invalid');  // Remove invalid styling
-                clearErrorMessage(input); // Clear error message
+                input.classList.remove('is-invalid'); 
+                clearErrorMessage(input);
             }
         });
 
         return valid;
     }
 
-    // Show error message under the input field
     function showErrorMessage(input) {
         let errorMsg = input.nextElementSibling;
         if (!errorMsg || !errorMsg.classList.contains('invalid-feedback')) {
@@ -41,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
             input.parentNode.insertBefore(errorMsg, input.nextSibling);
         }
         
-        // Custom error message based on the field's validity
         if (input.validity.valueMissing) {
             errorMsg.textContent = `${input.name || 'This field'} is required.`;
         } else if (input.validity.typeMismatch) {
@@ -51,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Clear the error message
     function clearErrorMessage(input) {
         let errorMsg = input.nextElementSibling;
         if (errorMsg && errorMsg.classList.contains('invalid-feedback')) {
@@ -79,20 +75,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Remove error class as the user types a valid value
     formSteps.forEach((step) => {
         const inputs = step.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.addEventListener('input', function () {
                 if (input.checkValidity()) {
-                    input.classList.remove('is-invalid');  // Remove invalid styling
-                    clearErrorMessage(input);  // Clear the error message
+                    input.classList.remove('is-invalid');  
+                    clearErrorMessage(input);  
                 }
             });
         });
     });
 
-    // File upload preview
+
     document.getElementById("fileInput").addEventListener("change", function (event) {
         const file = event.target.files[0];
         if (file) {
@@ -105,10 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Submit form and show success message
     document.getElementById("submitBtn").addEventListener("click", function (event) {
         event.preventDefault();
-        if (validateStep()) {  // Ensure the last step is valid
+        if (validateStep()) { 
             Swal.fire({
                 title: "Success!",
                 text: "Your Porting Request has been submitted successfully!",

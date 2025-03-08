@@ -80,12 +80,11 @@ function sendOTP() {
     if(validateNumber()){
         document.getElementById("mobile").disabled = true;
         generatedOTP = Math.floor(100000 + Math.random() * 900000);
-        // alert("Your OTP is: " + generatedOTP);
+    
         let toast = document.getElementById("toast");
         toast.innerHTML = "Your OTP: " + generatedOTP;
         toast.classList.add("show");
 
-        // Hide toast after 3 seconds
         setTimeout(() => {
             toast.classList.remove("show");
         }, 4000);

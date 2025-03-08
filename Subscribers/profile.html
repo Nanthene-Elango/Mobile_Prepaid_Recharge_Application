@@ -47,6 +47,14 @@
         #active-plan{
             height: 400px;
         }
+        .profile input{
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+        .profile .edit{
+            border: 2px solid rgb(0, 32, 96);
+        }
     </style>
 </head>
 
@@ -61,10 +69,6 @@
 
     <section class="container-fluid d-flex flex-column align-items-center">
         <div class="col-10 col-md-9 p-2 my-3 d-flex justify-content-end">
-            <!-- <button class="btn btn-secondary me-3">
-                <span class="text-light">Deactivate Sim</span>
-
-            </button> -->
 
             <div onclick="showNotification()" class="btn p-2"
                 style="background-color: rgb(0, 32, 96);color: aliceblue;">
@@ -131,23 +135,21 @@
         <section class="container d-flex flex-column justify-content-around align-items-center">
             <div class="col-12 d-flex flex-column flex-md-row justify-content-center" style="background-color: white;">
 
-
-                <!--Profile-->
                 <div class="col-12 col-md-6 me-md-1"
                     style="box-shadow: 1px 2px 10px darkgray; border-radius: 10px; height: 400px;">
                     <div class="p-5">
                         <div class="d-flex flex-column align-items-center pb-5">
                             <i class="fa-solid fa-user-circle fa-5x" style="color: rgb(0,32,96);"></i>
                             <h1 class="text-center" id="userName"></h1>
-                            <div class="text-left pt-3">
-                                <div class="pb-2"><i class="fa-solid fa-phone pe-3"></i><span id="userNumber"></span>
+                            <div class="text-left pt-3 profile">
+                                <div class="pb-2"><i class="fa-solid fa-phone pe-1"></i><input id="userNumber" readonly/>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <div class="pb-2"><i class="fa-solid fa-envelope pe-3"></i><span id="userEmail">
-                                    </span></div>
-                                    <a onclick="editEmail()"><i class="fas fa-edit"></i></a>
+                                    <div class="pb-2"><i class="fa-solid fa-envelope pe-1"></i><input id="userEmail" class="email" readonly/></div>
+                                    <div id="editEmail" onclick="editEmail()" style="cursor: pointer;"><i class="fas fa-edit ps-1"></i></div>
+                                    <div id="saveEmail" class="d-none" onclick="saveEmail()" style="cursor: pointer;"><i class="fas fa-check ps-1"></i></div>
                                 </div>
-                                <div class="pb-2"><i class="fa-solid fa-cake pe-3"></i><span id="userDOB"></span></div>
+                                <div class="pb-2"><i class="fa-solid fa-cake pe-1"></i><input id="userDOB" readonly/></div>
                                 <div class=""><i class="fa-solid fa-home pe-3"></i><span id="userAddress"></span>
                                 </div>
                             </div>
@@ -155,7 +157,6 @@
                     </div>
                 </div>
 
-                <!--Active Plan-->
                 <div class="col-12 col-md-5 mt-3 mt-md-0 p-3" id="active-plan"
                     style="box-shadow: 1px 2px 10px darkgray; border-radius: 10px;">
                     <div class="card" style="border: none">
@@ -206,7 +207,6 @@
                 </div>
             </div>
 
-            <!--Recharge History-->
             <div class="col-md-11 col-12 my-3 p-4 d-flex flex-column align-items-center justify-content-center"
                 style="box-shadow: 1px 2px 10px darkgray;border-radius: 10px; height: fit-content;background-color: white;">
                 <ul class="nav mb-4 d-flex align-items-center button-toggle"
@@ -412,24 +412,7 @@
             </div>
         </section>
     </section>
-    <div class="modal fade" id="editEmail" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle" style="color: rgb(0, 32, 96);">Enter your New Email ID</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="col-12 d-flex justify-content-center">    
-                    <form action="" class="col-12 p-2">
-                        <input type="email" name="" id="" placeholder="Email" class="form-control">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </body>
 
 </html>
