@@ -3,9 +3,9 @@ var plans = [];
 document.addEventListener("DOMContentLoaded", function () {
 
     fetch('assets/data/updatedPlans.json')
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
-            plans = data.plans; 
+            plans = data.plans;
             displayPlans(plans);
         })
         .catch(error => console.error("Error fetching plans:", error));
@@ -23,12 +23,12 @@ function filterPlans() {
         .map(cb => cb.value);
 
     let filteredPlans;
-    if (selectedData.length == 0 && selectedValidity.length == 0){
+    if (selectedData.length == 0 && selectedValidity.length == 0) {
         filteredPlans = plans.filter(plan =>
             plan.price <= maxPrice
         );
     }
-    else{
+    else {
         filteredPlans = plans.filter(plan =>
             plan.price <= maxPrice &&
             (selectedData.length !== 0 && selectedData.some(data => plan.data.toLowerCase().startsWith(data.toLowerCase()))) ||
@@ -45,10 +45,10 @@ function clearFilters() {
 
     let rangeInput = document.getElementById("pricerange");
     rangeInput.value = 2500;
-    document.getElementById("rangeValue").innerText = "2500"; 
+    document.getElementById("rangeValue").innerText = "2500";
 
     document.getElementById("searchInput").value = "";
-    
+
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
@@ -98,7 +98,7 @@ function clearFilters() {
 
 function displayFilteredPlans(filteredPlans) {
 
-   
+
     if (document.getElementById("plansContainer").classList.contains("d-none")) {
         document.getElementById("plansContainer").classList.remove("d-none");
     }
@@ -174,8 +174,8 @@ function displayFilteredPlans(filteredPlans) {
         return;
     }
 
-     
-    if(!document.getElementById("filterResult").classList.contains("d-none")){
+
+    if (!document.getElementById("filterResult").classList.contains("d-none")) {
         document.getElementById("filterResult").classList.add("d-none");
     }
     filteredPlans.forEach(plan => {
@@ -340,7 +340,7 @@ function confirmPayment(plan) {
         document.getElementById("mobile-input").classList.add("invalid");
         document.getElementById("error-icon").classList.remove("d-none");
         document.getElementById("error-number").classList.remove("d-none");
-        showToast("Recharge Number is Required!" , "error");
+        showToast("Recharge Number is Required!", "error");
         document.getElementById("error-number").innerText = "Recharge Number is Required!";
     }
     else {
@@ -391,28 +391,29 @@ function createToastContainer() {
     return toastContainer;
 }
 
-function searchPlans(searchInput){
+function searchPlans(searchInput) {
 
-    if(searchInput === ""){
-        showToast("please enter a search Value!" , "error");
+    if (searchInput === "") {
+        showToast("please enter a search Value!", "error");
         return;
     }
     document.getElementById("clear").classList.remove("d-none");
     let filteredPlans;
     filteredPlans = plans.filter(plan => {
         searchInput = searchInput.trim().toLowerCase();
-        if (isNaN(searchInput)){
-            if(plan.data.toLowerCase().includes(searchInput) || plan.validity.toLowerCase().includes(searchInput)){
-            
+        if (isNaN(searchInput)) {
+            if (plan.data.toLowerCase().includes(searchInput) || plan.validity.toLowerCase().includes(searchInput)) {
+
                 return plan;
             }
         }
-        else{
-            if(((searchInput.length > 1) && (plan.price.toString().includes(searchInput))) || (plan.price.toString().charAt(0) === searchInput)){
+        else {
+            if (((searchInput.length > 1) && (plan.price.toString().includes(searchInput))) || (plan.price.toString().charAt(0) === searchInput) || plan.data.includes(searchInput) || plan.validity.includes(searchInput)) {
                 return plan;
             }
         }
     })
+
 
     displayFilteredPlans(filteredPlans);
 }
