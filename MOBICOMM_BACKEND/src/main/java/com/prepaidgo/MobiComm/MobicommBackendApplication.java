@@ -1,0 +1,13 @@
+package com.prepaidgo.MobiComm;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MobicommBackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MobicommBackendApplication.class, args);
+	}
+
+}
