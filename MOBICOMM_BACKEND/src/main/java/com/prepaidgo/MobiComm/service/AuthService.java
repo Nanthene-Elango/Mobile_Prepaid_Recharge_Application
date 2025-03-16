@@ -46,6 +46,7 @@ public class AuthService {
 	}
 
 	public ResponseEntity<?> registerAdmin(AdminRegisterRequest request) {
+		System.out.println(request.getUsername());
 		if (usersRepo.existsByUsername(request.getUsername())) {
 			throw new InvalidCredentialsException("Username Already Exists!");
 		}

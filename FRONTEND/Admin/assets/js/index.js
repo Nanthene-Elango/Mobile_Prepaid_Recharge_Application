@@ -1,12 +1,4 @@
-let users = [];
-
 document.addEventListener("DOMContentLoaded" , ()=>{
-    fetch('assets/data/users.json')
-        .then(response => response.json())
-        .then(user =>
-        {
-            users = user;
-        })
 
         document.getElementById("password-show").addEventListener("click", () => {
             let passwordInput = document.getElementById("password");
@@ -37,9 +29,6 @@ document.addEventListener("DOMContentLoaded" , ()=>{
             event.preventDefault();
         })
 
-        let admin = users.filter(user => user.role === "admin");
-        console.log(admin);
-        console.log(users);
         document.getElementById("username").addEventListener("input" , validateUsername);
         document.getElementById("password").addEventListener("input" , validatePassword);
         document.getElementById("username").addEventListener("change" , validateUsername);
@@ -67,19 +56,35 @@ document.addEventListener("DOMContentLoaded" , ()=>{
         }
 })
 
-function isAdmin(username , password){
-    for (let i in users){
-        if ((users[i].username === username && users[i].password === password)&&(users[i].role === "admin")){
-            sessionStorage.setItem("adminUser" , JSON.stringify(users[i]));
+async function isAdmin(username , password){
+
+    try{
+        let response = await fetch('http://localhost:8083/auth/admin/login' , {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+                "username":username,
+                "password":password
+            })
+        });
+    
+        if (response.ok){
+            let token = await response.json();
+            console.log(token.accessToken);
+            sessionStorage.setItem("accessToken" , token.accessToken);
             return true;
         }
     }
-    return false;
+    catch(error){
+        return false;
+    }
+    
 }
-function validateAdmin(){
+
+async function validateAdmin(){
    let username =  document.getElementById("username").value;
    let password = document.getElementById("password").value;
-   if (!isAdmin(username,password)){
+   if (!await isAdmin(username,password)){
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
     showToast("invalid username/password" , "error");

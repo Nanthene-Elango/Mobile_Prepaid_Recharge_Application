@@ -36,11 +36,20 @@ function checkLoginStatus() {
     }
 }
 
-
+async function logout() {
+    await fetch("http://localhost:8083/subscriber/logout", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${sessionStorage.getItem("accessToken")}`
+        }
+    })
+}
 function setupLogout() {
+
     let logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", function () {
+        logoutBtn.addEventListener("click", async function () {
+            await logout();
             sessionStorage.clear();
             setTimeout(() => {
                 window.location.href = "./index.html";

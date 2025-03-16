@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.ActivePlanDTO;
@@ -16,16 +17,20 @@ import com.prepaidgo.MobiComm.DTO.PlansDTO;
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
+import com.prepaidgo.MobiComm.Model.RevokedToken;
 import com.prepaidgo.MobiComm.Model.Transaction;
+import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.SubscriberService;
 
 @RestController
 public class SubscriberController {
 
 	SubscriberService subscriberService;
+	RevokedTokenRepository revokedTokenRepo;
 
-	public SubscriberController(SubscriberService subscriberService) {
+	public SubscriberController(SubscriberService subscriberService , RevokedTokenRepository revokedTokenRepository) {
 		this.subscriberService = subscriberService;
+		this.revokedTokenRepo = revokedTokenRepository;
 	}
 
 	@PostMapping("auth/validate/number")
@@ -93,6 +98,14 @@ public class SubscriberController {
 	        return ResponseEntity.notFound().build(); 
 	    }
 	    return ResponseEntity.ok(activePlan);
+	}
+	
+	@PreAuthorize("hasAuthority('SUBSCRIBER')")
+	@PostMapping("subscriber/logout")
+	public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+		token = token.substring(7);
+		revokedTokenRepo.save(new RevokedToken(token));
+		return ResponseEntity.ok("Logged out successfully.");
 	}
 
 }
