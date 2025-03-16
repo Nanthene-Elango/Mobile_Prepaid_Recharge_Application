@@ -1,50 +1,89 @@
 package com.prepaidgo.MobiComm.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prepaidgo.MobiComm.DTO.PlansDTO;
+import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
+import com.prepaidgo.MobiComm.DTO.TransactionDTO;
+import com.prepaidgo.MobiComm.Model.Transaction;
 import com.prepaidgo.MobiComm.service.SubscriberService;
 
 @RestController
 public class SubscriberController {
 
 	SubscriberService subscriberService;
-	
+
 	public SubscriberController(SubscriberService subscriberService) {
 		this.subscriberService = subscriberService;
 	}
-	
-	@PostMapping("/validate/number")
-	public ResponseEntity<?> validatePhoneNumber(@RequestBody Map<String, String> request){
-		Map<String,String> response = new HashMap<>();
+
+	@PostMapping("auth/validate/number")
+	public ResponseEntity<?> validatePhoneNumber(@RequestBody Map<String, String> request) {
+		Map<String, String> response = new HashMap<>();
 		if (subscriberService.validatePhoneNumber(request.get("phoneNumber"))) {
 			response.put("success", "Number is valid");
-		}
-		else {
+		} else {
 			response.put("error", "Number is Invalid");
 		}
 		return ResponseEntity.ok(response);
 	}
-	
-	@PostMapping("/subscriber/number")
-	public ResponseEntity<?> getSubscriberByPhoneNumber(@RequestBody Map<String, String> request){
-		Map<String,SubscriberDTO> response = new HashMap<>();
+
+	@PostMapping("auth/subscriber/number")
+	public ResponseEntity<?> getSubscriberByPhoneNumber(@RequestBody Map<String, String> request) {
+		Map<String, SubscriberDTO> response = new HashMap<>();
 		SubscriberDTO subscriber = subscriberService.getSubscriberByPhoneNumber(request.get("phoneNumber"));
 		if (subscriber != null) {
 			response.put("user", subscriber);
-		}
-		else {
+		} else {
 			response.put("error", null);
 		}
 		return ResponseEntity.ok(response);
 	}
+
+	@PostMapping("subscriber/profile/transactions")
+	public ResponseEntity<?> getTransactionDetailsByPayerId(@RequestBody Map<String, Integer> user) {
+		List<TransactionDTO> transactions = subscriberService.getTransactionDetailByPayerId(user.get("userId"));
+		if (!transactions.isEmpty()) {
+			return ResponseEntity.ok(transactions);
+		} else {
+			return ResponseEntity.ok("No Transactions Found!");
+		}
+	}
+
+	@PostMapping("subscriber/profile/recharges")
+	public ResponseEntity<?> getRechargeDetailsByUserId(@RequestBody Map<String, Integer> user) {
+		List<RechargesDTO> recharges = subscriberService.getRechargeDetailByUserId(user.get("userId"));
+		if (!recharges.isEmpty()) {
+			return ResponseEntity.ok(recharges);
+		} else {
+			return ResponseEntity.ok("No Recharges Found!");
+		}
+	}
+
+	@PostMapping("subscriber/transaction")
+	public ResponseEntity<?> getTransactionByTransactionNumber(@RequestBody Map<String,String> request){
+		Optional<Transaction> transaction = subscriberService.getTransactionByTransactionNumber(request.get("transactionNumber"));
+		if (transaction.isPresent()) {
+			return ResponseEntity.ok(new TransactionDTO(transaction.get()));
+		}
+		else {
+			return ResponseEntity.ok("No Transaction Found");
+		}
+	}
 	
+	@PostMapping("subscriber/active-plan")
+	public ResponseEntity<?> getActivePlan(@RequestBody Map<String, Integer> user){
+		PlansDTO activePlan = subscriberService.getActivePlan(user.get("userId"));
+		return ResponseEntity.ok(activePlan);
+	}
+
 }

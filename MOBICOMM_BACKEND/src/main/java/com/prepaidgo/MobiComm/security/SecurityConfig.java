@@ -36,7 +36,7 @@ public class SecurityConfig {
                 		.requestMatchers("/**").permitAll()
                 		.requestMatchers("/auth/**").permitAll() 
                         .requestMatchers("/admin/**").hasAuthority("ADMIN") 
-                        .requestMatchers("/profile/**").hasAnyAuthority("SUBSCRIBER", "ADMIN") 
+                		.requestMatchers("/subscriber/**").hasAnyAuthority("SUBSCRIBER", "ADMIN") 
                         .anyRequest().authenticated() 
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 

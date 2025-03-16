@@ -22,10 +22,11 @@ public class RechargeService {
 	PlansRepository plansRepo;
 	TransactionRepository transactionRepo;
 
-	public RechargeService(UsersRepository usersRepo, RechargesRepository rechargeRepo, PlansRepository plansRepo) {
+	public RechargeService(UsersRepository usersRepo, RechargesRepository rechargeRepo, PlansRepository plansRepo , TransactionRepository transactionRepo) {
 		this.rechargeRepo = rechargeRepo;
 		this.usersRepo = usersRepo;
 		this.plansRepo = plansRepo;
+		this.transactionRepo = transactionRepo;
 	}
 
 	public TransactionDTO confirmRecharge(int planId, int recipientId, Integer payerId , String paymentMode) {
@@ -38,7 +39,7 @@ public class RechargeService {
 
 		rechargeRepo.save(recharge);
 		Recharges savedRecharge = rechargeRepo
-				.findByPlanIdAndUserIdAndRechargeDate(planId, recipientId, recharge.getDateOfRecharge()).get();
+				.findByPlanAndUserAndRechargeDate(planId, recipientId, recharge.getDateOfRecharge()).get();
 		
 		return processTransaction(savedRecharge , payerId , paymentMode);
 	}

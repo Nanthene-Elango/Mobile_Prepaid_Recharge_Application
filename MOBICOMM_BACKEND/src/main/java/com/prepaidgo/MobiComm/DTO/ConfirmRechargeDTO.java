@@ -1,21 +1,21 @@
 package com.prepaidgo.MobiComm.DTO;
 
-public class RechargeDTO {
+public class ConfirmRechargeDTO {
 
 	private Integer payerId;
 	private int recipientId;
 	private int planId;
-	private String paymenMode;
+	private String paymentMethod;
 	
-	public RechargeDTO() {
+	public ConfirmRechargeDTO() {
 		super();
 	}
 
-	public RechargeDTO(int recipientId, int planId , Integer payerId , String paymentMode) {
+	public ConfirmRechargeDTO(int planId ,int recipientId, Integer payerId , String paymentMethod) {
 		this.recipientId = recipientId;
 		this.planId = planId;
 		this.payerId = payerId;
-		this.paymenMode = paymentMode;
+		this.paymentMethod = paymentMethod;
 	}
 
 	public Integer getRecipientId() {
@@ -34,12 +34,12 @@ public class RechargeDTO {
 		this.planId = planId;
 	}
 
-	public String getPaymenMode() {
-		return paymenMode;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
 
-	public void setPaymenMode(String paymenMode) {
-		this.paymenMode = paymenMode;
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 	public Integer getPayerId() {

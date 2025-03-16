@@ -1,5 +1,6 @@
 package com.prepaidgo.MobiComm.DTO;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.prepaidgo.MobiComm.Model.Transaction;
@@ -8,6 +9,7 @@ public class TransactionDTO {
 
 	private String transationNumber;
 	private LocalDateTime date;
+	private BigDecimal amount;
 	private String paymentMethod;
 	private String mobileNumber;
 	private PlansDTO planDetail;
@@ -19,6 +21,7 @@ public class TransactionDTO {
 		this.transationNumber = transaction.getTransactionNumber();
 		this.date = transaction.getTransactionDate();
 		this.paymentMethod = transaction.getPaymentMode();
+		this.amount = transaction.getAmount();
 		this.mobileNumber = transaction.getRecharge().getUser().getPhoneNumber();
 		this.planDetail = new PlansDTO(transaction.getRecharge().getPlan());
 	}
@@ -51,6 +54,12 @@ public class TransactionDTO {
 	}
 	public void setPlanDetail(PlansDTO planDetail) {
 		this.planDetail = planDetail;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}	
 	
 }
