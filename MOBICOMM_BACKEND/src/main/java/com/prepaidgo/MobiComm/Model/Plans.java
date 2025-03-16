@@ -3,8 +3,6 @@ package com.prepaidgo.MobiComm.Model;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,16 +30,17 @@ public class Plans {
 	@Column(name="data" , nullable=false)
 	private String data;
 	
+	@Column(name="calls")
+	private String calls;
+	
+	@Column(name="sms")
+	private String sms;
+	
 	@Column(name="validity")
 	private String validity;
 	
-	@Column(name="description")
-	private String description;
-	
-	@ManyToOne(cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
-	@JoinColumn(name="benefitsId" , referencedColumnName="benefitsId")
-	@JsonManagedReference
-	private Benefits benefits;
+	@Column(name="Benefits")
+	private String benefits;
 	
 	@Column(name="status" , columnDefinition = "VARCHAR(20) DEFAULT 'ACTIVE'")
 	private String status;
@@ -50,15 +49,14 @@ public class Plans {
 		super();
 	}
 
-	public Plans(int planId, Categories category, BigDecimal price, String data, String validity, String description,
-			Benefits benefits, String status) {
+	public Plans(int planId, Categories category, BigDecimal price, String data, String validity,
+			String benefits, String status) {
 		super();
 		this.planId = planId;
 		this.category = category;
 		this.price = price;
 		this.data = data;
 		this.validity = validity;
-		this.description = description;
 		this.benefits = benefits;
 		this.status = status;
 	}
@@ -103,19 +101,11 @@ public class Plans {
 		this.validity = validity;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Benefits getBenefits() {
+	public String getBenefits() {
 		return benefits;
 	}
 
-	public void setBenefits(Benefits benefits) {
+	public void setBenefits(String benefits) {
 		this.benefits = benefits;
 	}
 
@@ -127,10 +117,26 @@ public class Plans {
 		this.status = status;
 	}
 
+	public String getCalls() {
+		return calls;
+	}
+
+	public void setCalls(String calls) {
+		this.calls = calls;
+	}
+
+	public String getSms() {
+		return sms;
+	}
+
+	public void setSms(String sms) {
+		this.sms = sms;
+	}
+
 	@Override
 	public String toString() {
 		return "Plans [planId=" + planId + ", category=" + category + ", price=" + price + ", data=" + data
-				+ ", validity=" + validity + ", description=" + description + ", benefits=" + benefits + ", status="
+				+ ", validity=" + validity + ", benefits=" + benefits + ", status="
 				+ status + "]";
 	}
 

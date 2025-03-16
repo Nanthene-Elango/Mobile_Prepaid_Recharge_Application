@@ -1,6 +1,7 @@
 package com.prepaidgo.MobiComm.Controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -38,12 +39,4 @@ public class AuthController {
 		
 		return authService.authenticate(username , password);
 	}
-	
-	@PostMapping("admin/logout")
-	public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
-		token = token.substring(7);
-		revokedTokenRepository.save(new RevokedToken(token));
-		return ResponseEntity.ok("Logged out successfully.");
-	}
-
 }

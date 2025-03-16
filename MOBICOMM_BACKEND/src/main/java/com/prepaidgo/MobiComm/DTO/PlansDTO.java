@@ -10,16 +10,16 @@ import com.prepaidgo.MobiComm.Model.Plans;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlansDTO {
 
 	private int planId;
     private String category;
     private BigDecimal price;
     private String data;
+    private String calls;
+    private String sms;
     private String validity;
-    private String description;
-    private ArrayList<String> benefits;
+    private String benefits;
     private String status;
     public PlansDTO() {
 		super();
@@ -31,27 +31,10 @@ public class PlansDTO {
         this.price = plan.getPrice();
         this.data = plan.getData();
         this.validity = plan.getValidity();
-        this.description = plan.getDescription();
-        this.benefits = new ArrayList<>();
-        if (plan.getBenefits().isUnlimited_5G()) {
-        	benefits.add("Unlimited 5G");
-        }
-        if (plan.getBenefits().getCalls() != null) {
-        	benefits.add(plan.getBenefits().getCalls());
-        }
-        if (plan.getBenefits().getSms() != null) {
-        	benefits.add(plan.getBenefits().getSms());
-        }
-        if (plan.getBenefits().getSubscription() != null) {
-        	benefits.add(plan.getBenefits().getSubscription() + " Subscription");
-        }
-        if (plan.getBenefits().isWeekendDoubleData()) {
-        	benefits.add("Weekend Double Data");
-        }
-        if (plan.getBenefits().isWeekendFreeData()) {
-        	benefits.add("Weekend Free Data");
-        }
+        this.benefits = plan.getBenefits();
         this.status = plan.getStatus();
+        this.calls = plan.getCalls();
+        this.sms = plan.getSms();
     }
 
 	public int getPlanId() {
@@ -94,19 +77,12 @@ public class PlansDTO {
 		this.validity = validity;
 	}
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ArrayList<String> getBenefits() {
+	public String getBenefits() {
 		return benefits;
 	}
 
-	public void setBenefits(ArrayList<String> benefits) {
+	public void setBenefits(String benefits) {
 		this.benefits = benefits;
 	}
 
@@ -117,5 +93,22 @@ public class PlansDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getCalls() {
+		return calls;
+	}
+
+	public void setCalls(String calls) {
+		this.calls = calls;
+	}
+
+	public String getSms() {
+		return sms;
+	}
+
+	public void setSms(String sms) {
+		this.sms = sms;
+	}
+
     
 }
