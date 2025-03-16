@@ -101,41 +101,43 @@
                             style="background-color: rgb(0, 32, 96); color: aliceblue;">
                             <h5>Active plan</h5>
                         </div>
-                        <div class="card-body" style="height: 320px;">
-                            <div class="d-flex flex-column align-items-center d-none" id="no-plans">
+                        <div class="card-body align-items-center justify-content-center d-flex" style="height: 320px;">
+                            <div class="d-flex flex-column align-items-center d-none" id="no-active-plan">
                                 <div class="lead text-muted text-center"><strong>No Active Plan</strong></div>
-                                <button class="btn btn-primary text-center mt-2"><a href="./recharge.html"
-                                        class="text-light text-decoration-none">Recharge</a></button>
+                                <div class="btn btn-primary text-center mt-2"><a href="./recharge.html"
+                                        class="text-light text-decoration-none">Recharge</a>
+                                </div>
                             </div>
-                            <div class="">
-                                <h4 class="text-center mt-3">Rs. <span>299</span></h4>
+                            <div  class="d-none" id="plan-active">
+                                <h4 class="text-center">Rs. <span id="active-plan-price"></span></h4>
                                 <div class="px-2">
-                                    <div class="d-flex flex-column flex-lg-row justify-content-evenly align-items-center">
+                                    <div class="d-flex flex-column justify-content-evenly align-items-center">
                                         <div>
-                                            <h6>Data: <span id="data" class="text-muted">1GB/day</span></h6>
+                                            <h6>Data: <span id="active-plan-data" class="text-muted"></span></h6>
                                         </div>
                                         <div>
-                                            <h6>Validity: <span class="text-muted" id="validity">28 days</span></h6>
+                                            <h6>Validity: <span class="text-muted" id="active-plan-validity"></span></h6>
+                                        </div>
+                                        <div>
+                                            <h6>Calls & SMS: <span class="text-muted" id="active-plan-calls-sms"></span></h6>
                                         </div>
                                     </div>
                                     <div class="text-center d-none d-lg-block">
                                         
                                         <div id="benefits">
-                                            <h6>Benefits: </h6>
-                                            <span class="text-muted">
+                                            <h6 id="active-plan-benefits" class="d-flex flex-column">Benefits: </h6>
+                                            <!-- <span class="text-muted">
                                                 <i class="fas fa-phone"></i> Unlimited Calls <br>
                                                 <i class="fas fa-message"></i> 100 SMS/day <br>
                                                 <i class="fas fa-gift"></i> Amazon Prime Subscription <br>
-                                            </span>
+                                            </span> -->
                                            
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="text-start">
-                                        <div><span>Recharge Date: </span><span class="text-muted">12 Jan 2024
-                                                11:03:14</span></div>
-                                        <div><span>Expiry Date: </span><span class="text-muted">30 Jan 2024
-                                                11:03:14</span></div>
+                                        <div><span>Recharge Date: </span><span class="text-muted" id="active-plan-rd"></span></div>
+                                        <div><span>Expiry Date: </span><span class="text-muted" id="active-plan-ed"></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -181,91 +183,9 @@
                             <div class="card-header"
                                 style="background-color: rgb(0, 32, 96); color: aliceblue;font-size: large;">
                                 Recharge History</div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger">23 May 2023 11:30:34</div>
-                                    <div>
-                                        <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
-                                        <div class="d-flex flex-column justify-content-between">
-                                            <div class="my-1">
-                                                <strong>Rs. 299</strong>
-                                            </div>
-                                            <div class="d-flex flex-column flex-md-row">
-                                                <div class="d-flex my-1 me-md-4">
-                                                    <div class="me-4">
-                                                        <div> 2.5GB/day</div>
-                                                        <div class="text-muted">data</div>
-                                                    </div>
-                                                    <div>
-                                                        <div> 28 days</div>
-                                                        <div class="text-muted">validity</div>
-                                                    </div>
-                                                </div>
-                                                <div class="my-1">
-                                                    <i class="fas fa-circle-plus"></i><span> Unlimited 5G , free OTT
-                                                        acccess</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger">24 Apr 2023 10:03:34</div>
-                                    <div>
-                                        <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
-                                        <div class="d-flex flex-column justify-content-between">
-                                            <div class="my-1">
-                                                <strong>Rs. 199</strong>
-                                            </div>
-                                            <div class="d-flex flex-column flex-md-row">
-                                                <div class="d-flex my-1 me-md-4">
-                                                    <div class="me-4">
-                                                        <div> 1.5GB/day</div>
-                                                        <div class="text-muted">data</div>
-                                                    </div>
-                                                    <div>
-                                                        <div> 28 days</div>
-                                                        <div class="text-muted">validity</div>
-                                                    </div>
-                                                </div>
-                                                <div class="my-1">
-                                                    <i class="fas fa-circle-plus"></i><span> Unlimited 5G , free OTT
-                                                        acccess</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger">25 Mar 2023 11:30:34</div>
-                                    <div>
-                                        <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
-                                        <div class="d-flex flex-column justify-content-between">
-                                            <div class="my-1">
-                                                <strong>Rs. 399</strong>
-                                            </div>
-                                            <div class="d-flex flex-column flex-md-row">
-                                                <div class="d-flex my-1 me-md-4">
-                                                    <div class="me-4">
-                                                        <div> 3GB/day</div>
-                                                        <div class="text-muted">data</div>
-                                                    </div>
-                                                    <div>
-                                                        <div> 28 days</div>
-                                                        <div class="text-muted">validity</div>
-                                                    </div>
-                                                </div>
-                                                <div class="my-1">
-                                                    <i class="fas fa-circle-plus"></i><span> Unlimited 5G , free OTT
-                                                        acccess</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
+                            <div class="card-body" id="recharge-history-card">
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -296,52 +216,8 @@
                             <div class="card-header"
                                 style="background-color: rgb(0, 32, 96); color: aliceblue;font-size: large;">
                                 Transactions</div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger text-end">23 May 2023 14:30:34</div>
-                                    <div class="d-flex flex-column">
-                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV788995</span></div>
-                                        <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
-                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.299</span></div>
-                                        <div class="my-1"><b>Mode of Payment: </b>UPI</div>
-                                    </div>
-                                </div>
-                                <div class="my-3 text-center text-md-end">
-                                    <button class="btn btn-primary">
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <hr>
-                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger text-end">24 Apr 2023 10:03:34</div>
-                                    <div class="d-flex flex-column">
-                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV783762</span></div>
-                                        <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
-                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.199</span></div>
-                                        <div class="my-1"><b>Mode of Payment: </b>UPI</div>
-                                    </div>
-                                </div>
-                                <div class="my-3 text-center text-md-end">
-                                    <button class="btn btn-primary">
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <hr>
-                                <div class="d-flex flex-column flex-lg-row-reverse justify-content-between">
-                                    <div class="text-danger text-end">25 Mar 2023 11:30:34</div>
-                                    <div class="d-flex flex-column">
-                                        <div class="my-1"><b>Transaction ID:</b> <span>#TNV272995</span></div>
-                                        <div class="my-1"><b>Recharge Number: </b><span>+91 9283728378</span></div>
-                                        <div class="my-1"><b>Amount Paid: </b><span>Rs.399</span></div>
-                                        <div class="my-1"><b>Mode of Payment: </b>UPI</div>
-                                    </div>
-                                </div>
-                                <div class="my-3 text-center text-md-end">
-                                    <button class="btn btn-primary">
-                                        Download invoice
-                                    </button>
-                                </div>
-                                <hr>
+                            <div class="card-body" id="transaction-history-card">
+                                
                             </div>
                         </div>
                     </div>
@@ -349,6 +225,9 @@
             </div>
         </section>
     </section>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     
 </body>
 

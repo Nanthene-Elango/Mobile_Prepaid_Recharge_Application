@@ -188,6 +188,30 @@ function validateBank() {
 
 async function confirmRecharge(){
 
+    let planId = JSON.parse(sessionStorage.getItem("rechargePlan")).planId;
+    let recipientId = JSON.parse(sessionStorage.getItem("rechargeUser")).subscriberId;
+    let payerId = null;
+    let paymentMethod  = sessionStorage.getItem("paymentMethod");
+
+  
+    if (sessionStorage.getItem("loggedInUser") !== null){
+        payerId = JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId;
+    }
+    console.log(planId + " " + recipientId + " " + payerId + " " + paymentMethod);
+    let response = await fetch('http://localhost:8083/recharge/confirm' , {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            "planId":planId,
+            "recipientId":recipientId,
+            "payerId":payerId,
+            "paymentMethod":paymentMethod
+        })
+    })
+    let data = await response.json(); 
+
+    sessionStorage.setItem("transactionDetail" , JSON.stringify(data));
+
 }
 
 async function processPayment(paymentMethod) {
@@ -218,10 +242,9 @@ async function processPayment(paymentMethod) {
         }
     }
 
-    if (await confirmRecharge()){
-
-    }
     sessionStorage.setItem("paymentMethod", paymentMethod)
+    
+    await confirmRecharge();
 
     Swal.fire({
         title: "Processing Payment...",
@@ -250,25 +273,29 @@ async function processPayment(paymentMethod) {
     });
 }
 
-function formatDate(date) {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = date.toLocaleString('default', { month: 'short' });
-    const year = date.getFullYear();
-    const hours = String(date.getHours() % 12 || 12).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+// function formatDate(date) {
+//     const day = String(date.getDate()).padStart(2, '0');
+//     const month = date.toLocaleString('default', { month: 'short' });
+//     const year = date.getFullYear();
+//     const hours = String(date.getHours() % 12 || 12).padStart(2, '0');
+//     const minutes = String(date.getMinutes()).padStart(2, '0');
+//     const seconds = String(date.getSeconds()).padStart(2, '0');
+//     const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
 
-    return `${day} ${month} ${year} ${hours}:${minutes}:${seconds} ${ampm}`;
-}
+//     return `${day} ${month} ${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+// }
 
 function showInvoice() {
-    let paymentMethod = sessionStorage.getItem("paymentMethod");
-    let number = sessionStorage.getItem("rechargeNumber");
-    let rechargeDate = formatDate(new Date());
-    let transactionId = `#INV${Math.floor(Math.random() * 100000)}`;
-    sessionStorage.setItem("rechargeDate", rechargeDate);
-    sessionStorage.setItem("transactionId", transactionId);
+    let transactionDetail = JSON.parse(sessionStorage.getItem("transactionDetail"));
+    let rechargePlanDetail = transactionDetail.planDetail;
+    let paymentMethod = transactionDetail.paymentMethod;
+    let number = transactionDetail.mobileNumber;
+    let rechargeDate = transactionDetail.date;
+    let transactionId = transactionDetail.transationNumber;
+
+    let calls = rechargePlanDetail.calls !== null? rechargePlanDetail.calls:"No Calls";
+    let sms = rechargePlanDetail.sms !== null?rechargePlanDetail.sms:"No SMS";
+
     const invoiceHTML = `
    <table style = "width:100%;text-align: left; border-collapse: collapse;font-size:0.89rem;">
             <tr>
@@ -285,7 +312,7 @@ function showInvoice() {
             </tr>
             <tr >
                 <td style= "width:50%"><strong>Amount Paid:</strong></td>
-                <td>Rs. ${plan.price}</td>
+                <td>Rs. ${rechargePlanDetail.price}</td>
             </tr>
             <tr >
                 <td style= "width:50%"><strong>Mode of Payment:</strong></td>
@@ -296,19 +323,19 @@ function showInvoice() {
             </tr>
             <tr >
                 <td style= "width:50%"><strong>Data:</strong></td>
-                <td>${plan.data}</td>
+                <td>${rechargePlanDetail.data}</td>
             </tr>
             <tr >
                 <td style= "width:50%"><strong>Validity:</strong></td>
-                <td>${plan.validity}</td>
+                <td>${rechargePlanDetail.validity}</td>
             </tr>
             <tr >
                 <td style= "width:50%"><strong>Calls/SMS:</strong></td>
-                <td>${plan.calls} , ${plan.sms}</td>
+                <td>${calls} , ${sms}</td>
             </tr>
             <tr  >
                 <td style= "width:50%; text-align: top"><strong>Benefits:</strong></td>
-                <td>${plan.benefits}</td>
+                <td>${rechargePlanDetail.benefits}</td>
             </tr>
         </table>
         <hr>
@@ -335,11 +362,13 @@ function showInvoice() {
 
 function downloadInvoicePDF() {
 
-   
-    let paymentMethod = sessionStorage.getItem("paymentMethod");
-    let number = sessionStorage.getItem("rechargeNumber");
-    let rechargeDate = sessionStorage.getItem("rechargeDate");
-    let transactionId = sessionStorage.getItem("transactionId");
+    let transactionDetail = JSON.parse(sessionStorage.getItem("transactionDetail"));
+    let rechargePlanDetail = transactionDetail.planDetail;
+
+    let paymentMethod = transactionDetail.paymentMethod;
+    let number = transactionDetail.mobileNumber;
+    let rechargeDate = transactionDetail.date;
+    let transactionId = transactionDetail.transationNumber;
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -361,7 +390,7 @@ function downloadInvoicePDF() {
     const headers = [["Plan Description", "Quantity", "Unit Price (Rs.)", "Total (Rs.)"]];
 
     const data = [
-        [`Plan: ${plan.data} - ${plan.validity}`, "1", `${plan.price}`, `${plan.price}`]
+        [`Plan: ${rechargePlanDetail.data} - ${rechargePlanDetail.validity}`, "1", `${rechargePlanDetail.price}`, `${rechargePlanDetail.price}`]
     ];
 
     const tableStyle = {
@@ -383,7 +412,7 @@ function downloadInvoicePDF() {
 
     let finalY = doc.lastAutoTable.finalY + 10; 
     doc.setFontSize(12);
-    doc.text("Total: Rs. " + plan.price, 16, finalY);
+    doc.text("Total: Rs. " + rechargePlanDetail.price, 16, finalY);
 
     doc.text("Your plan has been activated. Enjoy uninterrupted service!", 50, finalY + 20);
 

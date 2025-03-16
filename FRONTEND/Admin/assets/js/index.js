@@ -3,7 +3,8 @@ let users = [];
 document.addEventListener("DOMContentLoaded" , ()=>{
     fetch('assets/data/users.json')
         .then(response => response.json())
-        .then(user =>{
+        .then(user =>
+        {
             users = user;
         })
 
