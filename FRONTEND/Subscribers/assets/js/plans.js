@@ -1,15 +1,109 @@
-var plans = [];
-
+const baseURL = 'http://localhost:8083/plans';
 document.addEventListener("DOMContentLoaded", function () {
-
-    fetch('assets/data/updatedPlans.json')
-        .then(response => response.json())
-        .then(data => {
-            plans = data.plans;
-            displayPlans(plans);
-        })
-        .catch(error => console.error("Error fetching plans:", error));
+        loadCategories();
+        initializeCarousel();
 })
+
+function loadCategories(){
+    fetch('http://localhost:8083/categories')
+    .then(reponse => reponse.json())
+    .then(category => {
+        let plansNav = document.getElementById("plan-items");
+        category.forEach(data => {
+            let nav = document.createElement("div");
+            nav.classList.add("plan-item");
+            nav.classList.add("text-center");
+            let category = data.category.charAt(0).toUpperCase() + data.category.slice(1);
+            nav.innerHTML = `<a class="plan-link p-2" href="#${data.category}-plans">${category} Plans</a>`;
+            plansNav.appendChild(nav);
+
+            let plansContainer = document.getElementById("plansContainer");
+            let planCard = document.createElement("div");
+            planCard.classList.add("card");
+            planCard.classList.add("m-md-4");
+            planCard.classList.add("my-4");
+            planCard.classList.add("plans");
+            planCard.id =  `${data.category}-plans`;
+            planCard.innerHTML = `
+            <div class="card-header" style="border-radius: 5px;">
+                ${category} Plans
+            </div>
+            <div id="${data.category}-plan-cards">
+                
+            </div>`
+            plansContainer.appendChild(planCard)
+            loadPlanByCategory(data.category);
+        })
+    })
+}
+
+
+function loadPlanByCategory(category){
+    fetch(`${baseURL}/category/${category}`)
+    .then(reponse => reponse.json())
+    .then(plans => {
+        let allPlansCard = document.getElementById("all-plan-cards");
+        let planCard = document.getElementById(`${category}-plan-cards`);
+        plans.forEach(plan => {
+            let card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                <div class="col-12 card-body d-flex flex-column my-1 p-4">
+                <div class="col-12 d-flex justify-content-between">
+                    <div class="d-flex justify-content-between col-10">
+                        <div><strong>Rs. ${plan.price}</strong><br>Price</div>
+                        <div><strong>${plan.data}</strong><br>Data</div>
+                        <div><strong>${plan.validity}</strong><br>Validity</div>
+                    </div>
+                    <a onclick='confirmPayment(${JSON.stringify(plan)})'>
+                        <abbr data-title="Recharge"><i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i></abbr>
+                    </a>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-end view-details">
+                    <div>
+                        <a class="text-primary text-decoration-none" style="cursor:pointer" 
+                           onclick='showDetails(${JSON.stringify(plan)})'>View Details</a>
+                    </div>
+                </div>
+            </div>
+            `
+            planCard.appendChild(card);
+            allPlansCard.appendChild(card.cloneNode(true));
+        })
+    })
+}
+
+async function fetchPlanById(id) {
+    const response = await fetch(`${baseURL}/${id}`);
+    const data = await response.json();
+    return data; // Return the fetched plan object
+}
+
+async function initializeCarousel() {
+    let carousel1 = document.getElementById("carousel-card-1");
+    let carousel2 = document.getElementById("carousel-card-2");
+    let carousel3 = document.getElementById("carousel-card-3");
+
+    let plan1 = await fetchPlanById(1);
+    let plan2 = await fetchPlanById(2);
+    let plan3 = await fetchPlanById(3);
+
+    carousel1.innerHTML = generateCarouselPlanHTML(plan1);
+    carousel2.innerHTML = generateCarouselPlanHTML(plan2);
+    carousel3.innerHTML = generateCarouselPlanHTML(plan3);
+}
+
+function generateCarouselPlanHTML(plan) {
+    return `
+        <h3>${plan.category} Plan</h3>
+        <h4>Rs. ${plan.price}</h4>
+        <p>Validity: ${plan.validity}</p>
+        <p>${plan.calls} & ${plan.sms}</p>
+        <p>Benefits: ${plan.benefits}</p>
+        <button class="btn btn-primary col-6 col-lg-4" onclick='confirmPayment(${JSON.stringify(plan)})'>Recharge Now</button>
+    `;
+}
 
 function filterPlans() {
     document.getElementById("clear").classList.remove("d-none");
@@ -315,11 +409,25 @@ function showDetails(plan) {
     document.getElementById("price").textContent = `Rs. ${plan.price}`;
     document.getElementById("validity").textContent = plan.validity;
     document.getElementById("data").textContent = plan.data;
+    let calls = document.getElementById("calls");
+    let sms = document.getElementById("sms");
 
+    if (plan.calls != null){
+        calls.textContent = plan.calls;
+    }
+    else{
+        calls.textContent = "No Calls";
+    }
+    if (plan.sms != null){
+        sms.textContent = plan.sms;
+    }
+    else{
+        sms.textContent = "No SMS";
+    }
     let benefitsContainer = document.getElementById("benefits");
-    if (plan.benefits && plan.benefits.length > 0) {
+    if (plan.benefits != null) {
         benefitsContainer.innerHTML = "";
-        for (let i of plan.benefits) {
+        for (let i of plan.benefits.split(',')) {
             let b = document.createElement("div");
             b.classList.add("benefits");
             b.innerHTML = `<i class = "fas fa-check text-success"></i> <span>${i.trim()}</span>`;
@@ -344,7 +452,7 @@ function confirmPayment(plan) {
         document.getElementById("error-number").innerText = "Recharge Number is Required!";
     }
     else {
-        localStorage.setItem("rechargePlan", JSON.stringify(plan));
+        sessionStorage.setItem("rechargePlan", JSON.stringify(plan));
         document.getElementById("mobile-input").classList.remove("invalid");
         document.getElementById("error-icon").classList.add("d-none");
         document.getElementById("error-number").classList.add("d-none");

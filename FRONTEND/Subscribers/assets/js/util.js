@@ -7,9 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             checkLoginStatus();
             setupLogout();
             const navLinks = document.querySelectorAll(".navbar-link");
-            console.log(navLinks);
             const currentPath = window.location.pathname; 
-            console.log(currentPath);
             navLinks.forEach(link => {
                 if (currentPath.includes(link.getAttribute("href"))) {
                     document.querySelectorAll(".navbar-link").forEach(nav => nav.classList.remove("active"));
@@ -30,7 +28,7 @@ function checkLoginStatus() {
         if (loginBtn) loginBtn.style.display = "none";
         if (accountBtn) {
             accountBtn.style.display = "block";
-            document.getElementById("navUserName").textContent = JSON.parse(user).name;
+            document.getElementById("navUserName").textContent = JSON.parse(user).fullName;
         }
     } else {
         if (loginBtn) loginBtn.style.display = "block";
@@ -43,10 +41,7 @@ function setupLogout() {
     let logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", function () {
-
-            sessionStorage.removeItem("loggedInUser");
-            sessionStorage.removeItem("rechargeNumber");
-            sessionStorage.removeItem("rechargeUser");
+            sessionStorage.clear();
             setTimeout(() => {
                 window.location.href = "./index.html";
             }, 500);

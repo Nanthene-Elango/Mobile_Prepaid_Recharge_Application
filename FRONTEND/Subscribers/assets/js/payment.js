@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     let user = JSON.parse(sessionStorage.getItem("rechargeUser"));
-    document.getElementById("name").innerText = user.name;
-    document.getElementById("number").innerText = user.mobile_number;
+    document.getElementById("name").innerText = user.fullName;
+    document.getElementById("number").innerText = user.phoneNumber;
     document.getElementById("price").innerText = plan.price;
     document.getElementById("data").innerText = plan.data;
     document.getElementById("validity").innerText = plan.validity;
@@ -185,7 +185,12 @@ function validateBank() {
         return true;
     }
 }
-function processPayment(paymentMethod) {
+
+async function confirmRecharge(){
+
+}
+
+async function processPayment(paymentMethod) {
 
     document.getElementById("payment_form1").addEventListener("submit", function (event) {
         event.preventDefault();
@@ -212,7 +217,12 @@ function processPayment(paymentMethod) {
             return;
         }
     }
+
+    if (await confirmRecharge()){
+
+    }
     sessionStorage.setItem("paymentMethod", paymentMethod)
+
     Swal.fire({
         title: "Processing Payment...",
         text: "Please wait while we complete your transaction.",
@@ -292,9 +302,13 @@ function showInvoice() {
                 <td style= "width:50%"><strong>Validity:</strong></td>
                 <td>${plan.validity}</td>
             </tr>
+            <tr >
+                <td style= "width:50%"><strong>Calls/SMS:</strong></td>
+                <td>${plan.calls} , ${plan.sms}</td>
+            </tr>
             <tr  >
                 <td style= "width:50%; text-align: top"><strong>Benefits:</strong></td>
-                <td>${plan.benefits.join(", ")}</td>
+                <td>${plan.benefits}</td>
             </tr>
         </table>
         <hr>

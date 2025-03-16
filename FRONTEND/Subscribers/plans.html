@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -28,7 +24,7 @@
 
 </head>
 
-<body style="height: fit-content;">
+<body>
     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top"
         style="box-shadow: 1px 2px 10px rgb(198, 198, 198);">
         <div class="container-fluid" id="navbarContainer">
@@ -75,34 +71,22 @@
 
                     <div class="carousel-item active">
                         <div class="card text-center p-4 d-flex align-items-center"
-                            style=" background-color: rgb(0, 32, 96); color: aliceblue;">
-                            <h3>Unlimited Pack</h3>
-                            <h4>Rs.299</h4>
-                            <p>Validity: 28 Days</p>
-                            <p>Unlimited Calls + 1.5GB/Day</p>
-                            <button class="btn btn-primary col-6 col-lg-4">Recharge Now</button>
+                            style=" background-color: rgb(0, 32, 96); color: aliceblue;" id="carousel-card-1">
+                            
                         </div>
                     </div>
 
                     <div class="carousel-item">
                         <div class="card text-center p-4 d-flex align-items-center"
-                            style="background-color: rgb(0, 32, 96); color: aliceblue;">
-                            <h3>Data Booster</h3>
-                            <h4>Rs.149</h4>
-                            <p>Validity: 14 Days</p>
-                            <p>4GB Additional Data</p>
-                            <button class="btn btn-primary col-6 col-lg-4">Recharge Now</button>
+                            style="background-color: rgb(0, 32, 96); color: aliceblue;" id="carousel-card-2">
+                            
                         </div>
                     </div>
 
                     <div class="carousel-item">
                         <div class="card text-center p-4 d-flex align-items-center"
-                            style="background-color: rgb(0, 32, 96); color: aliceblue;">
-                            <h3>Long-Term Pack</h3>
-                            <h4>Rs.599</h4>
-                            <p>Validity: 84 Days</p>
-                            <p>2GB/Day + Unlimited Calls</p>
-                            <button class="btn btn-primary col-6 col-lg-4">Recharge Now</button>
+                            style="background-color: rgb(0, 32, 96); color: aliceblue;" id="carousel-card-3">
+                           
                         </div>
                     </div>
 
@@ -121,43 +105,11 @@
                 <div class="plans-category d-flex noScrollBar p-3" style="overflow-x: auto; width: 90%;
                 gap: 20px;
                 padding: 10px;
-                white-space: nowrap;">
+                white-space: nowrap;" id="plan-items">
                     <div class="plan-item text-center">
                         <a class="plan-link p-2" href="#all-plans">All Plans</a>    
                     </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#popular-plans">Popular Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#validity-plans">Validity Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#data-plans">Data Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#unlimited-plans">Unlimited Plans</a>
-                    </div>
-                    <div class="plan-item  text-center">
-                        <a class="plan-link p-2" href="#gaming-plans">Gaming Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#student-plans">Student Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#short-term-plans">Short-term Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#streaming-plans">Streaming</a>
-                    </div>
-                    <div class="plan-item  text-center">
-                        <a class="plan-link p-2" href="#annual-plans">Annual Plans</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#wfh-plans">Work from home</a>
-                    </div>
-                    <div class="plan-item text-center">
-                        <a class="plan-link p-2" href="#ott-plans">OTT Subscription Plans</a>
-                    </div>
+                    
                 </div>
                 <i class="ms-1 fas fa-chevron-right"></i>
             </nav>
@@ -184,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="container-fluid col-sm-10 overflow-auto" style="height: 500px;position: relative;">
+            <div class="container-fluid col-sm-10 overflow-auto" style="height: 450px;position: relative;">
 
 
                 <div data-bs-spy="scroll" data-bs-target="#plans-nav"
@@ -198,105 +150,14 @@
                         </div>
 
                     </div>
-                    <div class="card m-md-4 my-4 plans" id="popular-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Popular plans
-                        </div>
-                        <div id="popular-plan-cards">
-
-                        </div>
-
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="validity-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Validity plans
-                        </div>
-                        <div id="validity-plan-cards">
-
-                        </div>
-
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="data-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Data plans
-                        </div>
-                        <div id="data-plan-cards">
-
-                        </div>
-
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="unlimited-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Unlimited plans
-                        </div>
-                        <div id="unlimited-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="gaming-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Gaming plans
-                        </div>
-                        <div id="gaming-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="student-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Student plans
-                        </div>
-                        <div id="student-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="short-term-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Short-Term plans
-                        </div>
-                        <div id="short-term-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="streaming-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Streaming plans
-                        </div>
-                        <div id="streaming-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="annual-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Annual plans
-                        </div>
-                        <div id="annual-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="wfh-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            Work From Home plans
-                        </div>
-                        <div id="wfh-plan-cards">
-
-                        </div>
-                    </div>
-                    <div class="card m-md-4 my-4 plans" id="ott-plans">
-                        <div class="card-header" style="border-radius: 5px;">
-                            OTT Subscription plans
-                        </div>
-                        <div id="ott-plan-cards">
-
-                        </div>
-                    </div>
-                </div>
+                    
                 <div id="filterResult" class="m-md-4 my-4 d-none text-danger text-center">
 
                 </div>
         </main>
 
     </section>
-    <div class="modal fade" id="planFilter" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- <div class="modal fade" id="planFilter" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -304,10 +165,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="text-end d-none">
-                        <a class="text-secondary text-decoration-none me-2"><i class="fa-solid fa-x"></i> Clear
-                            filter</a>
+                    <div class="container my-3">
+                        <label for="priceFilter">Price:</label>
+                        <select id="priceFilter" class="form-select">
+                            <option value="">All</option>
+                            <option value="0-100">Below Rs. 100</option>
+                            <option value="101-500">Rs. 101 - 500</option>
+                            <option value="501-1000">Rs. 501 - 1000</option>
+                            <option value="1000+">Above Rs. 1000</option>
+                        </select>
+                    
+                        <label for="validityFilter">Validity:</label>
+                        <select id="validityFilter" class="form-select">
+                            <option value="">All</option>
+                            <option value="1-7">1 - 7 Days</option>
+                            <option value="8-28">8 - 28 Days</option>
+                            <option value="29+">Above 28 Days</option>
+                        </select>
+                    
+                        <label for="dataFilter">Data:</label>
+                        <select id="dataFilter" class="form-select">
+                            <option value="">All</option>
+                            <option value="0-1">Up to 1GB</option>
+                            <option value="1-5">1GB - 5GB</option>
+                            <option value="5+">Above 5GB</option>
+                        </select>
+                    
                     </div>
+                    
+                    <div id="filteredPlans" class="row"></div>
+                    
                     <div class="container mb-5">
                         <label for="pricerange" class="form-label"><strong>Choose Price Range:</strong></label><br>
                         <input type="range" class="form-range w-75" id="pricerange" min="0" max="5000" step="100"
@@ -340,12 +227,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="filterPlans()">Apply
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="applyFilters()">Apply
                         Filter</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="modal fade" id="planDetail" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -357,6 +244,8 @@
                     <h4 id="price"></h4>
                     <span class="me-5"><i class="fas fa-clock-rotate-left me-1"></i><span id="validity"></span></span>
                     <span><i class="fas fa-wifi me-1"></i><span id="data"></span></span>
+                    <div><i class="fas fa-phone me-1 mt-2"></i><span id="calls"></span></div>
+                    <div><i class="fas fa-message me-1"></i><span id="sms"></span></div>
                     <h6 class="mt-3"><strong>Additional Benefits</strong></h6>
                     <div id="benefits">
 
@@ -405,6 +294,9 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

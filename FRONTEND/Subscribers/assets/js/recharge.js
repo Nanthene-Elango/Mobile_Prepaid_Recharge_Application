@@ -1,28 +1,10 @@
-let users;
 document.addEventListener("DOMContentLoaded", function () {
 
-    fetch("assets/data/users.json")
-        .then(response => response.json())
-        .then(data => {
-            users = data;
-        })
-    let user = JSON.parse(sessionStorage.getItem("loggedInUser"));
     let rechargeInput = document.getElementById("rechargeNumber");
 
-    // if (rechargeInput && user && user.mobile_number) {
-    //     rechargeInput.value = user.mobile_number;
-    //     sessionStorage.setItem("rechargeUser" , sessionStorage.getItem("loggedInUser"));
-    // }
-    
     if (sessionStorage.getItem("rechargeNumber") !== null) {
         rechargeInput.value = sessionStorage.getItem("rechargeNumber");
         rechargeInput.readOnly = true;
-        for (let a in users){
-            if (users[a].mobile_number === rechargeInput.value) {
-                sessionStorage.setItem("rechargeUser", JSON.stringify(users[a]));
-                console.log(sessionStorage.getItem("rechargeUser"));
-            }
-        }
     }
     else {
         document.getElementById("saveBtn").classList.remove("d-none");
@@ -38,21 +20,31 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("changeBtn").classList.remove("d-none");
     }
 
-    document.getElementById("rechargeNumber").addEventListener("input" , validateNumber)
-    document.getElementById("rechargeNumber").addEventListener("change" , validateNumber)
+    document.getElementById("rechargeNumber").addEventListener("input", validateNumber)
+    document.getElementById("rechargeNumber").addEventListener("change", validateNumber)
 });
 
-function isSubscriber(mobileNumber) {
-    for (let a in users) {
-        if (users[a].mobile_number === mobileNumber) {
-            sessionStorage.setItem("rechargeUser", JSON.stringify(users[a]));
+async function validateSubscriber(mobileNumber) {
+    try {
+        let response = await fetch('http://localhost:8083/subscriber/number', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "phoneNumber": mobileNumber })
+        });
+
+        let data = await response.json();
+
+        if (data.user) {
+            sessionStorage.setItem("rechargeUser" , JSON.stringify(data.user));
             return true;
         }
+    } catch (error) {
+        console.error("Error:", error);
+        return false;
     }
-    return false;
 }
 
-function validateNumber() {
+async function validateNumber() {
 
     let number = document.getElementById("rechargeNumber").value;
     let errorField = document.getElementById("error-number");
@@ -64,10 +56,10 @@ function validateNumber() {
         errorField.innerText = "Field cannot be empty!"
         return false;
     }
-    else if(isNaN(number)){
+    else if (isNaN(number)) {
         document.getElementById("mobile-input").classList.add("invalid");
         document.getElementById("error-icon").classList.remove("d-none");
-        document.getElementById("rechargeNumber").value = number.replace(/\D/g , "");
+        document.getElementById("rechargeNumber").value = number.replace(/\D/g, "");
         errorField.innerText = "";
         errorField.innerText = "Enter a valid 10 digit number!"
         return false;
@@ -79,25 +71,25 @@ function validateNumber() {
         errorField.innerText = "Enter a valid 10 digit number!"
         return false;
     }
-    else if (!isSubscriber(number)) {
-        document.getElementById("mobile-input").classList.add("invalid");
+    let isValidSubscriber = await validateSubscriber(number);
+
+    if (!isValidSubscriber) {
         document.getElementById("error-icon").classList.remove("d-none");
-        errorField.innerText = "";
-        errorField.innerText = "please enter a valid mobi com number";
+        document.getElementById("mobile-input").classList.add('invalid');
+        errorField.innerText = "Please enter a valid MobiComm number!";
         return false;
     }
-    else {
-        document.getElementById("mobile-input").classList.remove("invalid");
-        document.getElementById("error-icon").classList.add("d-none");
-        errorField.innerText = "";
-        document.getElementById("error-number").classList.add("d-none");
-        return true;
-    }
+    document.getElementById("mobile-input").classList.remove("invalid");
+    document.getElementById("error-icon").classList.add("d-none");
+    errorField.innerText = "";
+    document.getElementById("error-number").classList.add("d-none");
+    return true;
 }
-function saveNumber() {
+
+async function saveNumber() {
     let rechargeInput = document.getElementById("rechargeNumber");
     let number = rechargeInput.value;
-    if (validateNumber()) {
+    if (await validateNumber()) {
         rechargeInput.readOnly = true;
         sessionStorage.setItem("rechargeNumber", number);
         document.getElementById("saveBtn").classList.add("d-none");
@@ -109,7 +101,7 @@ function saveNumber() {
 }
 
 function changeNumber() {
-   
+
     let rechargeInput = document.getElementById("rechargeNumber");
     rechargeInput.readOnly = false;
     rechargeInput.value = "";
