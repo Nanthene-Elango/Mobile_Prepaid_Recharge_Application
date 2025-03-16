@@ -35,7 +35,5 @@ public class AdminController {
 		revokedTokenRepo.save(new RevokedToken(token));
 		return ResponseEntity.ok("Logged out successfully.");
 	}
-	
-	
 
 }

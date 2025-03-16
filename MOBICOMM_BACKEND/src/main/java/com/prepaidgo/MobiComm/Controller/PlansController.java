@@ -1,7 +1,6 @@
 package com.prepaidgo.MobiComm.Controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.CategoriesDTO;
@@ -49,7 +47,7 @@ public class PlansController {
 	}
 
 	@PostMapping("/plans/add")
-//	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<?> addPlan(@RequestBody PlanAddDTO newPlan) {
 		if (plansService.addNewPlan(newPlan)) {
 			return ResponseEntity.status(HttpStatus.OK).body("Plan Saved Successfully!");
@@ -60,7 +58,7 @@ public class PlansController {
 	}
 
 	@PostMapping("plans/update")
-//	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<?> updatePlan(@RequestBody PlansDTO updatedPlan) {
 
 		if (plansService.updatePlan(updatedPlan)) {
@@ -72,7 +70,7 @@ public class PlansController {
 	}
 
 	@PostMapping("plans/activate/{id}")
-//	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<?> activatePlanById(@PathVariable int id) {
 		if (plansService.activatePlanById(id)) {
 			return ResponseEntity.status(HttpStatus.OK).body("Plan Activated Successfully!");
@@ -82,7 +80,7 @@ public class PlansController {
 	}
 
 	@PostMapping("plans/delete/{id}")
-//	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<?> deletePlanById(@PathVariable int id) {
 		if (plansService.deletePlanById(id)) {
 			return ResponseEntity.status(HttpStatus.OK).body("Plan Deleted Successfully!");

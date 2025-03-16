@@ -6,10 +6,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prepaidgo.MobiComm.DTO.ActivePlanDTO;
 import com.prepaidgo.MobiComm.DTO.PlansDTO;
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
@@ -49,26 +51,29 @@ public class SubscriberController {
 		return ResponseEntity.ok(response);
 	}
 
+	@PreAuthorize("hasAuthority('SUBSCRIBER')")
 	@PostMapping("subscriber/profile/transactions")
 	public ResponseEntity<?> getTransactionDetailsByPayerId(@RequestBody Map<String, Integer> user) {
 		List<TransactionDTO> transactions = subscriberService.getTransactionDetailByPayerId(user.get("userId"));
 		if (!transactions.isEmpty()) {
 			return ResponseEntity.ok(transactions);
 		} else {
-			return ResponseEntity.ok("No Transactions Found!");
+			 return ResponseEntity.notFound().build(); 
 		}
 	}
 
+	@PreAuthorize("hasAuthority('SUBSCRIBER')")
 	@PostMapping("subscriber/profile/recharges")
 	public ResponseEntity<?> getRechargeDetailsByUserId(@RequestBody Map<String, Integer> user) {
 		List<RechargesDTO> recharges = subscriberService.getRechargeDetailByUserId(user.get("userId"));
 		if (!recharges.isEmpty()) {
 			return ResponseEntity.ok(recharges);
 		} else {
-			return ResponseEntity.ok("No Recharges Found!");
+			 return ResponseEntity.notFound().build(); 
 		}
 	}
 
+	@PreAuthorize("hasAuthority('SUBSCRIBER') or hasAuthority('ADMIN')")
 	@PostMapping("subscriber/transaction")
 	public ResponseEntity<?> getTransactionByTransactionNumber(@RequestBody Map<String,String> request){
 		Optional<Transaction> transaction = subscriberService.getTransactionByTransactionNumber(request.get("transactionNumber"));
@@ -76,14 +81,18 @@ public class SubscriberController {
 			return ResponseEntity.ok(new TransactionDTO(transaction.get()));
 		}
 		else {
-			return ResponseEntity.ok("No Transaction Found");
+			return ResponseEntity.notFound().build();
 		}
 	}
 	
+	@PreAuthorize("hasAuthority('SUBSCRIBER')")
 	@PostMapping("subscriber/active-plan")
-	public ResponseEntity<?> getActivePlan(@RequestBody Map<String, Integer> user){
-		PlansDTO activePlan = subscriberService.getActivePlan(user.get("userId"));
-		return ResponseEntity.ok(activePlan);
+	public ResponseEntity<?> getActivePlan(@RequestBody Map<String, Integer> user) {
+	    ActivePlanDTO activePlan = subscriberService.getActivePlan(user.get("userId"));
+	    if (activePlan == null) {
+	        return ResponseEntity.notFound().build(); 
+	    }
+	    return ResponseEntity.ok(activePlan);
 	}
 
 }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.prepaidgo.MobiComm.DTO.ActivePlanDTO;
 import com.prepaidgo.MobiComm.DTO.PlansDTO;
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
@@ -57,7 +58,7 @@ public class SubscriberService {
 		return transactionRepo.findByTransactionNumber(transactionNumber);
 	}
 
-	public PlansDTO getActivePlan(int userId) {
+	public ActivePlanDTO getActivePlan(int userId) {
 		List<Recharges> recharges = rechargeRepo.findAllByUser(userId);
 
 		Optional<Recharges> activeRecharge = recharges.stream()
@@ -65,7 +66,12 @@ public class SubscriberService {
 				.sorted(Comparator.comparing(Recharges::getDateOfExpiry))
 				.findFirst();
 
-		return activeRecharge.map(recharge -> new PlansDTO(recharge.getPlan())).orElse(null); 
+		return activeRecharge
+				.map(recharge -> 
+				new ActivePlanDTO(
+						new PlansDTO(recharge.getPlan()) , recharge.getDateOfRecharge() , recharge.getDateOfExpiry()
+						)
+				).orElse(null); 
 	}
 
 }
