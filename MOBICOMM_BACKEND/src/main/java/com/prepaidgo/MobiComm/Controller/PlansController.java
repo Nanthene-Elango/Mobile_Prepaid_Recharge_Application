@@ -1,6 +1,7 @@
 package com.prepaidgo.MobiComm.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +39,7 @@ public class PlansController {
 		return ResponseEntity.status(HttpStatus.OK).body(plans);
 	}
 
+//	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/plans/all")
 	public List<PlansDTO> getAllPlans() {
 		List<PlansDTO> plans = plansService.getAllPlans();
@@ -46,6 +49,17 @@ public class PlansController {
 		return plans;
 	}
 
+//	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("/category/add") 
+	public ResponseEntity<?> addCategory(@RequestBody Map<String,String> request){
+		if (plansService.addNewCategory(request.get("category"))) {
+			return ResponseEntity.ok("Category Added Successfully");
+		}
+		else {
+			return ResponseEntity.badRequest().body("Category Already Exists!");
+		}
+	}
+	
 	@PostMapping("/plans/add")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<?> addPlan(@RequestBody PlanAddDTO newPlan) {
@@ -57,8 +71,8 @@ public class PlansController {
 
 	}
 
-	@PostMapping("plans/update")
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PutMapping("plans/update")
+//	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<?> updatePlan(@RequestBody PlansDTO updatedPlan) {
 
 		if (plansService.updatePlan(updatedPlan)) {
@@ -117,4 +131,5 @@ public class PlansController {
 		}
 		return categories;
 	}
+	
 }

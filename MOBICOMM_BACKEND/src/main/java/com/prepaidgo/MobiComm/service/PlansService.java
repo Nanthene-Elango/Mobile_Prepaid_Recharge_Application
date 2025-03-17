@@ -119,5 +119,23 @@ public class PlansService {
 			throw new PlanNotFoundException("No Plans Found on this id!");
 		}
 	}
+	
+	public boolean addNewCategory(String category) {
+		try {
+			if (categoriesRepo.existsByCategory(category)) {
+				return false;
+			}
+			else {
+				Categories newCategory = new Categories();
+				newCategory.setCategory(category);
+				categoriesRepo.save(newCategory);
+				return true;
+			}
+		}
+		catch(Exception e) {
+			return false;
+		}
+		
+	}
 
 }

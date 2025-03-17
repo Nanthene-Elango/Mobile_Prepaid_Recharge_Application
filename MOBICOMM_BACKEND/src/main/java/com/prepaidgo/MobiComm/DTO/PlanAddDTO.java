@@ -6,7 +6,7 @@ import com.prepaidgo.MobiComm.Model.Categories;
 
 public class PlanAddDTO {
 
-	private String Category;
+	private String category;
 	private BigDecimal price;
     private String data;
     private String calls;
@@ -21,7 +21,7 @@ public class PlanAddDTO {
 	public PlanAddDTO(String category, BigDecimal price, String data, String calls, String sms, String validity,
 			String benefits) {
 		super();
-		Category = category;
+		this.category = category;
 		this.price = price;
 		this.data = data;
 		this.calls = calls;
@@ -30,10 +30,10 @@ public class PlanAddDTO {
 		this.benefits = benefits;
 	}
 	public String getCategory() {
-		return Category;
+		return category;
 	}
 	public void setCategory(String category) {
-		Category = category;
+		this.category = category;
 	}
 	public BigDecimal getPrice() {
 		return price;
