@@ -102,25 +102,31 @@ async function loadRechargeHistory (){
 
 
     recharges.forEach(element => {
+        let calls = element.calls!== null ? element.plan.calls :"No Calls";
+        let sms = element.sms!==null?element.plan.sms:"No SMS";
         let card = document.createElement("div");
-        card.classList.add("d-flex" , "flex-column" , "justify-content-between" , "flex-lg-row-reverse");
+        card.classList.add("d-flex" , "flex-column" , "flex-lg-row-reverse" , "justify-content-between");
         card.innerHTML = `
         <div class="text-danger">${element.expiryDate}</div>
-        <div>
+        <div class = "flex-grow-1">
             <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
             <div class="d-flex flex-column justify-content-between">
                 <div class="my-1">
                     <strong>Rs. ${element.plan.price}</strong>
                 </div>
-                <div class="d-flex flex-column flex-md-row">
-                    <div class="d-flex my-1 me-md-4">
-                        <div class="me-4">
+                <div class="d-flex flex-column col-12">
+                    <div class="d-flex my-1 me-md-4 col-12 flex-column flex-sm-row">
+                        <div class = "me-3">
                             <div>${element.plan.data}</div>
                             <div class="text-muted">data</div>
                         </div>
-                        <div>
+                        <div class = "me-3">
                             <div>${element.plan.validity}</div>
                             <div class="text-muted">validity</div>
+                        </div>
+                        <div>
+                            <div>${calls} , ${sms}</div>
+                            <div class="text-muted">Calls/SMS</div>
                         </div>
                     </div>
                     <div class="my-1">
