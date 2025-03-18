@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded" , ()=>{
+document.addEventListener("DOMContentLoaded", async () => {
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded" , ()=>{
     new Chart(chart, {
         type: 'pie',
         data: {
-            labels: ["Data", "Validity", "Unlimited", "Popular" , "Student" , "Work from home" , "Streaming" , "Gaming" , "OTT Subscription" , "Short-Term" , "Annual"],
+            labels: ["Data", "Validity", "Unlimited", "Popular", "Student", "Work from home", "Streaming", "Gaming", "OTT Subscription", "Short-Term", "Annual"],
             datasets: [{
-                data: [5 , 2 , 10 , 20 , 25 , 5 , 5 , 5 , 10 , 18],
+                data: [5, 2, 10, 20, 25, 5, 5, 5, 10, 18],
                 backgroundColor: ['#1E88E5', '#64B5F6', '#90CAF9', '#BBDEFB']
                 ,
             }]
@@ -51,28 +51,64 @@ document.addEventListener("DOMContentLoaded" , ()=>{
         }
     });
 
-    new DataTable("#exampleTable");
+    await loadExpiryTable();
+    new DataTable("#expiringSubscriberTable");
 
-    
-    // var table = new DataTable("#exampleTable", {
-    //     paging: true,
-    //     searching: true,
-    //     ordering: true,
-    //     info: true,
-    //     lengthChange: true,
-    //     pageLength: 10,
-    //     dom: 'Bfrtip',
-    //     buttons: [
-    //         {
-    //             extend: 'csvHtml5',
-    //             text: 'Export to CSV',
-    //             title: 'Subscriber Feedback & Issues'
-    //         }
-    //     ]
-    // });
 
-    // document.getElementById("exportCSV").addEventListener("click", function () {
-    //     table.button('.buttons-csv').trigger();
-    // });
 })
 
+async function loadExpiryTable() {
+
+    let response = await fetch('http://localhost:8083/admin/subscriber/expiring', {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
+        }
+    });
+
+    let expiringSubscriber = [];
+    if (response.ok) {
+        expiringSubscriber = await response.json();
+    }
+
+    let tableBody = document.getElementById("expiringSubscriberTableBody");
+
+    if (expiringSubscriber === null) {
+        document.getElementById("expiringSubscriberTable").classList.add("d-none");
+        document.getElementById("expiringSubscriberTableContainer").innerText = "No Subscribers with expiry nearing!";
+    }
+    else {
+        expiringSubscriber.forEach(element => {
+            tableBody.innerHTML += `
+                <td>${element.subscriberId}</td>
+                <td>${element.fullName}</td>
+                <td>${element.phoneNumber}</td>
+                <td>${element.plan.category} , Rs.${element.plan.price} , ${element.plan.data} , ${element.plan.validity}</td>
+                <td>${formatDate(element.rechargeDate)}</td>
+                <td>${formatDate(element.expiryDate)}</td>
+                <td>
+                    <button class = "btn btn-primary" onclick='showSubscriberDetail(${element.subscriberId})'><i class = "fas fa-eye"></i> View</button>
+                </td>
+            `;
+        });
+    }
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return "";
+
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return "Invalid Date"; 
+
+    const options = { 
+        day: "2-digit", 
+        month: "short", 
+        year: "numeric", 
+        hour: "2-digit", 
+        minute: "2-digit", 
+        second: "2-digit", 
+        hour12: false 
+    };
+
+    return date.toLocaleString("en-GB", options).replace(",", "");
+}

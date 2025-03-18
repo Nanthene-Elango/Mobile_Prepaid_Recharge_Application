@@ -7,7 +7,7 @@ function displayPlans(plans) {
     plans.forEach((plan) => {
         let actionButton = plan.status === "ACTIVE" 
             ? `<span id="deleteBtn${plan.planId}" class="action-btn text-danger" style="cursor:pointer" onclick="deletePlan(${plan.planId})">
-                    <abbr data-title="Delete"><i class="fas fa-trash text-danger"></i></abbr>
+                    <abbr data-title="Deactivate"><i class="fas fa-trash text-danger"></i></abbr>
                </span>`
             : `<span id="restoreBtn${plan.planId}" class="action-btn text-success" style="cursor:pointer" onclick="restorePlan(${plan.planId})">
                     <abbr data-title="Restore"><i class="fas fa-undo text-success"></i></abbr>
@@ -35,27 +35,20 @@ function displayPlans(plans) {
 }
 
 
-function filterPlans(category) {
-    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
-    event.target.classList.add("active");
-
-    if (category === "All") {
-        displayPlans(plansData);
-    } else {
-        const filteredPlans = plansData.filter(plan => plan.category === category);
-        displayPlans(filteredPlans);
-    }
-}
-
 async function loadPlans() {
-    let response = await fetch('http://localhost:8083/plans/all');
+    let response = await fetch('http://localhost:8083/admin/plans/all' , {
+        method: "GET",
+        headers: {
+            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        }
+    });
     if (response.ok){
         plansData = await response.json();
     }
 }
 
 async function loadCategories() {
-    let response = await fetch('http://localhost:8083/categories');
+    let response = await fetch('http://localhost:8083/plans/categories');
     if (response){
         categories  = await response.json();
     }   
@@ -103,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadCategories();
     await loadPlans();
     displayPlans(plansData);
+    new DataTable("#planTable");
 
     document.getElementById("savePlanBtn").addEventListener("click", function () {
         const id = document.getElementById("editPlanId").value;
@@ -144,9 +138,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function updatePlan(planJson) {
-    let response = await fetch('http://localhost:8083/plans/update' , {
+    let response = await fetch('http://localhost:8083/admin/plans/update' , {
         method: "PUT",
-        headers: {"Content-Type":"application/json"},
+        headers: {
+            "Content-Type":"application/json" ,
+            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        },
         body: planJson
     })
 
@@ -162,9 +159,11 @@ async function updatePlan(planJson) {
 }
 
 async function addPlan(planJson) {
-    let response = await fetch('http://localhost:8083/plans/add' , {
+    let response = await fetch('http://localhost:8083/admin/plans/add' , {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
+        headers: {"Content-Type":"application/json",
+            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        },
         body: planJson
     })
 
@@ -180,8 +179,11 @@ async function addPlan(planJson) {
 }
 
 async function restorePlan(planId){
-    let response = await fetch(`http://localhost:8083/plans/activate/${planId}`,{
-        method:"POST"
+    let response = await fetch(`http://localhost:8083/admin/plans/activate/${planId}`,{
+        method:"POST",
+        headers: {
+            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        }
     });
     if (response.ok){
         await loadPlans();
@@ -196,24 +198,25 @@ async function restorePlan(planId){
 function deletePlan(planId) {
     Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "You can activate the plan later!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#0d6efd",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Yes, deactivate it!"
 
     }).then(async(result) => {
         if (result.isConfirmed) {
-            // plansData = plansData.filter(plan => plan.planid !== planId);
-            // displayPlans(plansData);
-            let response = await fetch(`http://localhost:8083/plans/delete/${planId}`,{
-                method:"POST"
+            let response = await fetch(`http://localhost:8083/admin/plans/delete/${planId}`,{
+                method:"POST",
+                headers: {
+                    "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+                }
             });
             if (response.ok){
                 await loadPlans();
                 displayPlans(plansData);
-                Swal.fire("Deleted!", "Your plan has been deleted.", "success");
+                Swal.fire("Deactivated!", "Your plan has been deactivated.", "success");
             }
            
         }
@@ -226,9 +229,11 @@ async function addCategory() {
         showToast(`Category is empty!`, "error");
         return;
     }
-    let response = await fetch('http://localhost:8083/category/add', {
+    let response = await fetch('http://localhost:8083/admin/category/add', {
         method:"POST",
-        headers:{"Content-Type":"application/json"},
+        headers: {"Content-Type":"application/json",
+            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        },
         body: JSON.stringify({
             "category":newCategory
         })

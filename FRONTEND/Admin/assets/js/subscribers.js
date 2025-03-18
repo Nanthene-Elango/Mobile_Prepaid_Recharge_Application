@@ -1,53 +1,68 @@
 let subscribers = [];
 
-fetch('assets/data/users.json')
-    .then(response => response.json())
-    .then(data => {
-        subscribers = data;
-        displaySubscribers(subscribers);
-
-    });
-
-function displaySubscribers(subscribers) {
-
-    const tableBody = document.getElementById("subscribersTable");
-    tableBody.innerHTML = "";
-    subscribers.forEach((subscribers) => {
-        if (subscribers.role !== "admin") {
-            tableBody.innerHTML += `
-            <tr>
-                <td>${subscribers.id}</td>
-                <td>${subscribers.name}</td>
-                <td>${subscribers.mobile_number}</td>
-                <td>${subscribers.email_id}</td>
-                <td>${subscribers.dob}</td>
-                <td>${subscribers.address}</td>
-                <td id ="status${subscribers.id}">${subscribers.status}</td>
-                <td>
-                    <button class="btn btn-primary" onclick="showProfile(${subscribers.id})">view</button>
-                </td>
-            </tr>`;
-            setColor(subscribers.status, subscribers.id);
-        }
-
-    });
-}
-
-function setColor(status, id) {
-    if (status === "active") {
-        document.getElementById(`status${id}`).style.color = "green";
-    }
-    else {
-        document.getElementById(`status${id}`).style.color = "red";
-    }
-}
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async() => {
+    await loadSubscribers();
     displaySubscribers(subscribers);
     var table = $('#subscriberTable').DataTable();
     $('#exportCSV').on('click', function () {
         table.button('.buttons-csv').trigger();
     });
 })
+
+async function loadSubscribers() {
+    let response = await fetch('http://localhost:8083/admin/subscribers' , {
+        headers:{
+            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        }
+    })
+
+    if (response.ok){
+        console.log(response);
+        subscribers = await response.json();
+        console.log(subscribers);
+    }
+}
+
+function displaySubscribers(subscribers) {
+
+    const tableBody = document.getElementById("subscribersTable");
+    tableBody.innerHTML = "";
+
+    if (subscribers === null){
+        tableBody.innerText = "No Data Found!";
+        return;
+    }
+   
+    subscribers.forEach((subscribers) => {
+        if (subscribers.role !== "admin") {
+            tableBody.innerHTML += `
+            <tr>
+                <td>${subscribers.subscriberId}</td>
+                <td>${subscribers.fullName}</td>
+                <td>${subscribers.phoneNumber}</td>
+                <td>${subscribers.email}</td>
+                <td>${subscribers.dob}</td>
+                <td>${subscribers.address}</td>
+                <td>${subscribers.gender}</td>
+                <td id ="status${subscribers.subscriberId}">${subscribers.status}</td>
+                <td>
+                    <button class="btn btn-primary" onclick="showProfile(${subscribers.subscriberId})">view</button>
+                </td>
+            </tr>`;
+            setColor(subscribers.status, subscribers.subscriberId);
+        }
+
+    });
+}
+
+function setColor(status, id) {
+    if (status === "ACTIVE") {
+        document.getElementById(`status${id}`).style.color = "green";
+    }
+    else {
+        document.getElementById(`status${id}`).style.color = "red";
+    }
+}
 
 function showProfile(userid) {
     let userDetail = subscribers.filter(user => user.id === userid);

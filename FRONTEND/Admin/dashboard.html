@@ -103,7 +103,6 @@
                     </a>
                 </li>
                 <li id="group" class="nav-item my-2 mx-2">
-                    <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
                     <a href="./support.html" class="nav-link ms-2"><i class="fas fa-headset"></i>
                         Support
                     </a>
@@ -134,7 +133,6 @@
                             class="fas fa-users"></i>
                         Subscribers</a></li>
                 <li id="group" class="nav-item my-2 mx-2">
-                    <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
                     <a href="#" class="nav-link ms-2"><i class="fas fa-headset"></i>
                         Support</a>
                 </li>
@@ -243,10 +241,11 @@
                     <button id="exportCSV" class="btn btn-primary"><i class="fas fa-download"></i> Export to
                         CSV</button>
                 </div>
-                <div class="card-body table-container">
-                    <table id="exampleTable" class="table table-bordered p-2" style="width:100%;">
+                <div class="card-body table-container" id="expiringSubscriberTableContainer">
+                    <table id="expiringSubscriberTable" class="table table-bordered p-2" style="width:100%;">
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Mobile Number</th>
                                 <th>Plan Details</th>
@@ -255,120 +254,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>John</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
-                            </tr>
-                            <tr>
-                                <td>Alice</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
-                            </tr>
-                            <tr>
-                                <td>Harry</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Peter</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Smith</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Charlie</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Nixen</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-
-                            <tr>
-                                <td>John</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alice</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><a href="./SubscriberProfile.html" class="btn btn-primary">View Profile</a></td>
-                            </tr>
-                            <tr>
-                                <td>Harry</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Peter</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Smith</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Charlie</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
-                            <tr>
-                                <td>Nixen</td>
-                                <td>+91 1234567890</td>
-                                <td>Rs.299<br>Validity: 20 days<br>Data: 1.5GB/day</td>
-                                <td>04 Mar 2023 11:30:45</td>
-                                <td>24 Mar 2023 11:30:45</td>
-                                <td><button class="btn btn-primary">View Profile</button></td>
-                            </tr>
+                        <tbody id="expiringSubscriberTableBody">
+                            
                         </tbody>
                     </table>
                 </div>

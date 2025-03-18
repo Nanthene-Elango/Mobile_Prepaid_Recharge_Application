@@ -1,5 +1,6 @@
-let plan = JSON.parse(localStorage.getItem("rechargePlan"));
 document.addEventListener("DOMContentLoaded", function () {
+
+    let plan = JSON.parse(sessionStorage.getItem("rechargePlan"));
     let phonePay = document.getElementById("phonePay");
     let googlePay = document.getElementById("googlePay");
     let paytm = document.getElementById("paytm");
@@ -38,12 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     let user = JSON.parse(sessionStorage.getItem("rechargeUser"));
+    console.log(plan);
     document.getElementById("name").innerText = user.fullName;
     document.getElementById("number").innerText = user.phoneNumber;
     document.getElementById("price").innerText = plan.price;
     document.getElementById("data").innerText = plan.data;
     document.getElementById("validity").innerText = plan.validity;
-    document.getElementById("benefits").innerText = plan.benefits;
+    document.getElementById("benefits").innerText = plan.benefits!= null ? plan.benefits : "No Benefits";
     document.getElementById("amount").innerText = plan.price;
 
     document.getElementById("backBtn").addEventListener("click", () => {
@@ -198,7 +200,7 @@ async function confirmRecharge(){
         payerId = JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId;
     }
     console.log(planId + " " + recipientId + " " + payerId + " " + paymentMethod);
-    let response = await fetch('http://localhost:8083/recharge/confirm' , {
+    let response = await fetch('http://localhost:8083/plans/recharge/confirm' , {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -273,28 +275,36 @@ async function processPayment(paymentMethod) {
     });
 }
 
-// function formatDate(date) {
-//     const day = String(date.getDate()).padStart(2, '0');
-//     const month = date.toLocaleString('default', { month: 'short' });
-//     const year = date.getFullYear();
-//     const hours = String(date.getHours() % 12 || 12).padStart(2, '0');
-//     const minutes = String(date.getMinutes()).padStart(2, '0');
-//     const seconds = String(date.getSeconds()).padStart(2, '0');
-//     const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+function formatDate(dateStr) {
+    if (!dateStr) return "";
 
-//     return `${day} ${month} ${year} ${hours}:${minutes}:${seconds} ${ampm}`;
-// }
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return "Invalid Date"; 
+
+    const options = { 
+        day: "2-digit", 
+        month: "short", 
+        year: "numeric", 
+        hour: "2-digit", 
+        minute: "2-digit", 
+        second: "2-digit", 
+        hour12: false 
+    };
+
+    return date.toLocaleString("en-GB", options).replace(",", "");
+}
 
 function showInvoice() {
     let transactionDetail = JSON.parse(sessionStorage.getItem("transactionDetail"));
     let rechargePlanDetail = transactionDetail.planDetail;
     let paymentMethod = transactionDetail.paymentMethod;
     let number = transactionDetail.mobileNumber;
-    let rechargeDate = transactionDetail.date;
+    let rechargeDate = formatDate(transactionDetail.date);
     let transactionId = transactionDetail.transationNumber;
 
     let calls = rechargePlanDetail.calls !== null? rechargePlanDetail.calls:"No Calls";
     let sms = rechargePlanDetail.sms !== null?rechargePlanDetail.sms:"No SMS";
+    let benefits = rechargePlanDetail.benefits !== null?rechargePlanDetail.benefits:"No Benefits";
 
     const invoiceHTML = `
    <table style = "width:100%;text-align: left; border-collapse: collapse;font-size:0.89rem;">
@@ -335,7 +345,7 @@ function showInvoice() {
             </tr>
             <tr  >
                 <td style= "width:50%; text-align: top"><strong>Benefits:</strong></td>
-                <td>${rechargePlanDetail.benefits}</td>
+                <td>${benefits}</td>
             </tr>
         </table>
         <hr>
@@ -367,7 +377,7 @@ function downloadInvoicePDF() {
 
     let paymentMethod = transactionDetail.paymentMethod;
     let number = transactionDetail.mobileNumber;
-    let rechargeDate = transactionDetail.date;
+    let rechargeDate = formatDate(transactionDetail.date);
     let transactionId = transactionDetail.transationNumber;
 
     const { jsPDF } = window.jspdf;

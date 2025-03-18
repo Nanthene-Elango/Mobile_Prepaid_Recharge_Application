@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function loadCategories(){
-    fetch('http://localhost:8083/categories')
+    fetch(`${baseURL}/categories`)
     .then(reponse => reponse.json())
     .then(category => {
         let plansNav = document.getElementById("plan-items");
@@ -453,6 +453,7 @@ function confirmPayment(plan) {
     }
     else {
         sessionStorage.setItem("rechargePlan", JSON.stringify(plan));
+        document.getElementById("rechargeNumber").value="";
         document.getElementById("mobile-input").classList.remove("invalid");
         document.getElementById("error-icon").classList.add("d-none");
         document.getElementById("error-number").classList.add("d-none");
