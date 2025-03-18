@@ -5,21 +5,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.ActivePlanDTO;
-import com.prepaidgo.MobiComm.DTO.PlansDTO;
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
+import com.prepaidgo.MobiComm.DTO.SubscriberExpiryDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
 import com.prepaidgo.MobiComm.Model.RevokedToken;
 import com.prepaidgo.MobiComm.Model.Transaction;
 import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
+import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
 import com.prepaidgo.MobiComm.service.SubscriberService;
 
 @RestController
@@ -90,7 +93,7 @@ public class SubscriberController {
 		}
 	}
 	
-	@PreAuthorize("hasAuthority('SUBSCRIBER')")
+	@PreAuthorize("hasAuthority('SUBSCRIBER') or hasAuthority('ADMIN')")
 	@PostMapping("subscriber/active-plan")
 	public ResponseEntity<?> getActivePlan(@RequestBody Map<String, Integer> user) {
 	    ActivePlanDTO activePlan = subscriberService.getActivePlan(user.get("userId"));
@@ -106,6 +109,25 @@ public class SubscriberController {
 		token = token.substring(7);
 		revokedTokenRepo.save(new RevokedToken(token));
 		return ResponseEntity.ok("Logged out successfully.");
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("admin/subscriber/expiring")
+	public ResponseEntity<?> getExpiringSubscribers(){
+		List<SubscriberExpiryDTO> subscribers = subscriberService.getExpiringSubscribers();
+		return ResponseEntity.status(HttpStatus.OK).body(subscribers);
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("admin/subscribers")
+	public ResponseEntity<?> getAllSubscribers(){
+		List<SubscriberDTO> subscribers = subscriberService.getAllsubscribers();
+		if (subscribers.isEmpty()) {
+			throw new NoUserFoundException("No Subscribers Found");
+		}
+		else {
+			return ResponseEntity.ok().body(subscribers);
+		}
 	}
 
 }

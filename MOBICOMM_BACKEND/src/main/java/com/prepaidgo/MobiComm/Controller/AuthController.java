@@ -1,16 +1,13 @@
 package com.prepaidgo.MobiComm.Controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.AdminLoginRequest;
 import com.prepaidgo.MobiComm.DTO.AdminRegisterRequest;
-import com.prepaidgo.MobiComm.Model.RevokedToken;
 import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.AuthService;
 

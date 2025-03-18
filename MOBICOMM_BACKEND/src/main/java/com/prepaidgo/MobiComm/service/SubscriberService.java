@@ -1,6 +1,5 @@
 package com.prepaidgo.MobiComm.service;
 
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -13,8 +12,8 @@ import com.prepaidgo.MobiComm.DTO.ActivePlanDTO;
 import com.prepaidgo.MobiComm.DTO.PlansDTO;
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
+import com.prepaidgo.MobiComm.DTO.SubscriberExpiryDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
-import com.prepaidgo.MobiComm.Model.Plans;
 import com.prepaidgo.MobiComm.Model.Recharges;
 import com.prepaidgo.MobiComm.Model.Transaction;
 import com.prepaidgo.MobiComm.Repository.RechargesRepository;
@@ -72,6 +71,15 @@ public class SubscriberService {
 						new PlansDTO(recharge.getPlan()) , recharge.getDateOfRecharge() , recharge.getDateOfExpiry()
 						)
 				).orElse(null); 
+	}
+
+	public List<SubscriberExpiryDTO> getExpiringSubscribers() {
+		return rechargeRepo.findAllExpiringSubscribers().stream().map(SubscriberExpiryDTO::new).collect(Collectors.toList());
+	}
+
+	public List<SubscriberDTO> getAllsubscribers() {
+		List<SubscriberDTO> subscribers = userRepo.findAllSubscribers().stream().map(SubscriberDTO::new).collect(Collectors.toList());
+		return subscribers;
 	}
 
 }

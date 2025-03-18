@@ -11,7 +11,7 @@ import com.prepaidgo.MobiComm.DTO.TransactionDTO;
 import com.prepaidgo.MobiComm.service.RechargeService;
 
 @RestController
-@RequestMapping("recharge/")
+@RequestMapping("plans/recharge/")
 public class RechargeController {
 	
 	RechargeService rechargeService;

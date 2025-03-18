@@ -33,8 +33,7 @@ public class ActivePlanDTO {
 		return expiryDate;
 	}
 	public void setExpiryDate(LocalDateTime expiryDate) {
-		expiryDate = expiryDate;
+		this.expiryDate = expiryDate;
 	}
-	
 	
 }

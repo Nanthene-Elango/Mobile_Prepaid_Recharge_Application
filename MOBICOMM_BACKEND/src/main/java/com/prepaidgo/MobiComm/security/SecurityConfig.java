@@ -33,8 +33,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .authorizeHttpRequests(auth -> auth
-                		.requestMatchers("/**").permitAll()
                 		.requestMatchers("/auth/**").permitAll() 
+                		.requestMatchers("/plans/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN") 
                 		.requestMatchers("/subscriber/**").hasAnyAuthority("SUBSCRIBER", "ADMIN") 
                         .anyRequest().authenticated() 

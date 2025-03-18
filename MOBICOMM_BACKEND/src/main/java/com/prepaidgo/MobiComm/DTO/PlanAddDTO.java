@@ -2,8 +2,6 @@ package com.prepaidgo.MobiComm.DTO;
 
 import java.math.BigDecimal;
 
-import com.prepaidgo.MobiComm.Model.Categories;
-
 public class PlanAddDTO {
 
 	private String category;
@@ -16,7 +14,6 @@ public class PlanAddDTO {
     
 	public PlanAddDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public PlanAddDTO(String category, BigDecimal price, String data, String calls, String sms, String validity,
 			String benefits) {

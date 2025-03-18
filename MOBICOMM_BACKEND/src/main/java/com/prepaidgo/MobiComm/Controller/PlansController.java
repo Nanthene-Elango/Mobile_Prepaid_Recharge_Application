@@ -39,8 +39,8 @@ public class PlansController {
 		return ResponseEntity.status(HttpStatus.OK).body(plans);
 	}
 
-//	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping("/plans/all")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("admin/plans/all")
 	public List<PlansDTO> getAllPlans() {
 		List<PlansDTO> plans = plansService.getAllPlans();
 		if (plans.isEmpty()) {
@@ -49,8 +49,8 @@ public class PlansController {
 		return plans;
 	}
 
-//	@PreAuthorize("hasAuthority('ADMIN')")
-	@PostMapping("/category/add") 
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("admin/category/add") 
 	public ResponseEntity<?> addCategory(@RequestBody Map<String,String> request){
 		if (plansService.addNewCategory(request.get("category"))) {
 			return ResponseEntity.ok("Category Added Successfully");
@@ -60,8 +60,8 @@ public class PlansController {
 		}
 	}
 	
-	@PostMapping("/plans/add")
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("admin/plans/add")
 	public ResponseEntity<?> addPlan(@RequestBody PlanAddDTO newPlan) {
 		if (plansService.addNewPlan(newPlan)) {
 			return ResponseEntity.status(HttpStatus.OK).body("Plan Saved Successfully!");
@@ -70,9 +70,9 @@ public class PlansController {
 		}
 
 	}
-
-	@PutMapping("plans/update")
-//	@PreAuthorize("hasAuthority('ADMIN')")
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PutMapping("admin/plans/update")
 	public ResponseEntity<?> updatePlan(@RequestBody PlansDTO updatedPlan) {
 
 		if (plansService.updatePlan(updatedPlan)) {
@@ -83,8 +83,8 @@ public class PlansController {
 
 	}
 
-	@PostMapping("plans/activate/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("admin/plans/activate/{id}")
 	public ResponseEntity<?> activatePlanById(@PathVariable int id) {
 		if (plansService.activatePlanById(id)) {
 			return ResponseEntity.status(HttpStatus.OK).body("Plan Activated Successfully!");
@@ -93,8 +93,8 @@ public class PlansController {
 		}
 	}
 
-	@PostMapping("plans/delete/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("admin/plans/delete/{id}")
 	public ResponseEntity<?> deletePlanById(@PathVariable int id) {
 		if (plansService.deletePlanById(id)) {
 			return ResponseEntity.status(HttpStatus.OK).body("Plan Deleted Successfully!");
@@ -123,7 +123,7 @@ public class PlansController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(plans);
 	}
 
-	@GetMapping("/categories")
+	@GetMapping("plans/categories")
 	public List<CategoriesDTO> getAllCategory() {
 		List<CategoriesDTO> categories = plansService.getAllCategories();
 		if (categories.isEmpty()) {
