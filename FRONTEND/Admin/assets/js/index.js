@@ -69,9 +69,10 @@ async function isAdmin(username , password){
         });
     
         if (response.ok){
-            let token = await response.json();
-            console.log(token.accessToken);
-            sessionStorage.setItem("accessToken" , token.accessToken);
+            let data = await response.json();
+            let admin = data.admin;
+            sessionStorage.setItem("accessToken" , data.accessToken);
+            sessionStorage.setItem("adminUser" , JSON.stringify(admin));
             return true;
         }
     }

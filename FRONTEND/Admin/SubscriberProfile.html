@@ -91,7 +91,6 @@
                             class="fas fa-users"></i>
                         Subscribers</a></li>
                 <li id="group" class="nav-item my-2 mx-2">
-                    <!-- <span class="badge badge-light" style="font-size: 0.67rem;">5</span> -->
                     <a href="#" class="nav-link ms-2"><i class="fas fa-headset"></i>
                         Support</a>
                 </li>
@@ -135,49 +134,59 @@
             </li>
         </nav>
 
-        <div class="container">
+        <div class="container" id="userProfile">
             <a onclick="redirect()" class="btn btn-dark my-2"><i class="fas fa-chevron-left"></i> back</a>
             <div class="text-center">
                 <i class="fas fa-circle-user fa-5x"></i>
-                <h1 class="mt-2" id="username">John Doe</h1>
-                <span id="userstatus">active</span>
+                <h1 class="mt-2" id="username"></h1>
+                <span id="userstatus"></span>
                 <div class="">
-                    <div><i class="fas fa-phone me-1"></i><span id="userphone">+91 9876543210</span></div>
+                    <div><i class="fas fa-phone me-1"></i><span id="userphone"></span></div>
+                    <div><i class="fas fa-cake me-1"></i><span id="userDOB"></span></div>
                     <div> <i class="fas fa-envelope me-1"></i>
-                        <span id="useremail">
-                            johnDoe@gmail.com
-                        </span>
+                        <span id="useremail"></span>
                     </div>
+                    <div id="userRegDate"></div>
                 </div>
                 <div class="mt-3">
                     <button id="deactivateBtn" class="btn btn-danger" onclick="deactivateUser()">deactivate
                         user</button>
                     <button id="activateBtn" class="btn btn-success d-none" onclick="activateUser()">activate
                         user</button>
-                    <!-- <button class="btn btn-secondary">deactive sim</button> -->
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-5">
-            <div class="col-10 col-sm-8  col-lg-6 col-xl-4  bg-white text-dark p-3"
-                style="border-radius: 10px;box-shadow: 1px 2px 10px darkgray;">
+        <div class="d-flex justify-content-center mt-5" >
+            <div class="col-10 col-sm-8  col-lg-6 col-xl-4  bg-white text-dark p-3 d-none"
+                style="border-radius: 10px;box-shadow: 1px 2px 10px darkgray;" id="userActivePlan">
                 <h4 class="text-center">Active plan</h4>
 
                 <div class="text-center mt-4">
-                    <h5>Rs.299</h5>
+                    <h5 id="planPrice">Rs.299</h5>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <b class="me-2">Data: </b><span class="me-4">2.5GB</span>
-                    <b class="me-2">Validity: </b><span> 28 days</span>
+                    <b class="me-2">Data: </b><span class="me-4" id="planData"></span>
+                    <b class="me-2">Validity: </b><span id="planValidity"></span>
+                </div>
+                <div class="text-center mt-3">
+                    <b>Calls/SMS: </b><span id="callsAndSms"></span>
                 </div>
                 <div class="text-center mt-3">
                     <b>Benefits: </b>
-                    <span>Unlimited Calls, 100 SMS/day,Disney+ Hotstar Subscription</span>
+                    <span id="planBenefits"></span>
                 </div>
-
                 <div class="text-center mt-3">
-                    Expiring in <span>4</span> days
+                    <b>Date of Recharge: </b>
+                    <span id="dateOfRecharge"></span>
                 </div>
+                <div class="text-center mt-3">
+                    <b>Date of Expiry: </b>
+                    <span id="dateOfExpiry"></span>
+                </div>
+            </div>
+            <div class="col-10 col-sm-8  col-lg-6 col-xl-4  bg-white text-dark p-3 d-none"
+            style="border-radius: 10px;box-shadow: 1px 2px 10px darkgray;"  id="no-active-plan" class="d-none">
+                <div class="text-center">No Active Plan</div> 
             </div>
         </div>
 
@@ -201,43 +210,8 @@
                             <th>status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>21</td>
-                            <td>#TNX542734</td>
-                            <td>299</td>
-                            <td>56</td>
-                            <td>23 Apr 2023 11:41:12</td>
-                            <td>UPI</td>
-                            <td class="text-success">Success</td>
-                        </tr>
-                        <tr>
-                            <td>45</td>
-                            <td>#TNX543224</td>
-                            <td>199</td>
-                            <td>23</td>
-                            <td>25 May 2023 09:41:12</td>
-                            <td>UPI</td>
-                            <td class="text-success">Success</td>
-                        </tr>
-                        <tr>
-                            <td>561</td>
-                            <td>#TNX54334</td>
-                            <td>299</td>
-                            <td>56</td>
-                            <td>31 Jun 2023 16:15:12</td>
-                            <td>UPI</td>
-                            <td class="text-success">Success</td>
-                        </tr>
-                        <tr>
-                            <td>91</td>
-                            <td>#TNX394334</td>
-                            <td>1999</td>
-                            <td>16</td>
-                            <td>01 Aug 2023 12:32:12</td>
-                            <td>UPI</td>
-                            <td class="text-success">Success</td>
-                        </tr>
+                    <tbody id="transactionTableBody">
+                        
                     </tbody>
                 </table>
             </div>

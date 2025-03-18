@@ -57,6 +57,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 })
 
+function showProfile(userid) {
+    sessionStorage.setItem("displayUser", userid);  
+    window.location.href = "./subscriberProfile.html";
+}
+
 async function loadExpiryTable() {
 
     let response = await fetch('http://localhost:8083/admin/subscriber/expiring', {
@@ -87,7 +92,7 @@ async function loadExpiryTable() {
                 <td>${formatDate(element.rechargeDate)}</td>
                 <td>${formatDate(element.expiryDate)}</td>
                 <td>
-                    <button class = "btn btn-primary" onclick='showSubscriberDetail(${element.subscriberId})'><i class = "fas fa-eye"></i> View</button>
+                    <button class = "btn btn-primary" onclick='showProfile(${element.subscriberId})'><i class = "fas fa-eye"></i> View</button>
                 </td>
             `;
         });

@@ -65,10 +65,7 @@ function setColor(status, id) {
 }
 
 function showProfile(userid) {
-    let userDetail = subscribers.filter(user => user.id === userid);
-    console.log(userDetail[0]);
-    sessionStorage.setItem("displayUser", JSON.stringify(userDetail[0]));
-
+    sessionStorage.setItem("displayUser", userid);  
     window.location.href = "./subscriberProfile.html";
 }
 
