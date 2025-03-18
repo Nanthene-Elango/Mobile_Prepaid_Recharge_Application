@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.prepaidgo.MobiComm.DTO.AdminDTO;
 import com.prepaidgo.MobiComm.DTO.AdminRegisterRequest;
 import com.prepaidgo.MobiComm.Model.Users;
 import com.prepaidgo.MobiComm.Repository.RolesRepository;
@@ -33,11 +34,10 @@ public class AuthService {
 		
 		Users admin = usersRepo.findByUsername(username).get();
 		
-		System.out.println(admin);
-		
 		if (admin != null && passwordEncoder.matches(password , admin.getPassword())) {
 			return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-				    "accessToken", jwtUtil.generateToken(username, "ADMIN")
+				    "accessToken", jwtUtil.generateToken(username, "ADMIN"),
+				    "admin",admin.getUserId()
 				));
 		}
 		else {

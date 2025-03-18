@@ -82,4 +82,13 @@ public class SubscriberService {
 		return subscribers;
 	}
 
+	public SubscriberDTO getSubscriberById(int userId){
+		if (userRepo.existsById(userId)) {
+			return new SubscriberDTO(userRepo.findById(userId).get());
+		}
+		else {
+			return null;
+		}
+	}
+
 }

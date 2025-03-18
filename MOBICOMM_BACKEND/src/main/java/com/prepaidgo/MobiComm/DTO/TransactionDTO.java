@@ -7,22 +7,26 @@ import com.prepaidgo.MobiComm.Model.Transaction;
 
 public class TransactionDTO {
 
+	private int transactionId;
 	private String transationNumber;
 	private LocalDateTime date;
 	private BigDecimal amount;
 	private String paymentMethod;
 	private String mobileNumber;
+	private String status;
 	private PlansDTO planDetail;
 	
 	public TransactionDTO() {
 		super();
 	}
 	public TransactionDTO(Transaction transaction) {
+		this.transactionId = transaction.getTransactionId();
 		this.transationNumber = transaction.getTransactionNumber();
 		this.date = transaction.getTransactionDate();
 		this.paymentMethod = transaction.getPaymentMode();
 		this.amount = transaction.getAmount();
 		this.mobileNumber = transaction.getRecharge().getUser().getPhoneNumber();
+		this.status = transaction.getStatus();
 		this.planDetail = new PlansDTO(transaction.getRecharge().getPlan());
 	}
 	public String getTransationNumber() {
@@ -61,5 +65,16 @@ public class TransactionDTO {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}	
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public int getTransactionId() {
+		return transactionId;
+	}
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
+	}
 }

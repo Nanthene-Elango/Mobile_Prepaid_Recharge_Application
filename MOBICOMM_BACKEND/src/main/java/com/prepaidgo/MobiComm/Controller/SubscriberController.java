@@ -59,7 +59,19 @@ public class SubscriberController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PreAuthorize("hasAuthority('SUBSCRIBER')")
+	@PreAuthorize("hasAuthority('SUBSCRIBER') or hasAuthority('ADMIN')")
+	@PostMapping("subscriber/profile")
+	public ResponseEntity<?> getSubscriberById(@RequestBody Map<String,Integer> user){
+		SubscriberDTO subscriber = subscriberService.getSubscriberById(user.get("userId"));
+		if (subscriber != null) {
+			return ResponseEntity.ok(subscriber);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@PreAuthorize("hasAuthority('SUBSCRIBER') or hasAuthority('ADMIN')")
 	@PostMapping("subscriber/profile/transactions")
 	public ResponseEntity<?> getTransactionDetailsByPayerId(@RequestBody Map<String, Integer> user) {
 		List<TransactionDTO> transactions = subscriberService.getTransactionDetailByPayerId(user.get("userId"));
@@ -70,7 +82,7 @@ public class SubscriberController {
 		}
 	}
 
-	@PreAuthorize("hasAuthority('SUBSCRIBER')")
+	@PreAuthorize("hasAuthority('SUBSCRIBER') or hasAuthority('ADMIN')")
 	@PostMapping("subscriber/profile/recharges")
 	public ResponseEntity<?> getRechargeDetailsByUserId(@RequestBody Map<String, Integer> user) {
 		List<RechargesDTO> recharges = subscriberService.getRechargeDetailByUserId(user.get("userId"));

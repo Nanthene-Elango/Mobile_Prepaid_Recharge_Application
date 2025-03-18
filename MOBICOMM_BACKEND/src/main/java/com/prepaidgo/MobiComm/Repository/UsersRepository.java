@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.prepaidgo.MobiComm.Model.Users;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users,Integer>{
@@ -20,4 +24,20 @@ public interface UsersRepository extends JpaRepository<Users,Integer>{
     
     @Query("SELECT s FROM Users s WHERE s.role.role = 'SUBSCRIBER'")
 	public List<Users> findAllSubscribers();
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE Users u SET u.email = :email WHERE u.userId = :userId")
+	public int updateEmailByUserId(@Param("userId") int userId, @Param("email") String email);
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE Users u SET u.username = :username WHERE u.userId = :userId")
+	public int updateUsernameByUserId(@Param("userId") int userId, @Param("username") String username);
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE Users u SET u.password = :password WHERE u.userId = :userId")
+    void updatePasswordByUserId(@Param("userId") int userId, @Param("password") String password);
+
 }
