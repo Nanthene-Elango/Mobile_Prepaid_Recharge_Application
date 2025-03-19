@@ -10,6 +10,8 @@ import com.prepaidgo.MobiComm.DTO.ConfirmRechargeDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
 import com.prepaidgo.MobiComm.service.RechargeService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("plans/recharge/")
 public class RechargeController {
@@ -21,13 +23,16 @@ public class RechargeController {
 	}
 
 	@PostMapping("confirm")
-	public ResponseEntity<?> confirmRecharge(@RequestBody ConfirmRechargeDTO request){
+	public ResponseEntity<?> confirmRecharge(@Valid @RequestBody ConfirmRechargeDTO request){
+		
 		System.out.println("plan id: " + request.getPlanId());
 		System.out.println("payer id: " + request.getPayerId());
 		System.out.println("recepient id: " + request.getRecipientId());
 		System.out.println("payment method: " + request.getPaymentMethod());
+		
 		TransactionDTO transactionDetail = rechargeService.confirmRecharge(request.getPlanId() 
 				, request.getRecipientId() , request.getPayerId() , request.getPaymentMethod());
+		
 		return ResponseEntity.ok(transactionDetail);
 	}
 }

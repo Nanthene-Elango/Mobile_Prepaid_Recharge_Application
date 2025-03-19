@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.prepaidgo.MobiComm.Repository.UsersRepository;
+import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
 import com.prepaidgo.MobiComm.security.JwtUtil;
 import com.prepaidgo.MobiComm.service.OTPService;
 
@@ -31,7 +32,7 @@ public class OTPController {
             return ResponseEntity.ok(Map.of("otp",otp));
     	}
     	else {
-    		return ResponseEntity.badRequest().body("No User Found!");
+    		throw new NoUserFoundException("User does not exist!");
     	}
         
     }

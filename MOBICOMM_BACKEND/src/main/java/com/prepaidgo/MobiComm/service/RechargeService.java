@@ -12,6 +12,8 @@ import com.prepaidgo.MobiComm.Repository.PlansRepository;
 import com.prepaidgo.MobiComm.Repository.RechargesRepository;
 import com.prepaidgo.MobiComm.Repository.TransactionRepository;
 import com.prepaidgo.MobiComm.Repository.UsersRepository;
+import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
+import com.prepaidgo.MobiComm.exceptions.PlanNotFoundException;
 
 @Service
 public class RechargeService {
@@ -31,8 +33,19 @@ public class RechargeService {
 	public TransactionDTO confirmRecharge(int planId, int recipientId, Integer payerId , String paymentMode) {
 
 		Recharges recharge = new Recharges();
-		recharge.setUser(usersRepo.findById(recipientId).get());
-		recharge.setPlan(plansRepo.findById(planId).get());
+		if (usersRepo.existsById(recipientId)) {
+			recharge.setUser(usersRepo.findById(recipientId).get());
+		}
+		else {
+			throw new NoUserFoundException("No User Found on this recipient Id!");
+		}
+		if (plansRepo.existsById(planId)) {
+			recharge.setPlan(plansRepo.findById(planId).get());
+		}
+		else {
+			throw new PlanNotFoundException("No plans found in this plan Id!");
+		}
+		
 		recharge.setDateOfRecharge(LocalDateTime.now());
 		recharge.setDateOfExpiry(recharge.getDateOfRecharge().plusDays(extractDays(recharge.getPlan().getValidity())));
 
@@ -41,6 +54,7 @@ public class RechargeService {
 				.findByPlanAndUserAndRechargeDate(planId, recipientId, recharge.getDateOfRecharge()).get();
 		
 		return processTransaction(savedRecharge , payerId , paymentMode);
+
 	}
 
 	private TransactionDTO processTransaction(Recharges recharge , Integer payerId , String paymentMode) {
@@ -48,14 +62,21 @@ public class RechargeService {
 		Transaction transaction = new Transaction();
 		transaction.setTransactionNumber(generateTransactionNumber());
 		transaction.setAmount(recharge.getPlan().getPrice());
+		
 		if (payerId == null)
 		{
 			transaction.setPayer(null);
 		}
 		else {
-			Users user = usersRepo.findById(payerId).get();
-			transaction.setPayer(user);
+			if (usersRepo.existsById(payerId)) {
+				Users user = usersRepo.findById(payerId).get();
+				transaction.setPayer(user);
+			}
+			else {
+				throw new NoUserFoundException("No User Found on this payer Id!");
+			}
 		}
+		
 		transaction.setTransactionDate(recharge.getDateOfRecharge());
 		transaction.setPaymentMode(paymentMode);
 		transaction.setRecharge(recharge);

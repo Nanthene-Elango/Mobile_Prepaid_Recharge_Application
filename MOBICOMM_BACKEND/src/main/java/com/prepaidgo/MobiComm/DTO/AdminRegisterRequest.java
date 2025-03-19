@@ -1,11 +1,22 @@
 package com.prepaidgo.MobiComm.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class AdminRegisterRequest {
 
+	@NotBlank(message = "Username Should not be empty/null")
 	private String username;
+	
+	@NotBlank(message = "Password Should not be empty/null")
 	private String password;
+
+	@NotBlank(message = "email Should not be empty/null")
 	private String email;
+	
+	@NotBlank(message = "PhoneNumber Should not be empty/null")
 	private String phoneNumber;
+
+	@NotBlank(message = "Full name Should not be empty/null")
 	private String fullName;
 	
 	public AdminRegisterRequest() {

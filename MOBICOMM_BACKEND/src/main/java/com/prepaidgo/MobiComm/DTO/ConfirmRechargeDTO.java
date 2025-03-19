@@ -1,10 +1,23 @@
 package com.prepaidgo.MobiComm.DTO;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class ConfirmRechargeDTO {
 
+	@Min(value = 1, message = "Payer ID must be a positive number")
 	private Integer payerId;
+	
+	@NotNull(message = "Recipient Id should not be null")
+	@Min(value = 1, message = "Recipient ID must be a positive number")
 	private int recipientId;
+	
+	@NotNull(message = "Plan Id should not be null")
+	@Min(value = 1, message = "Plan ID must be a positive number")
 	private int planId;
+	
+	@NotBlank(message = "Payment method should not be empty/null")
 	private String paymentMethod;
 	
 	public ConfirmRechargeDTO() {

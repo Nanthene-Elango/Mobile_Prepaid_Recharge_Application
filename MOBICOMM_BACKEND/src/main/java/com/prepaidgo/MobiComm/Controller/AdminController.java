@@ -16,6 +16,7 @@ import com.prepaidgo.MobiComm.Repository.PlansRepository;
 import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.AdminService;
 
+import jakarta.validation.Valid;
 
 @RestController
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -33,6 +34,10 @@ public class AdminController {
 	
 	@PostMapping("admin/profile")
 	public ResponseEntity<?> getAdminDetails(@RequestBody Map<String,Integer> request){
+		if (request == null || request.get("adminId") == null) {
+			throw new NullPointerException("Admin Id Cannot be Null!");
+		}
+		
 		return adminService.getAdminDetails(request.get("adminId"));
 	}
 	
@@ -44,17 +49,17 @@ public class AdminController {
 	}
 
 	@PutMapping("admin/update/email")
-	public ResponseEntity<?> updateEmail(@RequestBody AdminDetailsUpdateDTO request){
+	public ResponseEntity<?> updateEmail(@Valid @RequestBody AdminDetailsUpdateDTO request){
 		return adminService.updateEmail(request.getUserId() , request.getNewvalue());
 	}
 	
-	@PutMapping("admin/update/username")
-	public ResponseEntity<?> updateUsername(@RequestBody AdminDetailsUpdateDTO request){
-		return adminService.updateUsername(request.getUserId() , request.getNewvalue());
-	}
+//	@PutMapping("admin/update/username")
+//	public ResponseEntity<?> updateUsername(@Valid @RequestBody AdminDetailsUpdateDTO request){
+//		return adminService.updateUsername(request.getUserId() , request.getNewvalue());
+//	}
 	
 	@PutMapping("admin/update/password")
-	public ResponseEntity<?> updatePassword(@RequestBody AdminDetailsUpdateDTO request){
+	public ResponseEntity<?> updatePassword(@Valid @RequestBody AdminDetailsUpdateDTO request){
 		return adminService.updatePassword(request.getUserId() , request.getNewvalue());
 	}
 }

@@ -11,6 +11,8 @@ import com.prepaidgo.MobiComm.DTO.AdminRegisterRequest;
 import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.AuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -25,12 +27,12 @@ public class AuthController {
 	}
 	
 	@PostMapping("admin/register")
-	public ResponseEntity<?> adminRegister(@RequestBody AdminRegisterRequest request){
+	public ResponseEntity<?> adminRegister(@Valid @RequestBody AdminRegisterRequest request){
 		return authService.registerAdmin(request);
 	}
 	
 	@PostMapping("admin/login")
-	public ResponseEntity<?> adminLogin(@RequestBody AdminLoginRequest request){
+	public ResponseEntity<?> adminLogin(@Valid @RequestBody AdminLoginRequest request){
 		String username = request.getUsername();
 		String password = request.getPassword();
 		

@@ -1,8 +1,14 @@
 package com.prepaidgo.MobiComm.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class AdminDetailsUpdateDTO {
 
+	@NotNull(message = "User ID cannot be null")
 	private int userId;
+	
+	@NotBlank(message = "New Value cannot be null")
 	private String newvalue;
 	
 	public AdminDetailsUpdateDTO() {
