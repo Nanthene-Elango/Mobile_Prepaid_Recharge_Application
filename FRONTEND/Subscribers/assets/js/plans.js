@@ -1,54 +1,13 @@
 const baseURL = 'http://localhost:8083/plans';
 document.addEventListener("DOMContentLoaded", function () {
-        loadCategories();
-        initializeCarousel();
+    loadCategories();
+    initializeCarousel();
 })
 
-function loadCategories(){
-    fetch(`${baseURL}/categories`)
-    .then(reponse => reponse.json())
-    .then(category => {
-        let plansNav = document.getElementById("plan-items");
-        category.forEach(data => {
-            let nav = document.createElement("div");
-            nav.classList.add("plan-item");
-            nav.classList.add("text-center");
-            let category = data.category.charAt(0).toUpperCase() + data.category.slice(1);
-            nav.innerHTML = `<a class="plan-link p-2" href="#${data.category}-plans">${category} Plans</a>`;
-            plansNav.appendChild(nav);
-
-            let plansContainer = document.getElementById("plansContainer");
-            let planCard = document.createElement("div");
-            planCard.classList.add("card");
-            planCard.classList.add("m-md-4");
-            planCard.classList.add("my-4");
-            planCard.classList.add("plans");
-            planCard.id =  `${data.category}-plans`;
-            planCard.innerHTML = `
-            <div class="card-header" style="border-radius: 5px;">
-                ${category} Plans
-            </div>
-            <div id="${data.category}-plan-cards">
-                
-            </div>`
-            plansContainer.appendChild(planCard)
-            loadPlanByCategory(data.category);
-        })
-    })
-}
-
-
-function loadPlanByCategory(category){
-    fetch(`${baseURL}/category/${category}`)
-    .then(reponse => reponse.json())
-    .then(plans => {
-        let allPlansCard = document.getElementById("all-plan-cards");
-        let planCard = document.getElementById(`${category}-plan-cards`);
-        plans.forEach(plan => {
-            let card = document.createElement("div");
-            card.classList.add("card");
-            card.innerHTML = `
-                <div class="col-12 card-body d-flex flex-column my-1 p-4">
+function generatePlanCard(plan) {
+    return `
+        <div class="card">
+            <div class="col-12 card-body d-flex flex-column my-1 p-4">
                 <div class="col-12 d-flex justify-content-between">
                     <div class="d-flex justify-content-between col-10">
                         <div><strong>Rs. ${plan.price}</strong><br>Price</div>
@@ -67,9 +26,96 @@ function loadPlanByCategory(category){
                     </div>
                 </div>
             </div>
-            `
-            planCard.appendChild(card);
-            allPlansCard.appendChild(card.cloneNode(true));
+        </div>
+    `;
+}
+
+function loadCategories() {
+    fetch(`${baseURL}/categories`)
+        .then(reponse => reponse.json())
+        .then(category => {
+            let plansNav = document.getElementById("plan-items");
+            category.forEach(data => {
+                let nav = document.createElement("div");
+                nav.classList.add("plan-item");
+                nav.classList.add("text-center");
+                let category = data.category.charAt(0).toUpperCase() + data.category.slice(1);
+                nav.innerHTML = `<a class="plan-link p-2" href="#${data.category}-plans">${category} Plans</a>`;
+                plansNav.appendChild(nav);
+
+                let plansContainer = document.getElementById("plansContainer");
+                let planCard = document.createElement("div");
+                planCard.classList.add("card");
+                planCard.classList.add("m-md-4");
+                planCard.classList.add("my-4");
+                planCard.classList.add("plans");
+                planCard.id = `${data.category}-plans`;
+                planCard.innerHTML = `
+                    <div class="card-header" style="border-radius: 5px;">
+                        ${category} Plans
+                    </div>
+                    <div id="${data.category}-plan-cards">
+                        
+                    </div>`;
+                plansContainer.appendChild(planCard);
+                loadPlanByCategory(data.category);
+            })
+        });
+}
+
+function loadPlanByCategory(category) {
+    fetch(`${baseURL}/category/${category}`)
+        .then(reponse => reponse.json())
+        .then(plans => {
+            let allPlansCard = document.getElementById("all-plan-cards");
+            let planCard = document.getElementById(`${category}-plan-cards`);
+            plans.forEach(plan => {
+                let card = generatePlanCard(plan);
+                planCard.innerHTML += card;
+                allPlansCard.innerHTML += card;
+            })
+        })
+}
+
+function displayFilteredPlans(filteredPlans) {
+    let categories = extractCategories(filteredPlans);
+    let plancontainer = document.getElementById("plansContainer");
+    plancontainer.innerHTML = "";
+    let plansNav = document.getElementById("plan-items");
+    console.log(categories);
+    plansNav.innerText = "";
+    categories.forEach(data => {
+        let nav = document.createElement("div");
+        nav.classList.add("plan-item");
+        nav.classList.add("text-center");
+        let category = data.charAt(0).toUpperCase() + data.slice(1);
+        nav.innerHTML = `<a class="plan-link p-2" href="#${data}-plans">${category} Plans</a>`;
+        plansNav.appendChild(nav);
+
+        let plansContainer = document.getElementById("plansContainer");
+        let planCard = document.createElement("div");
+        planCard.classList.add("card");
+        planCard.classList.add("m-md-4");
+        planCard.classList.add("my-4");
+        planCard.classList.add("plans");
+        planCard.id = `${data}-plans`;
+        planCard.innerHTML = `
+            <div class="card-header" style="border-radius: 5px;">
+                ${category} Plans
+            </div>
+            <div id="${data}-plan-cards">
+                
+            </div>`
+        plansContainer.appendChild(planCard)
+        let plans = filterByCategory(filteredPlans, data);
+        console.log(plans);
+        let planCard1 = document.getElementById(`${data}-plan-cards`);
+        plans.forEach(plan => {
+            let card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = generatePlanCard(plan);
+            planCard1.appendChild(card);
+
         })
     })
 }
@@ -77,7 +123,7 @@ function loadPlanByCategory(category){
 async function fetchPlanById(id) {
     const response = await fetch(`${baseURL}/${id}`);
     const data = await response.json();
-    return data; // Return the fetched plan object
+    return data;
 }
 
 async function initializeCarousel() {
@@ -108,301 +154,65 @@ function generateCarouselPlanHTML(plan) {
 function filterPlans() {
     document.getElementById("clear").classList.remove("d-none");
 
-    let maxPrice = document.getElementById("pricerange").value;
+    let filterCriteria = {
+        maxPrice: document.getElementById("pricerange").value,
+        selectedData: Array.from(document.querySelectorAll('#dataFilter input[type="checkbox"]:checked'))
+            .map(cb => cb.value),
+        selectedValidity: Array.from(document.querySelectorAll('#validityFilter input[type="checkbox"]:checked'))
+            .map(cb => cb.value)
+    };
 
-    let selectedData = Array.from(document.querySelectorAll('#dataFilter input[type="checkbox"]:checked'))
-        .map(cb => cb.value);
-
-    let selectedValidity = Array.from(document.querySelectorAll('#validityFilter input[type="checkbox"]:checked'))
-        .map(cb => cb.value);
-
-    let filteredPlans;
-    if (selectedData.length == 0 && selectedValidity.length == 0) {
-        filteredPlans = plans.filter(plan =>
-            plan.price <= maxPrice
-        );
-    }
-    else {
-        filteredPlans = plans.filter(plan =>
-            plan.price <= maxPrice &&
-            (selectedData.length !== 0 && selectedData.some(data => plan.data.toLowerCase().startsWith(data.toLowerCase()))) ||
-            (selectedValidity.length !== 0 && selectedValidity.some(validity => plan.validity.toLowerCase().startsWith(validity.toLowerCase())))
-        );
-    }
-
-    console.log("Filtered Plans:", filteredPlans);
-    displayFilteredPlans(filteredPlans);
+    fetchFilteredPlans(JSON.stringify(filterCriteria))
 }
 
+async function fetchFilteredPlans(filterCriteria) {
 
-function clearFilters() {
-
-    let rangeInput = document.getElementById("pricerange");
-    rangeInput.value = 2500;
-    document.getElementById("rangeValue").innerText = "2500";
-
-    document.getElementById("searchInput").value = "";
-
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-    });
-
-    if (document.getElementById("plansContainer").classList.contains("d-none")) {
-        document.getElementById("plansContainer").classList.remove("d-none");
-    }
-    else {
-        if (document.getElementById("popular-plans").classList.contains("d-none")) {
-            document.getElementById("popular-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("validity-plans").classList.contains("d-none")) {
-            document.getElementById("validity-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("data-plans").classList.contains("d-none")) {
-            document.getElementById("data-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("unlimited-plans").classList.contains("d-none")) {
-            document.getElementById("unlimited-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("annual-plans").classList.contains("d-none")) {
-            document.getElementById("annual-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("streaming-plans").classList.contains("d-none")) {
-            document.getElementById("streaming-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("student-plans").classList.contains("d-none")) {
-            document.getElementById("student-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("ott-plans").classList.contains("d-none")) {
-            document.getElementById("ott-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("gaming-plans").classList.contains("d-none")) {
-            document.getElementById("gaming-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("wfh-plans").classList.contains("d-none")) {
-            document.getElementById("wfh-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("short-term-plans").classList.contains("d-none")) {
-            document.getElementById("short-term-plans").classList.remove("d-none")
-        }
-    }
-
-    displayPlans(plans);
-    document.getElementById("clear").classList.add("d-none");
-}
-
-function displayFilteredPlans(filteredPlans) {
-
-
-    if (document.getElementById("plansContainer").classList.contains("d-none")) {
-        document.getElementById("plansContainer").classList.remove("d-none");
-    }
-    else {
-        if (document.getElementById("popular-plans").classList.contains("d-none")) {
-            document.getElementById("popular-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("validity-plans").classList.contains("d-none")) {
-            document.getElementById("validity-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("data-plans").classList.contains("d-none")) {
-            document.getElementById("data-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("unlimited-plans").classList.contains("d-none")) {
-            document.getElementById("unlimited-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("annual-plans").classList.contains("d-none")) {
-            document.getElementById("annual-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("streaming-plans").classList.contains("d-none")) {
-            document.getElementById("streaming-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("student-plans").classList.contains("d-none")) {
-            document.getElementById("student-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("ott-plans").classList.contains("d-none")) {
-            document.getElementById("ott-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("gaming-plans").classList.contains("d-none")) {
-            document.getElementById("gaming-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("wfh-plans").classList.contains("d-none")) {
-            document.getElementById("wfh-plans").classList.remove("d-none")
-        }
-        if (document.getElementById("short-term-plans").classList.contains("d-none")) {
-            document.getElementById("short-term-plans").classList.remove("d-none")
-        }
-    }
-
-
-    let allPlans = document.getElementById("all-plan-cards");
-    let popular = document.getElementById("popular-plan-cards");
-    let validity = document.getElementById("validity-plan-cards");
-    let data_plans = document.getElementById("data-plan-cards");
-    let unlimited = document.getElementById("unlimited-plan-cards");
-    let streaming = document.getElementById("streaming-plan-cards");
-    let student = document.getElementById("student-plan-cards");
-    let ott = document.getElementById("ott-plan-cards");
-    let gaming = document.getElementById("gaming-plan-cards");
-    let wfh = document.getElementById("wfh-plan-cards");
-    let annual = document.getElementById("annual-plan-cards");
-    let shortterm = document.getElementById("short-term-plan-cards");
-
-    allPlans.innerHTML = "";
-    popular.innerHTML = "";
-    validity.innerHTML = "";
-    data_plans.innerHTML = "";
-    unlimited.innerHTML = "";
-    streaming.innerHTML = "";
-    student.innerHTML = "";
-    ott.innerHTML = "";
-    gaming.innerHTML = "";
-    wfh.innerHTML = "";
-    annual.innerHTML = "";
-    shortterm.innerHTML = "";
-
-    console.log(filteredPlans)
-
-    if (filteredPlans.length == 0) {
+    console.log(filterCriteria);
+    let response = await fetch('http://localhost:8083/plans/filter', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: filterCriteria
+    })
+    let data = [];
+    if (response.ok) {
+        data = await response.json();
+        displayFilteredPlans(data);
+    } 
+    else if(response.status == 404){
         document.getElementById("plansContainer").classList.add("d-none");
         document.getElementById("filterResult").classList.remove("d-none");
-        document.getElementById("filterResult").innerText = "Oops! No plans matches your search :(";
-        return;
+        document.getElementById("filterResult").innerHTML = "<div class = 'text-center text-danger'>OOPS! No plans Matches your search :(</div>"
     }
+    else {
+        console.error("Error fetching filtered plans:", response.statusText);
+    }
+}
+
+function clearFilters(){
+    window.location.reload();
+}
 
 
-    if (!document.getElementById("filterResult").classList.contains("d-none")) {
-        document.getElementById("filterResult").classList.add("d-none");
-    }
+
+function filterByCategory(filteredPlans, selectedCategory) {
+    return filteredPlans.filter(plan => plan.category === selectedCategory);
+}
+
+function extractCategories(filteredPlans) {
+    console.log(filteredPlans)
+    let categories = new Set();
+
     filteredPlans.forEach(plan => {
-        let card = document.createElement("div");
-        card.classList.add("card");
-
-        card.innerHTML = `
-            <div class="col-12 card-body d-flex flex-column my-1 p-4">
-                <div class="col-12 d-flex justify-content-between">
-                    <div class="d-flex justify-content-between col-10">
-                        <div><strong>Rs. ${plan.price}</strong><br>Price</div>
-                        <div><strong>${plan.data}</strong><br>Data</div>
-                        <div><strong>${plan.validity}</strong><br>Validity</div>
-                    </div>
-                    <a onclick='confirmPayment(${JSON.stringify(plan)})'>
-                        <abbr data-title="Recharge"><i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i></abbr>
-                    </a>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-end view-details">
-                    <div>
-                        <a class="text-primary text-decoration-none" style="cursor:pointer" 
-                           onclick='showDetails(${JSON.stringify(plan)})'>View Details</a>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        allPlans.appendChild(card.cloneNode(true));
-        if (plan.category === "Popular") popular.appendChild(card);
-        if (plan.category === "Validity") validity.appendChild(card);
-        if (plan.category === "Data") data_plans.appendChild(card);
-        if (plan.category === "Unlimited") unlimited.appendChild(card);
-        if (plan.category === "Streaming") streaming.appendChild(card);
-        if (plan.category === "Gaming") gaming.appendChild(card);
-        if (plan.category === "OTT Subscriptions") ott.appendChild(card);
-        if (plan.category === "Student") student.appendChild(card);
-        if (plan.category === "Work From Home") wfh.appendChild(card);
-        if (plan.category === "Annual") annual.appendChild(card);
-        if (plan.category === "Short-term") shortterm.appendChild(card);
-
-        if (popular.children.length == 0) {
-            document.getElementById("popular-plans").classList.add("d-none");
+        if (plan.category) {
+            categories.add(plan.category);
         }
-        if (validity.children.length == 0) {
-            document.getElementById("validity-plans").classList.add("d-none");
-        }
-        if (data_plans.children.length == 0) {
-            document.getElementById("data-plans").classList.add("d-none");
-        }
-        if (unlimited.children.length == 0) {
-            document.getElementById("unlimited-plans").classList.add("d-none");
-        }
-        if (annual.children.length == 0) {
-            document.getElementById("annual-plans").classList.add("d-none");
-        }
-        if (streaming.children.length == 0) {
-            document.getElementById("streaming-plans").classList.add("d-none");
-        }
-        if (student.children.length == 0) {
-            document.getElementById("student-plans").classList.add("d-none");
-        }
-        if (wfh.children.length == 0) {
-            document.getElementById("wfh-plans").classList.add("d-none");
-        }
-        if (ott.children.length == 0) {
-            document.getElementById("ott-plans").classList.add("d-none");
-        }
-        if (shortterm.children.length == 0) {
-            document.getElementById("short-term-plans").classList.add("d-none");
-        }
-        if (gaming.children.length == 0) {
-            document.getElementById("gaming-plans").classList.add("d-none");
-        }
-
     });
+
+    return Array.from(categories);
 }
-function displayPlans(plans) {
 
-    let allPlans = document.getElementById("all-plan-cards");
-    let popular = document.getElementById("popular-plan-cards");
-    let validity = document.getElementById("validity-plan-cards");
-    let data_plans = document.getElementById("data-plan-cards");
-    let unlimited = document.getElementById("unlimited-plan-cards");
-
-    let streaming = document.getElementById("streaming-plan-cards");
-    let student = document.getElementById("student-plan-cards");
-    let ott = document.getElementById("ott-plan-cards");
-    let gaming = document.getElementById("gaming-plan-cards");
-    let wfh = document.getElementById("wfh-plan-cards");
-    let annual = document.getElementById("annual-plan-cards");
-    let shortterm = document.getElementById("short-term-plan-cards");
-
-    plans.forEach(plan => {
-        let card = document.createElement("div");
-        card.classList.add("card");
-
-        card.innerHTML = `
-            <div class="col-12 card-body d-flex flex-column my-1 p-4">
-                <div class="col-12 d-flex justify-content-between">
-                    <div class="d-flex justify-content-between col-10">
-                        <div><strong>Rs. ${plan.price}</strong><br>Price</div>
-                        <div><strong>${plan.data}</strong><br>Data</div>
-                        <div><strong>${plan.validity}</strong><br>Validity</div>
-                    </div>
-                    <a onclick='confirmPayment(${JSON.stringify(plan)})' id="recharge">
-                        <abbr data-title = "Recharge"><i class="fa-solid fa-chevron-right fa-lg px-2" style="color: #002060; cursor:pointer"></i></abbr>
-                    </a>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-end view-details">
-                    <div>
-                        <a class="text-primary text-decoration-none" style="cursor:pointer" 
-                           onclick='showDetails(${JSON.stringify(plan)})'>View Details</a>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        allPlans.appendChild(card.cloneNode(true));
-        if (plan.category === "Popular") popular.appendChild(card);
-        if (plan.category === "Validity") validity.appendChild(card);
-        if (plan.category === "Data") data_plans.appendChild(card);
-        if (plan.category === "Unlimited") unlimited.appendChild(card);
-        if (plan.category === "Streaming") streaming.appendChild(card);
-        if (plan.category === "Gaming") gaming.appendChild(card);
-        if (plan.category === "OTT Subscriptions") ott.appendChild(card);
-        if (plan.category === "Student") student.appendChild(card);
-        if (plan.category === "Work From Home") wfh.appendChild(card);
-        if (plan.category === "Annual") annual.appendChild(card);
-        if (plan.category === "Short-term") shortterm.appendChild(card);
-    });
-}
 
 function showDetails(plan) {
 
@@ -412,16 +222,16 @@ function showDetails(plan) {
     let calls = document.getElementById("calls");
     let sms = document.getElementById("sms");
 
-    if (plan.calls != null){
+    if (plan.calls != null) {
         calls.textContent = plan.calls;
     }
-    else{
+    else {
         calls.textContent = "No Calls";
     }
-    if (plan.sms != null){
+    if (plan.sms != null) {
         sms.textContent = plan.sms;
     }
-    else{
+    else {
         sms.textContent = "No SMS";
     }
     let benefitsContainer = document.getElementById("benefits");
@@ -453,7 +263,7 @@ function confirmPayment(plan) {
     }
     else {
         sessionStorage.setItem("rechargePlan", JSON.stringify(plan));
-        document.getElementById("rechargeNumber").value="";
+        document.getElementById("rechargeNumber").value = "";
         document.getElementById("mobile-input").classList.remove("invalid");
         document.getElementById("error-icon").classList.add("d-none");
         document.getElementById("error-number").classList.add("d-none");
@@ -500,29 +310,3 @@ function createToastContainer() {
     return toastContainer;
 }
 
-function searchPlans(searchInput) {
-
-    if (searchInput === "") {
-        showToast("please enter a search Value!", "error");
-        return;
-    }
-    document.getElementById("clear").classList.remove("d-none");
-    let filteredPlans;
-    filteredPlans = plans.filter(plan => {
-        searchInput = searchInput.trim().toLowerCase();
-        if (isNaN(searchInput)) {
-            if (plan.data.toLowerCase().includes(searchInput) || plan.validity.toLowerCase().includes(searchInput)) {
-
-                return plan;
-            }
-        }
-        else {
-            if (((searchInput.length > 1) && (plan.price.toString().includes(searchInput))) || (plan.price.toString().charAt(0) === searchInput) || plan.data.includes(searchInput) || plan.validity.includes(searchInput)) {
-                return plan;
-            }
-        }
-    })
-
-
-    displayFilteredPlans(filteredPlans);
-}

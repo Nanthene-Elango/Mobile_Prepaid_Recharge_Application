@@ -150,14 +150,14 @@
                         </div>
 
                     </div>
-                    
+                </div>
                 <div id="filterResult" class="m-md-4 my-4 d-none text-danger text-center">
 
                 </div>
         </main>
 
     </section>
-    <!-- <div class="modal fade" id="planFilter" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal fade" id="planFilter" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -165,33 +165,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="container my-3">
-                        <label for="priceFilter">Price:</label>
-                        <select id="priceFilter" class="form-select">
-                            <option value="">All</option>
-                            <option value="0-100">Below Rs. 100</option>
-                            <option value="101-500">Rs. 101 - 500</option>
-                            <option value="501-1000">Rs. 501 - 1000</option>
-                            <option value="1000+">Above Rs. 1000</option>
-                        </select>
-                    
-                        <label for="validityFilter">Validity:</label>
-                        <select id="validityFilter" class="form-select">
-                            <option value="">All</option>
-                            <option value="1-7">1 - 7 Days</option>
-                            <option value="8-28">8 - 28 Days</option>
-                            <option value="29+">Above 28 Days</option>
-                        </select>
-                    
-                        <label for="dataFilter">Data:</label>
-                        <select id="dataFilter" class="form-select">
-                            <option value="">All</option>
-                            <option value="0-1">Up to 1GB</option>
-                            <option value="1-5">1GB - 5GB</option>
-                            <option value="5+">Above 5GB</option>
-                        </select>
-                    
-                    </div>
                     
                     <div id="filteredPlans" class="row"></div>
                     
@@ -205,12 +178,13 @@
                     <div class="container mb-5">
                         <label for="dataFilter"><strong>Data: </strong></label>
                         <div class="d-flex flex-wrap" id="dataFilter">
-                            <span class="p-1"><input type="checkbox" id="1GB" value="1GB"> 1GB</span>
-                            <span class="p-1"><input type="checkbox" id="1.5GB" value="1.5GB"> 1.5GB</span>
-                            <span class="p-1"><input type="checkbox" id="2GB" value="2GB"> 2GB</span>
-                            <span class="p-1"><input type="checkbox" id="2.5GB" value="2.5GB"> 2.5GB</span>
-                            <span class="p-1"><input type="checkbox" id="3GB" value="3GB"> 3GB</span>
+                            <span class="p-1"><input type="checkbox" id="1GB" value="1GB/day"> 1GB</span>
+                            <span class="p-1"><input type="checkbox" id="1.5GB" value="1.5GB/day"> 1.5GB</span>
+                            <span class="p-1"><input type="checkbox" id="2GB" value="2GB/day"> 2GB</span>
+                            <span class="p-1"><input type="checkbox" id="2.5GB" value="2.5GB/day"> 2.5GB</span>
+                            <span class="p-1"><input type="checkbox" id="3GB" value="3GB/day"> 2GB</span>
                             <span class="p-1"><input type="checkbox" id="10GB" value="10GB"> 10GB</span>
+                            <span class="p-1"><input type="checkbox" id="Unlimited" value="Unlimited"> Unlimited</span>
                         </div>
                     </div>
 
@@ -227,12 +201,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="applyFilters()">Apply
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="filterPlans()">Apply
                         Filter</button>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="modal fade" id="planDetail" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
