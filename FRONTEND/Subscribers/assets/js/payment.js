@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("backBtn").addEventListener("click", () => {
         localStorage.removeItem("rechargePlans");
-        window.location.href = './recharge.html';
+        window.location.href = document.referrer;
     })
 
     document.getElementById("cardNumber").addEventListener("change", validateCard);
@@ -435,11 +435,12 @@ function downloadInvoicePDF() {
 function redirect() {
     setTimeout(() => {
         sessionStorage.removeItem("transactionId");
-        localStorage.removeItem("rechargePlans");
         sessionStorage.removeItem("rechargeNumber");
         sessionStorage.removeItem("rechargeUser");
         sessionStorage.removeItem("paymentMethod");
+        sessionStorage.removeItem("rechargePlan");
         sessionStorage.removeItem("rechargeDate");
+        sessionStorage.removeItem("transactionDetail")
         window.location.href = "./index.html";
     }, 500);
 }

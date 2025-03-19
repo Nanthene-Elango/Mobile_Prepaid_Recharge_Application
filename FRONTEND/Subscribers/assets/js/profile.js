@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded" , function(){
+document.addEventListener("DOMContentLoaded", function () {
     let user = JSON.parse(sessionStorage.getItem("loggedInUser"));
     document.getElementById("userName").innerText = user.fullName;
     document.getElementById("userEmail").value = user.email;
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded" , function(){
         document.getElementById("recharge-link").classList.remove("active");
         document.getElementById("recharge-history").style.display = "none";
         document.getElementById("transactions").style.display = "block";
-        
+
 
     });
     document.getElementById("recharge-link").addEventListener("click", () => {
@@ -54,8 +54,8 @@ async function loadActivePlan() {
             return;
         }
 
-        let calls = activePlan.plan.calls !== null? activePlan.plan.calls:"No Calls";
-        let sms = activePlan.plan.sms !== null?activePlan.plan.sms:"No SMS";
+        let calls = activePlan.plan.calls !== null ? activePlan.plan.calls : "No Calls";
+        let sms = activePlan.plan.sms !== null ? activePlan.plan.sms : "No SMS";
 
         document.getElementById("plan-active").classList.remove("d-none");
         document.getElementById("active-plan-price").innerText = activePlan.plan.price;
@@ -64,15 +64,15 @@ async function loadActivePlan() {
         document.getElementById("active-plan-calls-sms").innerText = `${calls}, ${sms}`;
         document.getElementById("active-plan-rd").innerText = formatDate(activePlan.rechargeDate);
         document.getElementById("active-plan-ed").innerText = formatDate(activePlan.expiryDate);
-        if (activePlan.plan.benefits !== null){
+        if (activePlan.plan.benefits !== null) {
             let div = document.getElementById("active-plan-benefits");
-            for (let b of activePlan.plan.benefits.split(",")){
+            for (let b of activePlan.plan.benefits.split(",")) {
                 let d = document.createElement("div");
                 d.innerHTML = `<span class = 'text-muted'><i class = 'fas fa-check text-success'></i> ${b}</span>`;
                 div.appendChild(d);
             }
         }
-        else{
+        else {
             document.getElementById("active-plan-benefits").innerText = "No Benefits";
         }
 
@@ -82,8 +82,8 @@ async function loadActivePlan() {
     }
 }
 
-async function loadRechargeHistory (){
-    let response = await fetch('http://localhost:8083/subscriber/profile/recharges' , {
+async function loadRechargeHistory() {
+    let response = await fetch('http://localhost:8083/subscriber/profile/recharges', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ async function loadRechargeHistory (){
         let data = await response.json();
         recharges = data || {};
     }
-    else{
+    else {
         rechargeContainer.innerHTML = "<div class = 'text-center'>No Recharges Found!</div>";
         return;
     }
@@ -106,13 +106,20 @@ async function loadRechargeHistory (){
 
     recharges.forEach(element => {
 
-        let calls = element.plan.calls!== null ? element.plan.calls :"No Calls";
-        let sms = element.plan.sms!==null?element.plan.sms:"No SMS";
-        let benefits = element.plan.benefits!==null?element.plan.benefits:"No Benefits";
+        let plan = JSON.stringify(element.plan);
+        let calls = element.plan.calls !== null ? element.plan.calls : "No Calls";
+        let sms = element.plan.sms !== null ? element.plan.sms : "No SMS";
+        let benefits = element.plan.benefits !== null ? element.plan.benefits : "No Benefits";
         let card = document.createElement("div");
-        card.classList.add("d-flex" , "flex-column" , "flex-lg-row-reverse" , "justify-content-between");
+        card.classList.add("d-flex", "flex-column", "flex-lg-row-reverse", "justify-content-between");
         card.innerHTML = `
-        <div class="text-danger">${formatDate(element.expiryDate)}</div>
+        <div>
+            <div class="text-danger">${formatDate(element.expiryDate)}</div>
+            <div class="btn btn-primary" onclick='repeatRecharge(${plan})'>
+                <i class="fas fa-repeat"></i> Repeat Recharge
+            </div>
+        </div>
+        
         <div class = "flex-grow-1">
             <h6 class="mt-3 mt-lg-0 text-primary">Plan Details: </h6>
             <div class="d-flex flex-column justify-content-between">
@@ -140,21 +147,28 @@ async function loadRechargeHistory (){
                 </div>
             </div>
         </div>
-        <hr>
         `;
+        let hr = document.createElement("hr");
         rechargeContainer.appendChild(card);
+        rechargeContainer.appendChild(hr);
     });
 }
 
-async function loadTransactionHistory (){
+function repeatRecharge(plan) {
+    console.log(plan);
+    sessionStorage.setItem("rechargePlan" , JSON.stringify(plan));
+    sessionStorage.setItem("rechargeUser" , sessionStorage.getItem("loggedInUser"));
+    window.location.href ="./payment.html";
+}
+async function loadTransactionHistory() {
 
-    let response = await fetch('http://localhost:8083/subscriber/profile/transactions' , {
+    let response = await fetch('http://localhost:8083/subscriber/profile/transactions', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
         },
-        body: JSON.stringify({ "userId": JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId})
+        body: JSON.stringify({ "userId": JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId })
     });
 
     let transactionContainer = document.getElementById("transaction-history-card");
@@ -163,14 +177,14 @@ async function loadTransactionHistory (){
         let data = await response.json();
         transactions = data || {};
     }
-    else{
+    else {
         transactionContainer.innerHTML = "<div class='text-center'>No Transactions Found!</div>";
         return;
     }
 
     transactions.forEach(element => {
         let card = document.createElement("div");
-        card.classList.add("d-flex" , "flex-column" , "justify-content-between");
+        card.classList.add("d-flex", "flex-column", "justify-content-between");
         card.innerHTML = `
         <div class="text-danger text-end">${formatDate(element.date)}</div>
                                 <div class="d-flex flex-column">
@@ -194,22 +208,22 @@ function formatDate(dateStr) {
     if (!dateStr) return "";
 
     const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return "Invalid Date"; 
+    if (isNaN(date.getTime())) return "Invalid Date";
 
-    const options = { 
-        day: "2-digit", 
-        month: "short", 
-        year: "numeric", 
-        hour: "2-digit", 
-        minute: "2-digit", 
-        second: "2-digit", 
-        hour12: false 
+    const options = {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
     };
 
     return date.toLocaleString("en-GB", options).replace(",", "");
 }
 
-function saveEmail(){
+function saveEmail() {
     let mailBox = document.getElementById("userEmail");
     mailBox.readOnly = true;
     mailBox.classList.remove("edit");
@@ -218,14 +232,14 @@ function saveEmail(){
 }
 
 async function getTransactionDetail(transactionNumber) {
-    
-    let response = await fetch('http://localhost:8083/subscriber/transaction' , {
+
+    let response = await fetch('http://localhost:8083/subscriber/transaction', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
         },
-        body: JSON.stringify({ "transactionNumber": transactionNumber})
+        body: JSON.stringify({ "transactionNumber": transactionNumber })
     });
 
     if (response.ok) {
@@ -261,22 +275,22 @@ async function downloadInvoice(transactionNumber) {
 
     const tableStyle = {
         head: {
-            fillColor: [0, 32, 96], 
-            textColor: [255, 255, 255], 
+            fillColor: [0, 32, 96],
+            textColor: [255, 255, 255],
             fontStyle: 'bold'
         }
     };
 
-   
+
     doc.autoTable({
-        startY: 100, 
+        startY: 100,
         head: headers,
         body: data,
         theme: "grid",
         headStyles: tableStyle.head
     });
 
-    let finalY = doc.lastAutoTable.finalY + 10; 
+    let finalY = doc.lastAutoTable.finalY + 10;
     doc.setFontSize(12);
     doc.text("Total: Rs. " + transaction.planDetail.price, 16, finalY);
 
