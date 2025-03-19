@@ -1,8 +1,10 @@
 package com.prepaidgo.MobiComm.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.prepaidgo.MobiComm.DTO.CategoriesDTO;
@@ -136,6 +138,26 @@ public class PlansService {
 			return false;
 		}
 		
+	}
+
+	public ResponseEntity<?> filterPlans(BigDecimal maxPrice, List<String> selectedData,
+			List<String> selectedValidity) {
+		List<Plans> allPlans = plansRepo.findAll();
+		if (!allPlans.isEmpty()) {
+			List<Plans> filteredPlans = allPlans.stream()
+				    .filter(plan -> plan.getPrice().compareTo(maxPrice) <= 0) // Filter by price
+				    .filter(plan -> selectedData == null || selectedData.isEmpty() || selectedData.contains(plan.getData())) // Handle null/empty selectedData
+				    .filter(plan -> selectedValidity == null || selectedValidity.isEmpty() || selectedValidity.contains(plan.getValidity())) // Handle null/empty selectedValidity
+				    .collect(Collectors.toList());
+
+			if (filteredPlans.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
+			return ResponseEntity.ok().body(filteredPlans.stream().map(PlansDTO::new).collect(Collectors.toList()));
+		}
+		else {
+			throw new PlanNotFoundException("No Plans Found!");
+		}
 	}
 
 }

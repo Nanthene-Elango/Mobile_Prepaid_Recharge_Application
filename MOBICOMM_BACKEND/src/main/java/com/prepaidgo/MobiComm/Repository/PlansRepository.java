@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.prepaidgo.MobiComm.Model.Plans;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +25,5 @@ public interface PlansRepository extends JpaRepository<Plans,Integer>{
 	    @Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice,
 	    @Param("minValidity") Integer minValidity, @Param("maxValidity") Integer maxValidity,
 	    @Param("minData") Integer minData, @Param("maxData") Integer maxData);
-
-
 
 }

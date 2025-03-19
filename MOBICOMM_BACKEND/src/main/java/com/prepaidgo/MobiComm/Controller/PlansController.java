@@ -1,5 +1,6 @@
 package com.prepaidgo.MobiComm.Controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.CategoriesDTO;
+import com.prepaidgo.MobiComm.DTO.FilterCriteria;
 import com.prepaidgo.MobiComm.DTO.PlanAddDTO;
 import com.prepaidgo.MobiComm.DTO.PlansDTO;
 import com.prepaidgo.MobiComm.Model.Plans;
@@ -130,6 +132,15 @@ public class PlansController {
 			throw new PlanNotFoundException("No Categories Found!");
 		}
 		return categories;
+	}
+	
+	@PostMapping("plans/filter")
+	public ResponseEntity<?> filterPlans(@RequestBody FilterCriteria request){
+		BigDecimal maxPrice = request.getMaxPrice();
+		List<String> selectedData = request.getSelectedData();
+		List<String> selectedValidity = request.getSelectedValidity();
+		
+		return plansService.filterPlans(maxPrice , selectedData , selectedValidity);
 	}
 	
 }
