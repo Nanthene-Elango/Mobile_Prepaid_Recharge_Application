@@ -23,7 +23,7 @@ public class PlansDTO {
 
 	public PlansDTO(Plans plan) {
         this.planId = plan.getPlanId();
-        this.category = new CategoriesDTO(plan.getCategory()).getCategory();
+        this.category = plan.getCategory().getCategory();
         this.price = plan.getPrice();
         this.data = plan.getData();
         this.validity = plan.getValidity();
