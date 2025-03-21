@@ -5,7 +5,7 @@ function displayPlans(plans) {
     const tableBody = document.getElementById("plansTable");
     tableBody.innerHTML = "";
     plans.forEach((plan) => {
-        let actionButton = plan.status === "ACTIVE" 
+        let actionButton = plan.status === "ACTIVE"
             ? `<span id="deleteBtn${plan.planId}" class="action-btn text-danger" style="cursor:pointer" onclick="deletePlan(${plan.planId})">
                     <abbr data-title="Deactivate"><i class="fas fa-trash text-danger"></i></abbr>
                </span>`
@@ -36,22 +36,22 @@ function displayPlans(plans) {
 
 
 async function loadPlans() {
-    let response = await fetch('http://localhost:8083/admin/plans/all' , {
+    let response = await fetch('http://localhost:8083/admin/plans/all', {
         method: "GET",
         headers: {
-            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+            "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
         }
     });
-    if (response.ok){
+    if (response.ok) {
         plansData = await response.json();
     }
 }
 
 async function loadCategories() {
     let response = await fetch('http://localhost:8083/plans/categories');
-    if (response){
-        categories  = await response.json();
-    }   
+    if (response) {
+        categories = await response.json();
+    }
 
     const categorySelect = document.getElementById("planCategory");
     categorySelect.innerHTML = "";
@@ -62,7 +62,6 @@ async function loadCategories() {
         categorySelect.appendChild(option);
     });
 }
-
 
 function openAddModal() {
     document.getElementById("modalTitle").innerText = "Add Plan";
@@ -91,6 +90,52 @@ function editPlan(planId) {
     new bootstrap.Modal(document.getElementById("planModal")).show();
 }
 
+function validateCategory(){
+    let category = document.getElementById("planCategory").value;
+    if (category ===""){
+        document.getElementById("error-category").innerText = "Please select the category!";
+        document.getElementById("planCategory").classList.add("is-invalid");
+        return false;
+    }
+    document.getElementById("error-category").innerText = "";
+    document.getElementById("planCategory").classList.remove("is-invalid");
+    return true;
+}
+
+function validatePrice(){
+    let price = document.getElementById("planPrice").value;
+    if(price === ""){
+        document.getElementById("error-price").innerText = "Please enter the price!";
+        document.getElementById("planPrice").classList.add("is-invalid");
+        return false;
+    }
+    document.getElementById("error-price").innerText = "";
+    document.getElementById("planPrice").classList.remove("is-invalid");
+    return true;
+}
+function validateValidity(){
+    let validity = document.getElementById("planValidity").value;
+    if(validity === ""){
+        document.getElementById("error-validity").innerText = "Please enter the validity!";
+        document.getElementById("planValidity").classList.add("is-invalid");
+        return false;
+    }
+    document.getElementById("planValidity").classList.remove("is-invalid");
+    document.getElementById("error-validity").innerText = "";
+    return true;
+}
+function validateData(){
+    let data = document.getElementById("planData").value;
+    if(data === ""){
+        document.getElementById("error-data").innerText = "Please enter the data!";
+        document.getElementById("planData").classList.add("is-invalid");
+        return false;
+    }
+    document.getElementById("error-data").innerText = "";
+    document.getElementById("planData").classList.remove("is-invalid");
+    return true;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     await loadCategories();
@@ -98,34 +143,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayPlans(plansData);
     new DataTable("#planTable");
 
+    document.getElementById("planCategory").addEventListener("input" , validateCategory);
+    document.getElementById("planCategory").addEventListener("change" , validateCategory);
+    document.getElementById("planPrice").addEventListener("input" , validatePrice);
+    document.getElementById("planPrice").addEventListener("change" , validatePrice);
+    document.getElementById("planData").addEventListener("input" , validateData);
+    document.getElementById("planData").addEventListener("change" , validateData);
+    document.getElementById("planValidity").addEventListener("input" , validateValidity);
+    document.getElementById("planValidity").addEventListener("change" , validateValidity);
+    
+
     document.getElementById("savePlanBtn").addEventListener("click", function () {
+        
         const id = document.getElementById("editPlanId").value;
         const category = document.getElementById("planCategory").value;
         const data = document.getElementById("planData").value;
         const validity = document.getElementById("planValidity").value;
-        const calls = document.getElementById("planCalls").value === "" ? null :document.getElementById("planCalls").value;
-        const sms = document.getElementById("planSMS").value === "" ? null :document.getElementById("planSMS").value;
+        const calls = document.getElementById("planCalls").value === "" ? null : document.getElementById("planCalls").value;
+        const sms = document.getElementById("planSMS").value === "" ? null : document.getElementById("planSMS").value;
         const price = document.getElementById("planPrice").value;
-        const benefits = document.getElementById("planBenefits").value === "" ? null :document.getElementById("planBenefits").value;
+        const benefits = document.getElementById("planBenefits").value === "" ? null : document.getElementById("planBenefits").value;
+
+        if (!validateCategory() || !validatePrice() || !validateData()  || !validateValidity()){
+            return false;
+        }
 
         let addPlanJSON = JSON.stringify({
-            "category":category,
-            "price":price,
-            "data":data,
-            "calls":calls,
-            "sms":sms,
-            "validity":validity,
-            "benefits":benefits
+            "category": category,
+            "price": price,
+            "data": data,
+            "calls": calls,
+            "sms": sms,
+            "validity": validity,
+            "benefits": benefits
         })
         let updatePlanJSON = JSON.stringify({
-            "planId":id,
-            "category":category,
-            "price":price,
-            "data":data,
-            "calls":calls,
-            "sms":sms,
-            "validity":validity,
-            "benefits":benefits
+            "planId": id,
+            "category": category,
+            "price": price,
+            "data": data,
+            "calls": calls,
+            "sms": sms,
+            "validity": validity,
+            "benefits": benefits
         })
         if (id) {
             updatePlan(updatePlanJSON);
@@ -137,61 +197,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
+function reload(){
+    window.location.reload();
+}
 async function updatePlan(planJson) {
-    let response = await fetch('http://localhost:8083/admin/plans/update' , {
+    let response = await fetch('http://localhost:8083/admin/plans/update', {
         method: "PUT",
         headers: {
-            "Content-Type":"application/json" ,
-            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: planJson
     })
 
-    if (response.ok){
+    if (response.ok) {
         await loadPlans();
-        displayPlans(plansData)
-        showToast("Plan Updated Successfully!" , "success");
+        displayPlans(plansData);
+        showToast("Plan Updated Successfully!", "success");
+        reload();
     }
-    else{
-        showToast("Failed to update plan" , "error");
+    else {
+        showToast("Failed to update plan", "error");
     }
 
 }
 
 async function addPlan(planJson) {
-    let response = await fetch('http://localhost:8083/admin/plans/add' , {
+    let response = await fetch('http://localhost:8083/admin/plans/add', {
         method: "POST",
-        headers: {"Content-Type":"application/json",
-            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: planJson
     })
 
-    if (response.ok){
+    if (response.ok) {
         await loadPlans();
         displayPlans(plansData);
-        showToast("Plan Added Successfully!" , "success");
+        showToast("Plan Added Successfully!", "success");
+        reload();
     }
-    else{
-        showToast("Failed to add plan" , "error");
+    else {
+        showToast("Failed to add plan", "error");
     }
 
 }
 
-async function restorePlan(planId){
-    let response = await fetch(`http://localhost:8083/admin/plans/activate/${planId}`,{
-        method:"POST",
+async function restorePlan(planId) {
+    let response = await fetch(`http://localhost:8083/admin/plans/activate/${planId}`, {
+        method: "POST",
         headers: {
-            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+            "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
         }
     });
-    if (response.ok){
+    if (response.ok) {
         await loadPlans();
         displayPlans(plansData);
-        showToast("Plan Restored Successfully!" , "success");
+        showToast("Plan Restored Successfully!", "success");
+        reload();
     }
-    else{
-        showToast("Failed to restore the plan!" , "error");
+    else {
+        showToast("Failed to restore the plan!", "error");
     }
 }
 
@@ -205,20 +272,21 @@ function deletePlan(planId) {
         cancelButtonColor: "#0d6efd",
         confirmButtonText: "Yes, deactivate it!"
 
-    }).then(async(result) => {
+    }).then(async (result) => {
         if (result.isConfirmed) {
-            let response = await fetch(`http://localhost:8083/admin/plans/delete/${planId}`,{
-                method:"POST",
+            let response = await fetch(`http://localhost:8083/admin/plans/delete/${planId}`, {
+                method: "POST",
                 headers: {
-                    "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+                    "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
                 }
             });
-            if (response.ok){
+            if (response.ok) {
                 await loadPlans();
                 displayPlans(plansData);
                 Swal.fire("Deactivated!", "Your plan has been deactivated.", "success");
+                reload();
             }
-           
+
         }
     });
 }
@@ -230,15 +298,16 @@ async function addCategory() {
         return;
     }
     let response = await fetch('http://localhost:8083/admin/category/add', {
-        method:"POST",
-        headers: {"Content-Type":"application/json",
-            "Authorization":`Bearer ${sessionStorage.getItem('accessToken')}`
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({
-            "category":newCategory
+            "category": newCategory
         })
     });
-    if (response.ok){
+    if (response.ok) {
         categories.push(newCategory);
         loadCategories();
         document.getElementById("newCategory").value = "";
@@ -248,16 +317,6 @@ async function addCategory() {
         document.getElementById("newCategory").value = "";
         showToast(`Category "${newCategory}" already exists!`, "error");
     }
-}
-
-function addCategoryTab(newCategory) {
-    let newCat = document.createElement("div");
-    newCat.textContent = newCategory;
-    newCat.classList.add("tab");
-    newCat.onclick = function () {
-        filterPlans(newCategory);
-    };
-    document.getElementById("categoriesNav").appendChild(newCat);
 }
 
 function showToast(message, indicator) {
