@@ -63,6 +63,10 @@ async function showProfile(userId) {
         let userDetails = await response.json();
         displayProfile(userDetails);
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
 }
 
 async function showTransactionDetail(userId){
@@ -95,6 +99,10 @@ async function showTransactionDetail(userId){
             `
         });
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
 }
 
 function displayProfile(userDetails){
@@ -117,7 +125,10 @@ async function showActivePlan(userId) {
             body: JSON.stringify({ "userId": userId})
         });
 
-        if (!response.ok) {
+        if(response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
+        }else if(!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 

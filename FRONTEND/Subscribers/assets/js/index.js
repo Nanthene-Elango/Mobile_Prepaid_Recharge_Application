@@ -14,7 +14,7 @@ async function isSubscriber(mobileNumber) {
         let data = await response.json();
 
         if (data.user) {
-            sessionStorage.setItem("rechargeUser" , JSON.stringify(data.user));
+            sessionStorage.setItem("rechargeUser" , data.user.subscriberId);
             return true;
         }
     } catch (error) {

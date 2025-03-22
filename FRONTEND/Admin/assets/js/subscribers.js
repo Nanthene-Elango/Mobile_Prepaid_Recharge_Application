@@ -21,6 +21,10 @@ async function loadSubscribers() {
         subscribers = await response.json();
         console.log(subscribers);
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
 }
 
 function displaySubscribers(subscribers) {

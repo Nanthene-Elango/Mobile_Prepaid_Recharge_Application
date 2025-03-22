@@ -1,6 +1,7 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
 
-    let plan = JSON.parse(sessionStorage.getItem("rechargePlan"));
+    await loadPaymentSummary();
+
     let phonePay = document.getElementById("phonePay");
     let googlePay = document.getElementById("googlePay");
     let paytm = document.getElementById("paytm");
@@ -38,16 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("upiId").classList.remove("d-none");
     })
 
-    let user = JSON.parse(sessionStorage.getItem("rechargeUser"));
-    console.log(plan);
-    document.getElementById("name").innerText = user.fullName;
-    document.getElementById("number").innerText = user.phoneNumber;
-    document.getElementById("price").innerText = plan.price;
-    document.getElementById("data").innerText = plan.data;
-    document.getElementById("validity").innerText = plan.validity;
-    document.getElementById("benefits").innerText = plan.benefits!= null ? plan.benefits : "No Benefits";
-    document.getElementById("amount").innerText = plan.price;
-
     document.getElementById("backBtn").addEventListener("click", () => {
         localStorage.removeItem("rechargePlans");
         window.location.href = document.referrer;
@@ -82,6 +73,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 })
+
+async function loadPaymentSummary() {
+    try {
+        let response = await fetch('http://localhost:8083/subscriber/profile', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            },
+            body: JSON.stringify({ "userId": sessionStorage.getItem("rechargeUser") })
+        });
+
+        if (response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
+        }
+        let user = await response.json();
+        let plan = JSON.parse(sessionStorage.getItem("rechargePlan"));
+
+        document.getElementById("name").innerText = user.fullName;
+        document.getElementById("number").innerText = user.phoneNumber;
+        document.getElementById("price").innerText = plan.price;
+        document.getElementById("data").innerText = plan.data;
+        document.getElementById("validity").innerText = plan.validity;
+        document.getElementById("benefits").innerText = plan.benefits != null ? plan.benefits : "No Benefits";
+        document.getElementById("amount").innerText = plan.price;
+
+    } catch (error) {
+        console.error("Error loading User data:", error);
+    }
+}
 
 function validateCard() {
     let cardNumber = document.getElementById("cardNumber").value;
@@ -188,31 +210,31 @@ function validateBank() {
     }
 }
 
-async function confirmRecharge(){
+async function confirmRecharge() {
 
     let planId = JSON.parse(sessionStorage.getItem("rechargePlan")).planId;
-    let recipientId = JSON.parse(sessionStorage.getItem("rechargeUser")).subscriberId;
+    let recipientId = sessionStorage.getItem("rechargeUser");
     let payerId = null;
-    let paymentMethod  = sessionStorage.getItem("paymentMethod");
+    let paymentMethod = sessionStorage.getItem("paymentMethod");
 
-  
-    if (sessionStorage.getItem("loggedInUser") !== null){
-        payerId = JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId;
+
+    if (sessionStorage.getItem("loggedInUser") !== null) {
+        payerId = sessionStorage.getItem("loggedInUser");
     }
     console.log(planId + " " + recipientId + " " + payerId + " " + paymentMethod);
-    let response = await fetch('http://localhost:8083/plans/recharge/confirm' , {
+    let response = await fetch('http://localhost:8083/plans/recharge/confirm', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            "planId":planId,
-            "recipientId":recipientId,
-            "payerId":payerId,
-            "paymentMethod":paymentMethod
+            "planId": planId,
+            "recipientId": recipientId,
+            "payerId": payerId,
+            "paymentMethod": paymentMethod
         })
     })
-    let data = await response.json(); 
+    let data = await response.json();
 
-    sessionStorage.setItem("transactionDetail" , JSON.stringify(data));
+    sessionStorage.setItem("transactionDetail", JSON.stringify(data));
 
 }
 
@@ -245,7 +267,7 @@ async function processPayment(paymentMethod) {
     }
 
     sessionStorage.setItem("paymentMethod", paymentMethod)
-    
+
     await confirmRecharge();
 
     Swal.fire({
@@ -279,16 +301,16 @@ function formatDate(dateStr) {
     if (!dateStr) return "";
 
     const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return "Invalid Date"; 
+    if (isNaN(date.getTime())) return "Invalid Date";
 
-    const options = { 
-        day: "2-digit", 
-        month: "short", 
-        year: "numeric", 
-        hour: "2-digit", 
-        minute: "2-digit", 
-        second: "2-digit", 
-        hour12: false 
+    const options = {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
     };
 
     return date.toLocaleString("en-GB", options).replace(",", "");
@@ -302,9 +324,9 @@ function showInvoice() {
     let rechargeDate = formatDate(transactionDetail.date);
     let transactionId = transactionDetail.transationNumber;
 
-    let calls = rechargePlanDetail.calls !== null? rechargePlanDetail.calls:"No Calls";
-    let sms = rechargePlanDetail.sms !== null?rechargePlanDetail.sms:"No SMS";
-    let benefits = rechargePlanDetail.benefits !== null?rechargePlanDetail.benefits:"No Benefits";
+    let calls = rechargePlanDetail.calls !== null ? rechargePlanDetail.calls : "No Calls";
+    let sms = rechargePlanDetail.sms !== null ? rechargePlanDetail.sms : "No SMS";
+    let benefits = rechargePlanDetail.benefits !== null ? rechargePlanDetail.benefits : "No Benefits";
 
     const invoiceHTML = `
    <table style = "width:100%;text-align: left; border-collapse: collapse;font-size:0.89rem;">
@@ -405,22 +427,22 @@ function downloadInvoicePDF() {
 
     const tableStyle = {
         head: {
-            fillColor: [0, 32, 96], 
-            textColor: [255, 255, 255], 
+            fillColor: [0, 32, 96],
+            textColor: [255, 255, 255],
             fontStyle: 'bold'
         }
     };
 
-   
+
     doc.autoTable({
-        startY: 100, 
+        startY: 100,
         head: headers,
         body: data,
         theme: "grid",
         headStyles: tableStyle.head
     });
 
-    let finalY = doc.lastAutoTable.finalY + 10; 
+    let finalY = doc.lastAutoTable.finalY + 10;
     doc.setFontSize(12);
     doc.text("Total: Rs. " + rechargePlanDetail.price, 16, finalY);
 

@@ -75,6 +75,10 @@ async function loadExpiryTable() {
     if (response.ok) {
         expiringSubscriber = await response.json();
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
 
     let tableBody = document.getElementById("expiringSubscriberTableBody");
 

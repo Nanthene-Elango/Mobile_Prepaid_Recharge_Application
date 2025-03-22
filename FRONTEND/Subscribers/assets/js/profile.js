@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let user = JSON.parse(sessionStorage.getItem("loggedInUser"));
-    document.getElementById("userName").innerText = user.fullName;
-    document.getElementById("userEmail").value = user.email;
-    document.getElementById("userNumber").value = "+91 " + user.phoneNumber;
-    document.getElementById("userDOB").value = user.dob;
-    document.getElementById("userAddress").innerText = user.address;
+    // let user = JSON.parse(sessionStorage.getItem("loggedInUser"));
+    // document.getElementById("userName").innerText = user.fullName;
+    // document.getElementById("userEmail").value = user.email;
+    // document.getElementById("userNumber").value = "+91 " + user.phoneNumber;
+    // document.getElementById("userDOB").value = user.dob;
+    // document.getElementById("userAddress").innerText = user.address;
 
     document.getElementById("transactions-link").addEventListener("click", () => {
         document.getElementById("transactions-link").classList.add("active");
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("recharge-link").classList.add("active");
     });
 
+    loadUserProfile();
     loadRechargeHistory();
     loadActivePlan();
     loadTransactionHistory();
@@ -31,6 +32,34 @@ let activePlan = [];
 let recharges = [];
 let transactions = [];
 
+async function loadUserProfile() {
+    try {
+        let response = await fetch('http://localhost:8083/subscriber/profile', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+            },
+            body: JSON.stringify({ "userId": sessionStorage.getItem("loggedInUser") })
+        });
+
+        if (response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
+        }
+
+        let user = await response.json();
+
+        document.getElementById("userName").innerText = user.fullName;
+        document.getElementById("userEmail").value = user.email;
+        document.getElementById("userNumber").value = "+91 " + user.phoneNumber;
+        document.getElementById("userDOB").value = user.dob;
+        document.getElementById("userAddress").innerText = user.address;
+
+    } catch (error) {
+        console.error("Error loading User data:", error);
+    }
+}
 async function loadActivePlan() {
     try {
         let response = await fetch('http://localhost:8083/subscriber/active-plan', {
@@ -39,11 +68,12 @@ async function loadActivePlan() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
             },
-            body: JSON.stringify({ "userId": JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId })
+            body: JSON.stringify({ "userId": sessionStorage.getItem("loggedInUser") })
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
         }
 
         let data = await response.json();
@@ -89,7 +119,7 @@ async function loadRechargeHistory() {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
         },
-        body: JSON.stringify({ "userId": JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId })
+        body: JSON.stringify({ "userId": sessionStorage.getItem("loggedInUser") })
     });
 
     let rechargeContainer = document.getElementById("recharge-history-card");
@@ -97,6 +127,9 @@ async function loadRechargeHistory() {
     if (response.ok) {
         let data = await response.json();
         recharges = data || {};
+    }else if (response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
     }
     else {
         rechargeContainer.innerHTML = "<div class = 'text-center'>No Recharges Found!</div>";
@@ -156,9 +189,9 @@ async function loadRechargeHistory() {
 
 function repeatRecharge(plan) {
     console.log(plan);
-    sessionStorage.setItem("rechargePlan" , JSON.stringify(plan));
-    sessionStorage.setItem("rechargeUser" , sessionStorage.getItem("loggedInUser"));
-    window.location.href ="./payment.html";
+    sessionStorage.setItem("rechargePlan", JSON.stringify(plan));
+    sessionStorage.setItem("rechargeUser", sessionStorage.getItem("loggedInUser"));
+    window.location.href = "./payment.html";
 }
 async function loadTransactionHistory() {
 
@@ -168,7 +201,7 @@ async function loadTransactionHistory() {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
         },
-        body: JSON.stringify({ "userId": JSON.parse(sessionStorage.getItem("loggedInUser")).subscriberId })
+        body: JSON.stringify({ "userId": sessionStorage.getItem("loggedInUser") })
     });
 
     let transactionContainer = document.getElementById("transaction-history-card");
@@ -176,6 +209,9 @@ async function loadTransactionHistory() {
     if (response.ok) {
         let data = await response.json();
         transactions = data || {};
+    }else if (response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
     }
     else {
         transactionContainer.innerHTML = "<div class='text-center'>No Transactions Found!</div>";
@@ -244,6 +280,9 @@ async function getTransactionDetail(transactionNumber) {
 
     if (response.ok) {
         return response.json();
+    }else if (response.status === 401 || response.status === 403){
+        window.location.href = "./unauthorizedPage.html";
+        return;
     }
 }
 

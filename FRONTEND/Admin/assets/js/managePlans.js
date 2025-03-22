@@ -45,6 +45,10 @@ async function loadPlans() {
     if (response.ok) {
         plansData = await response.json();
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
 }
 
 async function loadCategories() {
@@ -216,6 +220,10 @@ async function updatePlan(planJson) {
         showToast("Plan Updated Successfully!", "success");
         reload();
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
     else {
         showToast("Failed to update plan", "error");
     }
@@ -238,6 +246,10 @@ async function addPlan(planJson) {
         showToast("Plan Added Successfully!", "success");
         reload();
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
     else {
         showToast("Failed to add plan", "error");
     }
@@ -256,6 +268,10 @@ async function restorePlan(planId) {
         displayPlans(plansData);
         showToast("Plan Restored Successfully!", "success");
         reload();
+    }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
     }
     else {
         showToast("Failed to restore the plan!", "error");
@@ -312,6 +328,10 @@ async function addCategory() {
         loadCategories();
         document.getElementById("newCategory").value = "";
         showToast(`Category "${newCategory}" added successfully!`, "success");
+    }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
     }
     else {
         document.getElementById("newCategory").value = "";

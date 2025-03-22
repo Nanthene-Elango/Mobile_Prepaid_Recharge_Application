@@ -26,6 +26,10 @@ async function fetchAdmin() {
         let data = await response.json();
         return data;
     }
+    else if(response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
     else {
         console.log(response.status);
     }
@@ -57,6 +61,10 @@ async function saveEmail() {
             document.getElementById("editEmailBtn").classList.remove("d-none");
             document.getElementById("saveEmailBtn").classList.add("d-none");
         } 
+        else if(response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
+        }
         else if (response.status === 400) {
             document.getElementById("email").readOnly = true;
             showToast("Email ID Already Exists!", "error");
@@ -100,6 +108,10 @@ async function saveUsername() {
             document.getElementById("saveUsernameBtn").classList.add("d-none");
             
         } 
+        else if(response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
+        }
         else if (response.status === 400) {
             document.getElementById("username").readOnly = true;
             showToast("Username Already Exists!", "error");
@@ -141,6 +153,10 @@ async function savePassword() {
             document.getElementById("editPasswordBtn").classList.remove("d-none");
             document.getElementById("savePasswordBtn").classList.add("d-none");
         } 
+        else if(response.status === 403 || response.status === 401){
+            window.location.href = "./unauthorizedPage.html";
+            return;
+        }
         else {
             document.getElementById("password").readOnly = true;
             showToast(`Failed to update email! Error: ${response.status}`, "error");
@@ -157,12 +173,6 @@ function editEmail() {
     document.getElementById("editEmailBtn").classList.add("d-none");
     document.getElementById("saveEmailBtn").classList.remove("d-none");
 }
-
-// function editUsername() {
-//     document.getElementById("username").readOnly = false;
-//     document.getElementById("editUsernameBtn").classList.add("d-none");
-//     document.getElementById("saveUsernameBtn").classList.remove("d-none");
-// }
 
 function editPassword() {
     document.getElementById("password").readOnly = false;

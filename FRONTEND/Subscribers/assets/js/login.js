@@ -1,6 +1,6 @@
-let generatedOTP;
 let timer;
 let user;
+let phoneNumber;
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -20,7 +20,8 @@ async function validateSubscriber(mobileNumber) {
         let data = await response.json();
 
         if (data.user) {
-            user = data.user;
+            user = data.user.subscriberId;
+            phoneNumber = data.user.phoneNumber;
             return true;
         }
     } catch (error) {
@@ -68,7 +69,7 @@ async function validateNumber() {
         document.getElementById("error-icon").classList.remove("d-none");
         document.getElementById("mobile-input").classList.add('invalid');
         errorField.innerText = "Please enter a valid MobiComm number!";
-        return;
+        return false;
     }
     document.getElementById("error-icon").classList.add("d-none");
     document.getElementById("mobile-input").classList.remove("invalid")
@@ -78,16 +79,20 @@ async function validateNumber() {
 }
 
 async function generateOTP() {
-    let response = await fetch(`http://localhost:8083/auth/otp/generate/${user.subscriberId}` , {
-        method: "POST"
+    let response = await fetch(`http://localhost:8083/auth/otp/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            "phoneNumber": phoneNumber
+        })
     });
     let data = await response.json();
 
     console.log(data);
-    if (data.otp){
+    if (data.otp) {
         return data.otp;
     }
-    else{
+    else {
         console.log("Invalid User");
         return null;
     }
@@ -95,53 +100,54 @@ async function generateOTP() {
 }
 async function sendOTP() {
 
-    if (validateNumber()!=null) {
-        document.getElementById("mobile").disabled = true;
-        console.log(user.subscriberId);
-        let generatedOTP = await generateOTP()
-        let toast = document.getElementById("toast");
-        toast.innerHTML = "Your OTP: " + generatedOTP;
-        toast.classList.add("show");
+    document.getElementById("mobile").disabled = true;
+    let generatedOTP = await generateOTP()
+    let toast = document.getElementById("toast");
+    toast.innerHTML = "Your OTP: " + generatedOTP;
+    toast.classList.add("show");
 
-        setTimeout(() => {
-            toast.classList.remove("show");
-        }, 5000);
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 5000);
 
-        document.getElementById("otpSection").style.display = "block";
-        document.getElementById("sendOtpBtn").disabled = true;
-        document.getElementById("resendBtn").disabled = true;
-        startTimer();
-        return;
-    }
+    document.getElementById("otpSection").style.display = "block";
+    document.getElementById("sendOtpBtn").disabled = true;
+    document.getElementById("resendBtn").disabled = true;
+    startTimer();
+    return;
 }
 
 async function verifyOTP() {
 
     let enteredOTP = document.getElementById("otp").value;
 
-    let response = await fetch(`http://localhost:8083/auth/otp/verify/${user.subscriberId}` , {
+    let response = await fetch(`http://localhost:8083/auth/otp/verify`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            "otp":enteredOTP
+            "otp": enteredOTP,
+            "phoneNumber": phoneNumber
         })
     })
 
     let data = await response.json();
 
-    if (data.error){
+    if (data.error) {
         document.getElementById("error-otp").style.display = "block";
+        document.getElementById("otp").value = "";
+        document.getElementById("otp").classList.toggle("is-invalid");
         document.getElementById("error-otp").textContent = "Invalid OTP!";
         return;
     }
-    else{
-        if (data.accessToken){
-            sessionStorage.setItem("accessToken" , data.accessToken);
+    else {
+        if (data.accessToken) {
+            document.getElementById("otp").classList.toggle("is-invalid");
+            sessionStorage.setItem("accessToken", data.accessToken);
             document.getElementById("mobile").disabled = false;
             document.getElementById("error-otp").style.display = "none";
-            sessionStorage.setItem("loggedInUser", JSON.stringify(user));
-            sessionStorage.setItem("rechargeNumber", user.phoneNumber);
-            sessionStorage.setItem("rechargeUser", JSON.stringify(user));
+            sessionStorage.setItem("loggedInUser", user);
+            sessionStorage.setItem("rechargeNumber", phoneNumber);
+            sessionStorage.setItem("rechargeUser", user);
             checkLoginStatus();
             let redirectURL = sessionStorage.getItem("redirectAfterLogin");
             sessionStorage.removeItem("redirectAfterLogin");
@@ -151,11 +157,10 @@ async function verifyOTP() {
                 text: 'You have successfully logged in!',
                 confirmButtonText: 'OK',
                 confirmButtonColor: 'rgb(0,32,96)'
-    
+
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = redirectURL || './index.html';
-                    // window.location.href = "plans.html";
                 }
             });
         }
@@ -176,16 +181,17 @@ function startTimer() {
         }
     }, 1000);
 }
-function checkLoginStatus() {
-    let user = sessionStorage.getItem("loggedInUser");
-    let loginBtn = document.getElementById("loginBtn");
-    let accountBtn = document.getElementById("accountMenu");
 
-    if (user) {
-        if (loginBtn) loginBtn.style.display = "none";
-        if (accountBtn) accountBtn.style.display = "block";
-    } else {
-        if (loginBtn) loginBtn.style.display = "block";
-        if (accountBtn) accountBtn.style.display = "none";
-    }
-}
+// function checkLoginStatus() {
+//     let user = sessionStorage.getItem("loggedInUser");
+//     let loginBtn = document.getElementById("loginBtn");
+//     let accountBtn = document.getElementById("accountMenu");
+
+//     if (user) {
+//         if (loginBtn) loginBtn.style.display = "none";
+//         if (accountBtn) accountBtn.style.display = "block";
+//     } else {
+//         if (loginBtn) loginBtn.style.display = "block";
+//         if (accountBtn) accountBtn.style.display = "none";
+//     }
+// }

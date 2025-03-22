@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function checkLoginStatus() {
+async function checkLoginStatus() {
     let user = sessionStorage.getItem("loggedInUser");
     let loginBtn = document.getElementById("loginBtn");
     let accountBtn = document.getElementById("accountMenu");
@@ -28,7 +28,8 @@ function checkLoginStatus() {
         if (loginBtn) loginBtn.style.display = "none";
         if (accountBtn) {
             accountBtn.style.display = "block";
-            document.getElementById("navUserName").textContent = JSON.parse(user).fullName;
+            let name = await fetchUserName(user);
+            document.getElementById("navUserName").textContent = name;
         }
     } else {
         if (loginBtn) loginBtn.style.display = "block";
@@ -36,6 +37,29 @@ function checkLoginStatus() {
     }
 }
 
+async function fetchUserName(userId) {
+    let response = await fetch("http://localhost:8083/subscriber/fullname" , {
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem("accessToken")}`
+        },
+        body: JSON.stringify({
+            "userId":userId
+        })
+    })
+
+    if (response.ok){
+        let data = await response.json();
+        return data.fullName;
+    }else if (response.status === 403 || response.status === 401){
+        window.location.href = "./unauthorizedPage.html";
+        return;
+    }
+    else{
+        console.log("Error: No User Found!")
+    }
+}
 async function logout() {
     await fetch("http://localhost:8083/subscriber/logout", {
         method: "POST",
