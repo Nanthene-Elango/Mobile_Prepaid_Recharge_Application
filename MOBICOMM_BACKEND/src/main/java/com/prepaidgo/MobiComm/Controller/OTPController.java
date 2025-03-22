@@ -25,10 +25,10 @@ public class OTPController {
         this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("/generate/{userId}")
-    public ResponseEntity<?> generateOTP(@PathVariable int userId) {
-    	if (usersRepository.existsById(userId)) {
-    		String otp = otpService.generateOTP(userId);
+    @PostMapping("/generate")
+    public ResponseEntity<?> generateOTP(@RequestBody Map<String,String> request) {
+    	if (usersRepository.existsByPhoneNumber(request.get("phoneNumber").trim())) {
+    		String otp = otpService.generateOTP(request.get("phoneNumber").trim());
             return ResponseEntity.ok(Map.of("otp",otp));
     	}
     	else {
@@ -37,11 +37,11 @@ public class OTPController {
         
     }
 
-    @PostMapping("/verify/{userId}")
-    public ResponseEntity<?> verifyOTP(@PathVariable int userId, @RequestBody Map<String,String> request) {
-        boolean isValid = otpService.verifyOTP(userId, request.get("otp"));
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyOTP(@RequestBody Map<String,String> request) {
+        boolean isValid = otpService.verifyOTP(request.get("phoneNumber").trim() , request.get("otp"));
         if (isValid) {
-        	 String phoneNumber = usersRepository.findById(userId).get().getPhoneNumber();
+        	 String phoneNumber = request.get("phoneNumber").trim();
              return ResponseEntity.status(HttpStatus.OK).body(Map.of(
  				    "accessToken", jwtUtil.generateToken(phoneNumber, "SUBSCRIBER")
  				));

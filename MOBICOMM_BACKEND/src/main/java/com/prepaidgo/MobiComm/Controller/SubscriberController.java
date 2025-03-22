@@ -71,6 +71,19 @@ public class SubscriberController {
 		}
 	}
 	
+	@PreAuthorize("hasAuthority('SUBSCRIBER')")
+	@PostMapping("subscriber/fullname")
+	public ResponseEntity<?> getSubscriberName(@RequestBody Map<String,Integer> user){
+		SubscriberDTO subscriber = subscriberService.getSubscriberById(user.get("userId"));
+		if (subscriber != null) {
+			String name = subscriberService.getSubscriberName(user.get("userId"));
+			return ResponseEntity.ok().body(Map.of("fullName" , name));
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	@PreAuthorize("hasAuthority('SUBSCRIBER') or hasAuthority('ADMIN')")
 	@PostMapping("subscriber/profile/transactions")
 	public ResponseEntity<?> getTransactionDetailsByPayerId(@RequestBody Map<String, Integer> user) {

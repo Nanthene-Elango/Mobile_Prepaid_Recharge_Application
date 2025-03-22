@@ -1,6 +1,7 @@
 package com.prepaidgo.MobiComm.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,5 +40,8 @@ public interface UsersRepository extends JpaRepository<Users,Integer>{
     @Transactional
     @Query("UPDATE Users u SET u.password = :password WHERE u.userId = :userId")
     void updatePasswordByUserId(@Param("userId") int userId, @Param("password") String password);
+    
+    @Query("SELECT u.fullName FROM Users u WHERE u.userId = :userId")
+	public String getSubscriberFullName(@Param("userId") int userId);
 
 }

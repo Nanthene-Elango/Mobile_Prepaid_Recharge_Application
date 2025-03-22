@@ -53,10 +53,6 @@ public class AdminController {
 		return adminService.updateEmail(request.getUserId() , request.getNewvalue());
 	}
 	
-//	@PutMapping("admin/update/username")
-//	public ResponseEntity<?> updateUsername(@Valid @RequestBody AdminDetailsUpdateDTO request){
-//		return adminService.updateUsername(request.getUserId() , request.getNewvalue());
-//	}
 	
 	@PutMapping("admin/update/password")
 	public ResponseEntity<?> updatePassword(@Valid @RequestBody AdminDetailsUpdateDTO request){

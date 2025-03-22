@@ -91,4 +91,10 @@ public class SubscriberService {
 		}
 	}
 
+	public String getSubscriberName(int userId) {
+		String name = userRepo.getSubscriberFullName(userId);
+		System.out.println(name);
+		return name;
+	}
+
 }
