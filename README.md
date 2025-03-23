@@ -37,9 +37,6 @@ PrepaidGo (MobiComm) is a **Prepaid Mobile Web Application** that allows users t
 - **User Registration & Profile Management**
 - **Support & Help Desk Module**
 
-## License
-This project is licensed under the MIT License.
-
 ## Contributors
 - Nanthene R E
 
