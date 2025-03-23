@@ -71,6 +71,17 @@ public class SubscriberController {
 		}
 	}
 	
+	@PostMapping("auth/guest/profile")
+	public ResponseEntity<?> getSubscriberDetail(@RequestBody Map<String,Integer> user){
+		SubscriberDTO subscriber = subscriberService.getSubscriberById(user.get("userId"));
+		if (subscriber != null) {
+			return ResponseEntity.ok(subscriber);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	@PreAuthorize("hasAuthority('SUBSCRIBER')")
 	@PostMapping("subscriber/fullname")
 	public ResponseEntity<?> getSubscriberName(@RequestBody Map<String,Integer> user){

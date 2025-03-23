@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-    await loadPaymentSummary();
+    if (sessionStorage.getItem("loggedInUser") !== null){
+        await loadPaymentSummary();
+    }
+    else{
+        await loadGuestPayementSummary();
+    }
+    
 
     let phonePay = document.getElementById("phonePay");
     let googlePay = document.getElementById("googlePay");
@@ -73,6 +79,34 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     })
 })
+
+async function loadGuestPayementSummary(){
+
+    try {
+        let response = await fetch('http://localhost:8083/auth/guest/profile', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ "userId": sessionStorage.getItem("rechargeUser") })
+        });
+
+        if (response.ok){
+            let user = await response.json();
+            let plan = JSON.parse(sessionStorage.getItem("rechargePlan"));
+    
+            document.getElementById("name").innerText = user.fullName;
+            document.getElementById("number").innerText = user.phoneNumber;
+            document.getElementById("price").innerText = plan.price;
+            document.getElementById("data").innerText = plan.data;
+            document.getElementById("validity").innerText = plan.validity;
+            document.getElementById("benefits").innerText = plan.benefits != null ? plan.benefits : "No Benefits";
+            document.getElementById("amount").innerText = plan.price;
+        }
+    } catch (error) {
+        console.error("Error loading User data:", error);
+    }
+}
 
 async function loadPaymentSummary() {
     try {
@@ -450,9 +484,27 @@ function downloadInvoicePDF() {
 
     doc.save(`invoice_${transactionId}.pdf`);
 
+    const pdfBlob = doc.output("blob");
+
+    sendEmail(pdfBlob , `invoice_${transactionId}.pdf`);
+
     redirect();
 }
 
+function sendEmail(pdfBlob , pdfName) {
+
+    const formData = new FormData();
+    formData.append("file", pdfBlob, pdfName);
+    formData.append("toUser", sessionStorage.getItem("rechargeUser"));
+
+    fetch("http://localhost:8083/plans/recharge/send-email", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error:", error));
+}
 
 function redirect() {
     setTimeout(() => {

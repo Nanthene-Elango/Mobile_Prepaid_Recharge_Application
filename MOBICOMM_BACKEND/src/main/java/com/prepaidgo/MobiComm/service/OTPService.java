@@ -21,6 +21,7 @@ public class OTPService {
 		String key = "OTP_" + phoneNumber;
 
 		redisTemplate.opsForValue().set(key, otp, OTP_EXPIRY, TimeUnit.SECONDS);
+		
 		return otp;
 	}
 
