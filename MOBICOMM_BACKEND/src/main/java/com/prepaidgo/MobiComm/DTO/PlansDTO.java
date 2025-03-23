@@ -2,7 +2,7 @@ package com.prepaidgo.MobiComm.DTO;
 
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.prepaidgo.MobiComm.Model.Plans;
+import com.prepaidgo.MobiComm.entity.Plans;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)

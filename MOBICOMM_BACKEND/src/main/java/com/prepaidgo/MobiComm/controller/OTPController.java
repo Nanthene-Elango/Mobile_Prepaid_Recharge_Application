@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Controller;
+package com.prepaidgo.MobiComm.controller;
 
 import java.util.Map;
 
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.prepaidgo.MobiComm.Repository.UsersRepository;
 import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
+import com.prepaidgo.MobiComm.repository.UsersRepository;
 import com.prepaidgo.MobiComm.security.JwtUtil;
 import com.prepaidgo.MobiComm.service.OTPService;
 

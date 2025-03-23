@@ -2,8 +2,8 @@ package com.prepaidgo.MobiComm.DTO;
 
 import java.time.LocalDate;
 
-import com.prepaidgo.MobiComm.Model.Address;
-import com.prepaidgo.MobiComm.Model.Users;
+import com.prepaidgo.MobiComm.entity.Address;
+import com.prepaidgo.MobiComm.entity.Users;
 
 public class SubscriberDTO {
 

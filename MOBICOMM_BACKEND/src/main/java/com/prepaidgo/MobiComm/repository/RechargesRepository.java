@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Repository;
+package com.prepaidgo.MobiComm.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
-import com.prepaidgo.MobiComm.Model.Recharges;
+import com.prepaidgo.MobiComm.entity.Recharges;
 
 @Repository
 public interface RechargesRepository extends JpaRepository<Recharges,Integer> {

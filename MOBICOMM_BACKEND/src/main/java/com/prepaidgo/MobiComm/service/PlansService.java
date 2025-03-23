@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import com.prepaidgo.MobiComm.DTO.CategoriesDTO;
 import com.prepaidgo.MobiComm.DTO.PlanAddDTO;
 import com.prepaidgo.MobiComm.DTO.PlansDTO;
-import com.prepaidgo.MobiComm.Model.Categories;
-import com.prepaidgo.MobiComm.Model.Plans;
-import com.prepaidgo.MobiComm.Repository.CategoriesRepository;
-import com.prepaidgo.MobiComm.Repository.PlansRepository;
+import com.prepaidgo.MobiComm.entity.Categories;
+import com.prepaidgo.MobiComm.entity.Plans;
 import com.prepaidgo.MobiComm.exceptions.PlanNotFoundException;
+import com.prepaidgo.MobiComm.repository.CategoriesRepository;
+import com.prepaidgo.MobiComm.repository.PlansRepository;
 
 @Service
 public class PlansService {

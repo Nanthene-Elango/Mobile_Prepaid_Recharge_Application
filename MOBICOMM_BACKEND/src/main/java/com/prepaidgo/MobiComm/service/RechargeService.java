@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
-import com.prepaidgo.MobiComm.Model.Recharges;
-import com.prepaidgo.MobiComm.Model.Transaction;
-import com.prepaidgo.MobiComm.Model.Users;
-import com.prepaidgo.MobiComm.Repository.PlansRepository;
-import com.prepaidgo.MobiComm.Repository.RechargesRepository;
-import com.prepaidgo.MobiComm.Repository.TransactionRepository;
-import com.prepaidgo.MobiComm.Repository.UsersRepository;
+import com.prepaidgo.MobiComm.entity.Recharges;
+import com.prepaidgo.MobiComm.entity.Transaction;
+import com.prepaidgo.MobiComm.entity.Users;
 import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
 import com.prepaidgo.MobiComm.exceptions.PlanNotFoundException;
+import com.prepaidgo.MobiComm.repository.PlansRepository;
+import com.prepaidgo.MobiComm.repository.RechargesRepository;
+import com.prepaidgo.MobiComm.repository.TransactionRepository;
+import com.prepaidgo.MobiComm.repository.UsersRepository;
 
 @Service
 public class RechargeService {

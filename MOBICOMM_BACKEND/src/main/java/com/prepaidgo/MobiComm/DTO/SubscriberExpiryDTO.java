@@ -2,7 +2,7 @@ package com.prepaidgo.MobiComm.DTO;
 
 import java.time.LocalDateTime;
 
-import com.prepaidgo.MobiComm.Model.Recharges;
+import com.prepaidgo.MobiComm.entity.Recharges;
 
 public class SubscriberExpiryDTO {
 

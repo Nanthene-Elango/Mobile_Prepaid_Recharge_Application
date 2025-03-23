@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Controller;
+package com.prepaidgo.MobiComm.controller;
 
 import java.util.Map;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.AdminDetailsUpdateDTO;
-import com.prepaidgo.MobiComm.Model.RevokedToken;
-import com.prepaidgo.MobiComm.Repository.PlansRepository;
-import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
+import com.prepaidgo.MobiComm.entity.RevokedToken;
+import com.prepaidgo.MobiComm.repository.PlansRepository;
+import com.prepaidgo.MobiComm.repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.AdminService;
 
 import jakarta.validation.Valid;

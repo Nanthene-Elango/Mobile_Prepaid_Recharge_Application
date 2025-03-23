@@ -3,7 +3,7 @@ package com.prepaidgo.MobiComm.DTO;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.prepaidgo.MobiComm.Model.Transaction;
+import com.prepaidgo.MobiComm.entity.Transaction;
 
 public class TransactionDTO {
 

@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Controller;
+package com.prepaidgo.MobiComm.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.prepaidgo.MobiComm.DTO.AdminLoginRequest;
 import com.prepaidgo.MobiComm.DTO.AdminRegisterRequest;
-import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
+import com.prepaidgo.MobiComm.repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.AuthService;
 
 import jakarta.validation.Valid;

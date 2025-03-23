@@ -1,8 +1,8 @@
-package com.prepaidgo.MobiComm.Repository;
+package com.prepaidgo.MobiComm.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.prepaidgo.MobiComm.Model.Roles;
+import com.prepaidgo.MobiComm.entity.Roles;
 
 public interface RolesRepository extends JpaRepository<Roles , Integer>{
 

@@ -14,12 +14,12 @@ import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberExpiryDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
-import com.prepaidgo.MobiComm.Model.Recharges;
-import com.prepaidgo.MobiComm.Model.Transaction;
-import com.prepaidgo.MobiComm.Repository.RechargesRepository;
-import com.prepaidgo.MobiComm.Repository.TransactionRepository;
-import com.prepaidgo.MobiComm.Repository.UsersRepository;
+import com.prepaidgo.MobiComm.entity.Recharges;
+import com.prepaidgo.MobiComm.entity.Transaction;
 import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
+import com.prepaidgo.MobiComm.repository.RechargesRepository;
+import com.prepaidgo.MobiComm.repository.TransactionRepository;
+import com.prepaidgo.MobiComm.repository.UsersRepository;
 
 @Service
 public class SubscriberService {

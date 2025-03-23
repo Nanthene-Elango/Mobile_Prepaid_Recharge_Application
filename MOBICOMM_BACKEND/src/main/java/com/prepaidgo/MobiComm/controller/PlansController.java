@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Controller;
+package com.prepaidgo.MobiComm.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.prepaidgo.MobiComm.DTO.CategoriesDTO;
 import com.prepaidgo.MobiComm.DTO.FilterCriteria;
 import com.prepaidgo.MobiComm.DTO.PlanAddDTO;
 import com.prepaidgo.MobiComm.DTO.PlansDTO;
-import com.prepaidgo.MobiComm.Model.Plans;
+import com.prepaidgo.MobiComm.entity.Plans;
 import com.prepaidgo.MobiComm.exceptions.PlanNotFoundException;
 import com.prepaidgo.MobiComm.service.PlansService;
 

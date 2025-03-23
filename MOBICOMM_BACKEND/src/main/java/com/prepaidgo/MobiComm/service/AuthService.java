@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.prepaidgo.MobiComm.DTO.AdminDTO;
 import com.prepaidgo.MobiComm.DTO.AdminRegisterRequest;
-import com.prepaidgo.MobiComm.Model.Users;
-import com.prepaidgo.MobiComm.Repository.RolesRepository;
-import com.prepaidgo.MobiComm.Repository.UsersRepository;
+import com.prepaidgo.MobiComm.entity.Users;
 import com.prepaidgo.MobiComm.exceptions.InvalidCredentialsException;
+import com.prepaidgo.MobiComm.repository.RolesRepository;
+import com.prepaidgo.MobiComm.repository.UsersRepository;
 import com.prepaidgo.MobiComm.security.JwtUtil;
 
 @Service

@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Controller;
+package com.prepaidgo.MobiComm.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +19,10 @@ import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberExpiryDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
-import com.prepaidgo.MobiComm.Model.RevokedToken;
-import com.prepaidgo.MobiComm.Model.Transaction;
-import com.prepaidgo.MobiComm.Repository.RevokedTokenRepository;
+import com.prepaidgo.MobiComm.entity.RevokedToken;
+import com.prepaidgo.MobiComm.entity.Transaction;
 import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
+import com.prepaidgo.MobiComm.repository.RevokedTokenRepository;
 import com.prepaidgo.MobiComm.service.SubscriberService;
 
 @RestController

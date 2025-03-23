@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Model;
+package com.prepaidgo.MobiComm.entity;
 
 import java.math.BigDecimal;
 

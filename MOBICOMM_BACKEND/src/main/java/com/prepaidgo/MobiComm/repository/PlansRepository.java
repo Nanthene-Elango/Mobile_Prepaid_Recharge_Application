@@ -1,8 +1,8 @@
-package com.prepaidgo.MobiComm.Repository;
+package com.prepaidgo.MobiComm.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.prepaidgo.MobiComm.Model.Plans;
+import com.prepaidgo.MobiComm.entity.Plans;
 
 import java.math.BigDecimal;
 import java.util.List;

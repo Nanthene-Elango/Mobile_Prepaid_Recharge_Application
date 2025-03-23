@@ -5,10 +5,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.prepaidgo.MobiComm.DTO.AdminDTO;
-
-import com.prepaidgo.MobiComm.Repository.UsersRepository;
 import com.prepaidgo.MobiComm.exceptions.InvalidCredentialsException;
 import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
+import com.prepaidgo.MobiComm.repository.UsersRepository;
 
 @Service
 public class AdminService {

@@ -1,11 +1,11 @@
-package com.prepaidgo.MobiComm.Repository;
+package com.prepaidgo.MobiComm.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.prepaidgo.MobiComm.Model.Categories;
+import com.prepaidgo.MobiComm.entity.Categories;
 
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories,Integer>{

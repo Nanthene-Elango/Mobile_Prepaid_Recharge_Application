@@ -1,6 +1,6 @@
 package com.prepaidgo.MobiComm.DTO;
 
-import com.prepaidgo.MobiComm.Model.Users;
+import com.prepaidgo.MobiComm.entity.Users;
 
 public class AdminDTO {
 

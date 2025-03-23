@@ -1,4 +1,4 @@
-package com.prepaidgo.MobiComm.Controller;
+package com.prepaidgo.MobiComm.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +12,9 @@ import com.prepaidgo.MobiComm.DTO.ConfirmRechargeDTO;
 import com.prepaidgo.MobiComm.DTO.RechargesDTO;
 import com.prepaidgo.MobiComm.DTO.SubscriberDTO;
 import com.prepaidgo.MobiComm.DTO.TransactionDTO;
-import com.prepaidgo.MobiComm.Repository.RechargesRepository;
-import com.prepaidgo.MobiComm.Repository.UsersRepository;
 import com.prepaidgo.MobiComm.exceptions.NoUserFoundException;
+import com.prepaidgo.MobiComm.repository.RechargesRepository;
+import com.prepaidgo.MobiComm.repository.UsersRepository;
 import com.prepaidgo.MobiComm.service.EmailService;
 import com.prepaidgo.MobiComm.service.RechargeService;
 
