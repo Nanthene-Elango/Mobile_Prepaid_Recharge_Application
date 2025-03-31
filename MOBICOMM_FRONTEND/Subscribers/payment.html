@@ -39,7 +39,7 @@
             </a>
         </div>
     </nav>
-    
+
     <div class="m-4">
         <button class="btn" style="background-color: rgb(0,32,96);" id="backBtn">
             <div class="text-decoration-none text-light"><i class="fas fa-arrow-left pe-1"></i>
@@ -90,7 +90,8 @@
                                         UPI ID: </label>
                                     <input type="text" name="upi" class="form-control" placeholder="UPI ID"
                                         id="upiInput" value="">
-                                    <div id="error-upi" class="text-danger pt-1" style="min-height: 3vh;font-size: small;">
+                                    <div id="error-upi" class="text-danger pt-1"
+                                        style="min-height: 3vh;font-size: small;">
                                     </div>
                                     <div class="d-flex flex-row-reverse mt-3">
                                         <button id="upiVerify" class="btn btn-light" onclick="processPayment('UPI')"
@@ -160,6 +161,7 @@
                                     </button>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -184,7 +186,8 @@
                                     <option value="icic">ICIC</option>
                                     <option value="axis">Axis</option>
                                 </select>
-                                <div id="error-bank" class="text-danger" style="min-height: 3vh;font-size: small;"></div>
+                                <div id="error-bank" class="text-danger" style="min-height: 3vh;font-size: small;">
+                                </div>
                                 <div class="d-flex justify-content-end">
                                     <button id="bankBtn" onclick="processPayment('Net Banking')" class="btn mt-2"
                                         style="background-color: rgb(0,32,96);color: aliceblue;">Proceed to Pay</button>
@@ -211,7 +214,6 @@
             <div class="m-2"><strong>Amount Payable: </strong>Rs. <span id="amount"></span></div>
         </div>
     </div>
-
     <script src="./assets/js/payment.js"></script>
 
 </body>

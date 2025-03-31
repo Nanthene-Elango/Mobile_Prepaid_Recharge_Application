@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-    if (sessionStorage.getItem("loggedInUser") !== null){
+    if (sessionStorage.getItem("loggedInUser") !== null) {
         await loadPaymentSummary();
     }
-    else{
+    else {
         await loadGuestPayementSummary();
     }
-    
+
 
     let phonePay = document.getElementById("phonePay");
     let googlePay = document.getElementById("googlePay");
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     })
 })
 
-async function loadGuestPayementSummary(){
+async function loadGuestPayementSummary() {
 
     try {
         let response = await fetch('http://localhost:8083/auth/guest/profile', {
@@ -91,10 +91,10 @@ async function loadGuestPayementSummary(){
             body: JSON.stringify({ "userId": sessionStorage.getItem("rechargeUser") })
         });
 
-        if (response.ok){
+        if (response.ok) {
             let user = await response.json();
             let plan = JSON.parse(sessionStorage.getItem("rechargePlan"));
-    
+
             document.getElementById("name").innerText = user.fullName;
             document.getElementById("number").innerText = user.phoneNumber;
             document.getElementById("price").innerText = plan.price;
@@ -119,7 +119,7 @@ async function loadPaymentSummary() {
             body: JSON.stringify({ "userId": sessionStorage.getItem("rechargeUser") })
         });
 
-        if (response.status === 403 || response.status === 401){
+        if (response.status === 403 || response.status === 401) {
             window.location.href = "./unauthorizedPage.html";
             return;
         }
@@ -330,7 +330,6 @@ async function processPayment(paymentMethod) {
         }
     });
 }
-
 function formatDate(dateStr) {
     if (!dateStr) return "";
 
@@ -486,12 +485,12 @@ function downloadInvoicePDF() {
 
     const pdfBlob = doc.output("blob");
 
-    sendEmail(pdfBlob , `invoice_${transactionId}.pdf`);
+    sendEmail(pdfBlob, `invoice_${transactionId}.pdf`);
 
     redirect();
 }
 
-function sendEmail(pdfBlob , pdfName) {
+function sendEmail(pdfBlob, pdfName) {
 
     const formData = new FormData();
     formData.append("file", pdfBlob, pdfName);
@@ -501,9 +500,9 @@ function sendEmail(pdfBlob , pdfName) {
         method: "POST",
         body: formData
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error("Error:", error));
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error("Error:", error));
 }
 
 function redirect() {
